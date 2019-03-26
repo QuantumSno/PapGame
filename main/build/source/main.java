@@ -20,6 +20,7 @@ public class main extends PApplet {
 render r = new render();
 int defaultBackground = 30;
 int playerX,playerY;
+boolean canMove;
 int playerRender;
   /*
   1 left
@@ -34,72 +35,44 @@ public void setup() {
   playerX=width/2;
   playerY=height/2;
   playerRender=2;
+  canMove=true;
 }
 public void draw() {
   r.map(playerX,playerY); //moves player around the map
   checkTriggers(); //checks if player does anything from enter a building to come across a friend
-  //movement(); //main movement controles for player
-  //keybinds(); //'open map' 'open inventory' etc.
-  switch(playerRender) {
-    case 1:
-      r.playerLeft();
-      break;
-    case 2:
-      r.playerDown();
-      break;
-    case 3:
-      r.playerRight();
-      break;
-    case 4:
-      r.playerUp();
-      break;
-  }
+  keyboardInput(); //switch case for all keyboard inputs
 }
-/*
-void movement() { //movement controles for player
-  if(keyPressed) {
-    if(key=='w') {
-      playerY--;
-      r.playerUp();
-    } else if(key=='a') {
-      playerX++;
-      r.playerLeft();
-    } else if(key=='s') {
+
+public void keyboardInput() { //movement controles for player
+  switch(key) {
+    //movement controles
+    case 'w':
       playerY++;
-      r.playerDown();
-    } else if(key=='d') {
+      r.playerUp();
+        break;
+    case 'a':
       playerX--;
       r.playerLeft();
-    }
+        break;
+    case 's':
+      playerY--;
+      r.playerLeft();
+        break;
+    case 'd':
+      playerX++;
+      r.playerRight();
+        break;
+
+    //extra keys
+    case 'm':
+      //draw minimap
+        break;
+    case 'i':
+      //draw inventory
+        break;
   }
 }
-*/
-public void keyPressed() {
-  if(key=='w') {
-    playerY=playerY-5;
-    playerRender=4;
-  } else if(key=='a') {
-    playerX=playerX-5;
-    playerRender=1;
-  } else if(key=='s') {
-    playerY=playerY+5;
-    playerRender=2;
-  } else if(key=='d') {
-    playerX=playerX+5;
-    playerRender=3;
-  }
-}
-/*
-void keybinds() { //access controles like opening inventory or minimap
-  if(keyPressed) {
-    if(key=='m') {
-      r.minimap();
-    } if(key=='i') {
-      r.drawInventory();
-    }
-  }
-}
-*/
+
 public void checkTriggers() {
   //check for pokestops
   //check for pokemon jump in grass
@@ -128,33 +101,6 @@ class render {
     fill(0);
     ellipse(x,y,400,400);
   }
-  public void minimap() { //loop minimap draw functions until user presses 'm' again
-    //drawMinimap();
-    
-  }
-    /*
-    void drawMinimap() { //this will act as the draw function for minimap
-      while (keyPressed==false && key=='m') {
-        fill(0,255,0);
-        rect(width/2,height/2,width-100,height-100);
-      }
-    }
-    */
-  public void inventory() { //loops minimap draw function until user presses 'i' again
-    //drawInventory();
-
-  }
-    /*
-    void drawInventory() { //this will act as the draw funciton for inventory
-      if(keyPressed) {
-        if(key=='i') {  }
-      } else {
-        fill(0,0,255);
-        rect(width/2,height/2,200,200);
-        drawInventory();
-      }
-    }
-    */
 }
   public void settings() {  size(800,600); }
   static public void main(String[] passedArgs) {
