@@ -1,3 +1,9 @@
+/*
+Foil By Patty, William, and Ben
+Images by Patty and William
+Code by Ben
+*/
+
 import java.util.*;
 render r = new render();
 minimap m = new minimap();
