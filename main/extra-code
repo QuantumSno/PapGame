@@ -1,0 +1,33 @@
+void keyboardInput() { //movement controles for player [currently useless]
+  if(keyPressed) {
+    switch(key) {
+      //movement controles
+      case 'w':
+        playerY++;
+        r.playerUp();
+          break;
+      case 'a':
+        playerX++;
+        r.playerLeft();
+          break;
+      case 's':
+        playerY--;
+        r.playerLeft();
+          break;
+      case 'd':
+        playerX--;
+        r.playerRight();
+          break;
+
+      //extra keys
+      case 'm':
+        while(!keyPressed && key=='m'); {
+          m.draw();
+        }
+          break;
+      case 'i':
+        i.draw();
+          break;
+    }
+  }
+}

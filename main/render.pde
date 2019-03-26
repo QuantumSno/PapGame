@@ -21,4 +21,12 @@ class render {
     fill(0);
     ellipse(x,y,400,400);
   }
+  void minimap() {
+    fill(0,0,255);
+    rect(100,100,width-200,height-200);
+  }
+  void inventory() {
+    fill(0,255,0);
+    rect(100,100,width-200,height-200);
+  }
 }
