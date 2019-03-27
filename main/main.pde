@@ -11,7 +11,7 @@ https://processing.org/reference/PGraphics.html
 https://processing.org/reference/createGraphics_.html
 */
 
-PImage Psymon,Whyatt;
+PImage Psymon,Whyatt,Map;
 import java.util.*;
 render r = new render();
 color defaultBackground = 30;
@@ -21,13 +21,15 @@ char render;
 
 void setup() {
   background(defaultBackground); //sets default background of entire project
-  size(840,640); //sets window size
+  fullScreen();
+  //size(840,640); //sets window size
   playerX=width/2;
   playerY=height/2;
   playerSpeed=5;
   Psymon = loadImage("Psymon-1.png.png");
   Whyatt = loadImage("Whyatt-1.png.png");
-  r.loadFriends(Psymon,Whyatt);
+  Map = loadImage("check_map_20_15_32_32.png");
+  r.loadFriends(Psymon,Whyatt,Map);
 }
 
 void draw() {
