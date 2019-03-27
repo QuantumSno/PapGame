@@ -1,5 +1,5 @@
-//PImage Psymon,Whyatt,Map;
-//int playerX , playerY , walkSpeed , psymonSize , mapSizeX , mapSizeY , scale;
+PImage Psymon,Whyatt,Map;
+int playerX , playerY , walkSpeed , psymonSize , mapSizeX , mapSizeY , scale;
 setup() {
   scale=4;
   psymonSize=32;
