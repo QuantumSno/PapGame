@@ -16,10 +16,14 @@ import java.io.IOException;
 
 public class main extends PApplet {
 
+/*
+Foil By Patty, William, and Ben
+Images by Patty and William
+Code by Ben
+*/
+PImage Psymon,Whyatt;
 
 render r = new render();
-minimap m = new minimap();
-inventory i = new inventory();
 int defaultBackground = 30;
 int playerX,playerY,playerSpeed;
 boolean canMove;
@@ -31,6 +35,9 @@ public void setup() {
   playerX=width/2;
   playerY=height/2;
   playerSpeed=5;
+  Psymon = loadImage("Psymon-1.png.png");
+  Whyatt = loadImage("Whyatt-1.png.png");
+  r.loadFriends(Psymon,Whyatt);
 }
 
 public void draw() {
@@ -58,36 +65,37 @@ public void draw() {
 }
 
 public void defaultDraw() { //essentially 'draw'
+if(keyPressed) { //tests for all keybinds
+  switch(key) {
+    //movement controles
+    case 'w':
+      playerY=playerY+playerSpeed;
+      r.playerUp();
+        break;
+    case 'a':
+      playerX=playerX+playerSpeed;
+      r.playerLeft();
+        break;
+    case 's':
+      playerY=playerY-playerSpeed;
+      r.playerLeft();
+        break;
+    case 'd':
+      playerX=playerX-playerSpeed;
+      r.playerRight();
+        break;
+      //extra keys
+    case 'm':
+      render='m';
+        break;
+    case 'i':
+      render='i';
+        break;
+  }
+}
   r.map(playerX,playerY); //moves player around the map
   checkTriggers(); //checks if player does anything from enter a building to come across a friend
-  if(keyPressed) { //tests for all keybinds
-    switch(key) {
-      //movement controles
-      case 'w':
-        playerY=playerY+playerSpeed;
-        r.playerUp();
-          break;
-      case 'a':
-        playerX=playerX+playerSpeed;
-        r.playerLeft();
-          break;
-      case 's':
-        playerY=playerY-playerSpeed;
-        r.playerLeft();
-          break;
-      case 'd':
-        playerX=playerX-playerSpeed;
-        r.playerRight();
-          break;
-        //extra keys
-      case 'm':
-        render='m';
-          break;
-      case 'i':
-        render='i';
-          break;
-    }
-  }
+
 }
 
 public void checkTriggers() {
@@ -108,23 +116,27 @@ class minimap {
   }
 }
 class render {
+  PImage Psymon,Whyatt;
   int defaultBackground = 30;
-
+  public void loadFriends(PImage p, PImage w) {
+    Psymon=p;
+    Whyatt=w;
+  }
   public void playerUp() {
-    fill(255,0,0);
-    rect(width/2,height/2,20,20);
+    image(Psymon,width/2-16,height/2-16,32,32);
+    //fill(255,0,0);  rect(width/2,height/2,20,20);
   }
   public void playerDown() {
-    fill(255,0,0);
-    rect(width/2,height/2,20,20);
+    image(Psymon,width/2-16,height/2-16,32,32);
+    //fill(255,0,0);  rect(width/2,height/2,20,20);
   }
   public void playerLeft() {
-    fill(255,0,0);
-    rect(width/2,height/2,20,20);
+    image(Psymon,width/2-16,height/2-16,32,32);
+    //fill(255,0,0);  rect(width/2,height/2,20,20);
   }
   public void playerRight() {
-    fill(255,0,0);
-    rect(width/2,height/2,20,20);
+    image(Psymon,width/2-16,height/2-16,32,32);
+    //fill(255,0,0);  rect(width/2,height/2,20,20);
   }
   public void map(int x,int y) {
     fill(0);
@@ -139,7 +151,7 @@ class render {
     rect(100,100,width-200,height-200);
   }
 }
-  public void settings() {  size(800,600); }
+  public void settings() {  size(840,640); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
     if (passedArgs != null) {

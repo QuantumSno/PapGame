@@ -4,10 +4,16 @@ Images by Patty and William
 Code by Ben
 */
 
+/*
+Maybe do some shit with PGraphics? May need to re-do a lot
+
+https://processing.org/reference/PGraphics.html
+https://processing.org/reference/createGraphics_.html
+*/
+
+PImage Psymon,Whyatt;
 import java.util.*;
 render r = new render();
-minimap m = new minimap();
-inventory i = new inventory();
 color defaultBackground = 30;
 int playerX,playerY,playerSpeed;
 boolean canMove;
@@ -15,10 +21,13 @@ char render;
 
 void setup() {
   background(defaultBackground); //sets default background of entire project
-  size(800,600); //sets window size
+  size(840,640); //sets window size
   playerX=width/2;
   playerY=height/2;
   playerSpeed=5;
+  Psymon = loadImage("Psymon-1.png.png");
+  Whyatt = loadImage("Whyatt-1.png.png");
+  r.loadFriends(Psymon,Whyatt);
 }
 
 void draw() {

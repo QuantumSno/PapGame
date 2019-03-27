@@ -1,21 +1,25 @@
 class render {
+  PImage Psymon,Whyatt;
   color defaultBackground = 30;
-
+  void loadFriends(PImage p, PImage w) {
+    Psymon=p;
+    Whyatt=w;
+  }
   void playerUp() {
-    fill(255,0,0);
-    rect(width/2,height/2,20,20);
+    image(Psymon,width/2-16,height/2-16,32,32);
+    //fill(255,0,0);  rect(width/2,height/2,20,20);
   }
   void playerDown() {
-    fill(255,0,0);
-    rect(width/2,height/2,20,20);
+    image(Psymon,width/2-16,height/2-16,32,32);
+    //fill(255,0,0);  rect(width/2,height/2,20,20);
   }
   void playerLeft() {
-    fill(255,0,0);
-    rect(width/2,height/2,20,20);
+    image(Psymon,width/2-16,height/2-16,32,32);
+    //fill(255,0,0);  rect(width/2,height/2,20,20);
   }
   void playerRight() {
-    fill(255,0,0);
-    rect(width/2,height/2,20,20);
+    image(Psymon,width/2-16,height/2-16,32,32);
+    //fill(255,0,0);  rect(width/2,height/2,20,20);
   }
   void map(int x,int y) {
     fill(0);
