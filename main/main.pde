@@ -32,15 +32,7 @@ void setup() {
 
 void draw() {
   frameRate(60); //locks framrate since movement was influenced by render speed
-  if(canMove==false && render=='m') { //tests for opening the minimap
-    r.minimap();
-    delay(50);
-    if(keyPressed) {
-      if(key=='m') {
-        render='q';
-      }
-    }
-  } else if(canMove==false && render=='i') { //tests for opening up the inventory
+  if(canMove==false && render=='i') { //tests for opening up the inventory
     r.inventory();
     delay(50);
     if(keyPressed) {
@@ -90,5 +82,4 @@ void defaultDraw() { //essentially 'draw'
 void checkTriggers() {
   //check for pokestops
   //check for pokemon jump in grass
-
 }
