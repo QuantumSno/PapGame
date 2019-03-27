@@ -1,6 +1,9 @@
-PImage Psymon,Whyatt,Map;
+PImage PsymonW,PsymonA,PsymonS,PsymonD
+WhyattW,WhyattA,WhyattS,WhyattD
+Map;
 int playerX , playerY , walkSpeed , psymonSize , mapSizeX , mapSizeY , scale;
-setup() {
+void setup() {
+  fullScreen();
   scale=4;
   psymonSize=32;
   mapSizeX=640;
@@ -8,15 +11,25 @@ setup() {
   walkSpeed=5;
   playerX=width/2-((psymonSize*scale)/2);
   playerY=height/2-((psymonSize*scale)/2);
-  Psymon = loadImage("Psymon-1.png.png");
-  Whyatt = loadImage("Whyatt.png");
+  PsymonW = loadImage("Psymon-front.png");
+  PsymonA = loadImage("Psymon-side-left.png");
+  PsymonS = loadImage("Psymon-behind.png");
+  PsymonD = loadImage("Psymon-side-right.png");
+  WhyattW = loadImage("Whyatt.png");
+  /*
+  WhyattA = loadImage("Whyatt-
+  WhyattS = loadImage("Whyatt-
+  WhyattD = loadImage("Whyatt-
+  */
   Map = loadImage("template_map.png");
 }
-draw() {
+void draw() {
   switch(key) {
-    case 'w': y=y+walkSpeed break;
-    case 'a': x=x-walkSpeed break;
-    case 's': y=y+walkSpeed break;
-    case 'd': x=x+walkSpeed break;
+    case 'w': playerY=playerY+walkSpeed; break;
+    case 'a': playerX=playerX-walkSpeed; break;
+    case 's': playerY=playerY+walkSpeed; break;
+    case 'd': playerX=playerX+walkSpeed; break;
+    default: break;
   }
+  
 }
