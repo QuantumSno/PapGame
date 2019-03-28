@@ -1,5 +1,5 @@
 int playerX, playerY, psymonSize, walkSpeed,
-mapSizeX, mapSizeY, scale,
+mapSizeX, mapSizeY, scale, mapX, mapY, zone,
 playerDirection;
   /*
   1 = [w] up
@@ -9,34 +9,41 @@ playerDirection;
   */
 render r;
 void setup() {
+  frameRate(144);
   fullScreen();
   background(30);
   scale=4;
   psymonSize=32;
   mapSizeX=640;
   mapSizeY=480;
-  walkSpeed=5;
+  walkSpeed=15;
   playerX=width/2-((psymonSize*scale)/2);
   playerY=height/2-((psymonSize*scale)/2);
-
-  r= new render(psymonSize,scale,mapSizeX,mapSizeY);
+  mapX = width/2-(mapSizeX*scale/2);
+  mapY =height/2-(mapSizeY*scale/2);
+  r= new render(psymonSize, scale, mapSizeX, mapSizeY, mapX, mapY);
+  zone=0;
 }
 void draw() {
-  switch(key) {
-    default:
-    break; case 'w':
-      playerY=playerY+walkSpeed;
-      playerDirection = 1;
-    break; case 'a':
-      playerX=playerX-walkSpeed;
-      playerDirection = 2;
-    break; case 's':
-      playerY=playerY+walkSpeed;
-      playerDirection = 3;
-    break; case 'd':
-      playerX=playerX+walkSpeed;
-      playerDirection = 4;
-    break;
+  if(keyPressed) {
+    switch(key) {
+      default:
+      break; case 'w':
+        mapY=mapY+walkSpeed;
+        playerDirection = 1;
+      break; case 'a':
+        mapX=mapX+walkSpeed;
+        playerDirection = 2;
+      break; case 's':
+        mapY=mapY-walkSpeed;
+        playerDirection = 3;
+      break; case 'd':
+        mapX=mapX-walkSpeed;
+        playerDirection = 4;
+      break;
+    }
   }
-  r.MAINRENDER();
+  r.updateDirection(playerDirection);
+  r.updateXY(mapX,mapY);
+  r.MAINRENDER(zone);
 }
