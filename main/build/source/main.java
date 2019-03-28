@@ -15,29 +15,51 @@ import java.io.IOException;
 public class main extends PApplet {
 
 PGraphics Psymon;
-PImage PsymonI;
-int playerSize, x, y, scale;
+int playerSize, scale,
+ x, y, direction;
+ /*
+ 1 = [w] up
+ 2 = [a] left
+ 3 = [s] down
+ 4 = [d] left
+ */
+
 public void setup() {
   scale=4;
   playerSize=32;
   
   Psymon = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonI=loadImage("Psymon-front.png");
 }
 public void draw() {
+  if(keyPressed) {
+    switch(key) {
+      default:
+      break; case 'w': y++; direction=1;
+      break; case 'a': x++; direction=2;
+      break; case 's': y--; direction=3;
+      break; case 'd': x--; direction=4;
+      break;
+    }
+  }
   render();
-  image(Psymon,width/2,height/2);
+  image(Psymon,356,256);
 }
 public void render() {
   Psymon.beginDraw();
   Psymon.noStroke();
-  Psymon.image(PsymonI,0,0,playerSize*scale,playerSize*scale);
-  //Psymon.background(30);
+  switch(direction) {
+    default: Psymon.image(loadImage("Psymon-front.png"),0,0,playerSize*scale,playerSize*scale);
+    break; case 1: Psymon.image(loadImage("Psymon-behind.png"),0,0,playerSize*scale,playerSize*scale);
+    break; case 2: Psymon.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
+    break; case 3: Psymon.image(loadImage("Psymon-front.png"),0,0,playerSize*scale,playerSize*scale);
+    break; case 4: Psymon.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
+    break;
+  }
   Psymon.endDraw();
 }
   public void settings() {  size(840,640); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "main" };
+    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {
