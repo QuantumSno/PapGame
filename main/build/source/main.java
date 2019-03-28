@@ -45,16 +45,16 @@ public void draw() {
     switch(key) {
       default:
       break; case 'w':
-        mapY=mapY+walkSpeed;
+        mapY=mapY+(1*walkSpeed);
         playerDirection = 1;
       break; case 'a':
-        mapX=mapX+walkSpeed;
+        mapX=mapX+(1*walkSpeed);
         playerDirection = 2;
       break; case 's':
-        mapY=mapY-walkSpeed;
+        mapY=mapY-(1*walkSpeed);
         playerDirection = 3;
       break; case 'd':
-        mapX=mapX-walkSpeed;
+        mapX=mapX-(1*walkSpeed);
         playerDirection = 4;
       break;
     }
@@ -117,11 +117,11 @@ class render {
       default:
         image(PsymonW,width/2-(psymonSize*scale/2),height/2-(psymonSize*scale/2),psymonSize*scale,psymonSize*scale);
       break; case 1:
-        image(PsymonW,width/2-(psymonSize*scale/2),height/2-(psymonSize*scale/2),psymonSize*scale,psymonSize*scale);
+        image(PsymonS,width/2-(psymonSize*scale/2),height/2-(psymonSize*scale/2),psymonSize*scale,psymonSize*scale);
       break; case 2:
         image(PsymonA,width/2-(psymonSize*scale/2),height/2-(psymonSize*scale/2),psymonSize*scale,psymonSize*scale);
       break; case 3:
-        image(PsymonS,width/2-(psymonSize*scale/2),height/2-(psymonSize*scale/2),psymonSize*scale,psymonSize*scale);
+        image(PsymonW,width/2-(psymonSize*scale/2),height/2-(psymonSize*scale/2),psymonSize*scale,psymonSize*scale);
       break; case 4:
         image(PsymonD,width/2-(psymonSize*scale/2),height/2-(psymonSize*scale/2),psymonSize*scale,psymonSize*scale);
       break;

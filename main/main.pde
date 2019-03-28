@@ -29,16 +29,16 @@ void draw() {
     switch(key) {
       default:
       break; case 'w':
-        mapY=mapY+walkSpeed;
+        mapY=mapY+(1*walkSpeed);
         playerDirection = 1;
       break; case 'a':
-        mapX=mapX+walkSpeed;
+        mapX=mapX+(1*walkSpeed);
         playerDirection = 2;
       break; case 's':
-        mapY=mapY-walkSpeed;
+        mapY=mapY-(1*walkSpeed);
         playerDirection = 3;
       break; case 'd':
-        mapX=mapX-walkSpeed;
+        mapX=mapX-(1*walkSpeed);
         playerDirection = 4;
       break;
     }
