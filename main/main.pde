@@ -1,9 +1,16 @@
-PImage PsymonW,PsymonA,PsymonS,PsymonD
-WhyattW,WhyattA,WhyattS,WhyattD
-Map;
-int playerX , playerY , walkSpeed , psymonSize , mapSizeX , mapSizeY , scale;
+int playerX, playerY, psymonSize, walkSpeed,
+mapSizeX, mapSizeY, scale,
+playerDirection;
+  /*
+  1 = [w] up
+  2 = [a] left
+  3 = [s] down
+  4 = [d] left
+  */
+render r;
 void setup() {
   fullScreen();
+  background(30);
   scale=4;
   psymonSize=32;
   mapSizeX=640;
@@ -11,25 +18,25 @@ void setup() {
   walkSpeed=5;
   playerX=width/2-((psymonSize*scale)/2);
   playerY=height/2-((psymonSize*scale)/2);
-  PsymonW = loadImage("Psymon-front.png");
-  PsymonA = loadImage("Psymon-side-left.png");
-  PsymonS = loadImage("Psymon-behind.png");
-  PsymonD = loadImage("Psymon-side-right.png");
-  WhyattW = loadImage("Whyatt.png");
-  /*
-  WhyattA = loadImage("Whyatt-
-  WhyattS = loadImage("Whyatt-
-  WhyattD = loadImage("Whyatt-
-  */
-  Map = loadImage("template_map.png");
+
+  r= new render(psymonSize,scale,mapSizeX,mapSizeY);
 }
 void draw() {
   switch(key) {
-    case 'w': playerY=playerY+walkSpeed; break;
-    case 'a': playerX=playerX-walkSpeed; break;
-    case 's': playerY=playerY+walkSpeed; break;
-    case 'd': playerX=playerX+walkSpeed; break;
-    default: break;
+    default:
+    break; case 'w':
+      playerY=playerY+walkSpeed;
+      playerDirection = 1;
+    break; case 'a':
+      playerX=playerX-walkSpeed;
+      playerDirection = 2;
+    break; case 's':
+      playerY=playerY+walkSpeed;
+      playerDirection = 3;
+    break; case 'd':
+      playerX=playerX+walkSpeed;
+      playerDirection = 4;
+    break;
   }
-  
+  r.MAINRENDER();
 }
