@@ -1,7 +1,7 @@
 /*
-STILL NO FUCKING PGRAPHICS! https://processing.org/tutorials/rendering/
+STILL NO FUCKING PGRAPHICS!
+https://processing.org/tutorials/rendering/
 */
-
 
 int playerX, playerY, psymonSize, walkSpeed,
 mapSizeX, mapSizeY, scale, mapX, mapY, zone,

@@ -1,9 +1,16 @@
 class render {
-  PImage PsymonW,PsymonA,PsymonS,PsymonD,
-  WhyattW,WhyattA,WhyattS,WhyattD,
+  PImage PsymonW, PsymonA, PsymonS, PsymonD,
+  WhyattW, WhyattA, WhyattS, WhyattD,
   Map,
   PsymonOld
   ;
+  /*
+  PGraphics PsymonW, PsymonA, PsymonS, PsymonD,
+  WhyattW, WhyattA, WhyattS, WhyattD,
+  Map,
+  PsymonOld
+  ;
+  */
   int psymonSize, scale, mapSizeX, mapSizeY, mapX, mapY,direction;
   public render(int ps, int s, int msX, int msY, int mX, int mY) {
     //require input
@@ -27,6 +34,7 @@ class render {
     */
     Map = loadImage("template_map.png");
   }
+
   void MAINRENDER(int renderZone) {
     switch (renderZone) {
       default:
@@ -40,6 +48,7 @@ class render {
     image(Map,mapX,mapY,mapSizeX*scale,mapSizeY*scale);
     Psymon();
   }
+
   void updateXY(int o, int p) {
     mapX=o;
     mapY=p;
@@ -47,6 +56,7 @@ class render {
   void updateDirection(int t) {
     direction=t;
   }
+
   void Psymon() {
     switch (direction) {
       default:

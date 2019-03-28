@@ -14,6 +14,11 @@ import java.io.IOException;
 
 public class main extends PApplet {
 
+/*
+STILL NO FUCKING PGRAPHICS!
+https://processing.org/tutorials/rendering/
+*/
+
 int playerX, playerY, psymonSize, walkSpeed,
 mapSizeX, mapSizeY, scale, mapX, mapY, zone,
 playerDirection;
@@ -64,11 +69,18 @@ public void draw() {
   r.MAINRENDER(zone);
 }
 class render {
-  PImage PsymonW,PsymonA,PsymonS,PsymonD,
-  WhyattW,WhyattA,WhyattS,WhyattD,
+  PImage PsymonW, PsymonA, PsymonS, PsymonD,
+  WhyattW, WhyattA, WhyattS, WhyattD,
   Map,
   PsymonOld
   ;
+  /*
+  PGraphics PsymonW, PsymonA, PsymonS, PsymonD,
+  WhyattW, WhyattA, WhyattS, WhyattD,
+  Map,
+  PsymonOld
+  ;
+  */
   int psymonSize, scale, mapSizeX, mapSizeY, mapX, mapY,direction;
   public render(int ps, int s, int msX, int msY, int mX, int mY) {
     //require input
@@ -92,6 +104,7 @@ class render {
     */
     Map = loadImage("template_map.png");
   }
+
   public void MAINRENDER(int renderZone) {
     switch (renderZone) {
       default:
@@ -105,6 +118,7 @@ class render {
     image(Map,mapX,mapY,mapSizeX*scale,mapSizeY*scale);
     Psymon();
   }
+
   public void updateXY(int o, int p) {
     mapX=o;
     mapY=p;
@@ -112,6 +126,7 @@ class render {
   public void updateDirection(int t) {
     direction=t;
   }
+
   public void Psymon() {
     switch (direction) {
       default:
@@ -131,7 +146,7 @@ class render {
 }
   public void settings() {  fullScreen(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
+    String[] appletArgs = new String[] { "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {
