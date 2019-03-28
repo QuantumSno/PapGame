@@ -14,9 +14,13 @@ import java.io.IOException;
 
 public class main extends PApplet {
 
-PGraphics Psymon;
+PGraphics Map,
+PsymonW, PsymonA, PsymonS, PsymonD,
+PsymonWw, PsymonAw, PsymonSw, PsymonDw
+;
 int playerSize, scale,
- x, y, direction;
+mapSizeX, mapSizeY,
+x, y;
  /*
  1 = [w] up
  2 = [a] left
@@ -25,37 +29,83 @@ int playerSize, scale,
  */
 
 public void setup() {
+  mapSizeX=840;
+  mapSizeY=640;
   scale=4;
   playerSize=32;
   
-  Psymon = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonW = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonA = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonS = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonD = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonWw = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonAw = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonSw = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonDw = createGraphics(playerSize*scale,playerSize*scale);
+  Map = createGraphics(mapSizeX*scale,mapSizeY*scale);
+  render();
 }
 public void draw() {
+  image(Map,x,y);
+  switch(key) {
+    default: image(PsymonW,356,256);
+    break; case 'w': image(PsymonW,356,256);
+    break; case 'a': image(PsymonA,356,256);
+    break; case 's': image(PsymonS,356,256);
+    break; case 'd': image(PsymonD,356,256);
+    break;
+  }
   if(keyPressed) {
     switch(key) {
-      default:
-      break; case 'w': y++; direction=1;
-      break; case 'a': x++; direction=2;
-      break; case 's': y--; direction=3;
-      break; case 'd': x--; direction=4;
+      default: image(PsymonW,356,256);
+      break; case 'w': y++; image(Map,x,y); image(PsymonWw,356,256);
+      break; case 'a': x++; image(Map,x,y); image(PsymonAw,356,256);
+      break; case 's': y--; image(Map,x,y); image(PsymonSw,356,256);
+      break; case 'd': x--; image(Map,x,y); image(PsymonDw,356,256);
+
       break;
     }
   }
-  render();
-  image(Psymon,356,256);
 }
 public void render() {
-  Psymon.beginDraw();
-  Psymon.noStroke();
-  switch(direction) {
-    default: Psymon.image(loadImage("Psymon-front.png"),0,0,playerSize*scale,playerSize*scale);
-    break; case 1: Psymon.image(loadImage("Psymon-behind.png"),0,0,playerSize*scale,playerSize*scale);
-    break; case 2: Psymon.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
-    break; case 3: Psymon.image(loadImage("Psymon-front.png"),0,0,playerSize*scale,playerSize*scale);
-    break; case 4: Psymon.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
-    break;
-  }
-  Psymon.endDraw();
+  PsymonW.beginDraw();
+  PsymonW.noStroke();
+  PsymonW.image(loadImage("Psymon-behind.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonW.endDraw();
+  PsymonA.beginDraw();
+  PsymonA.noStroke();
+  PsymonA.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonA.endDraw();
+  PsymonS.beginDraw();
+  PsymonS.noStroke();
+  PsymonS.image(loadImage("Psymon-front.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonS.endDraw();
+  PsymonD.beginDraw();
+  PsymonD.noStroke();
+  PsymonD.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonD.endDraw();
+
+  PsymonWw.beginDraw();
+  PsymonWw.noStroke();
+  PsymonWw.image(loadImage("Psymon-behind-walking.gif"),0,0,playerSize*scale,playerSize*scale);
+  PsymonWw.endDraw();
+  PsymonAw.beginDraw();
+  PsymonAw.noStroke();
+  PsymonAw.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonAw.endDraw();
+  PsymonSw.beginDraw();
+  PsymonSw.noStroke();
+  PsymonSw.image(loadImage("Psymon-front-walking.gif"),0,0,playerSize*scale,playerSize*scale);
+  PsymonSw.endDraw();
+  PsymonDw.beginDraw();
+  PsymonDw.noStroke();
+  PsymonDw.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonDw.endDraw();
+
+  Map.beginDraw();
+  Map.noStroke();
+  Map.image(loadImage("template_map.png"),x,y,mapSizeX*scale,mapSizeY*scale);
+  Map.endDraw();
 }
   public void settings() {  size(840,640); }
   static public void main(String[] passedArgs) {
