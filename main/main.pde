@@ -15,6 +15,8 @@ x, y;
 void setup() {
   mapSizeX=840;
   mapSizeY=640;
+  x=x-mapSizeX/2;
+  y=y-mapSizeX/2;
   scale=4;
   playerSize=32;
   size(840,640);

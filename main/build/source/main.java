@@ -31,6 +31,8 @@ x, y;
 public void setup() {
   mapSizeX=840;
   mapSizeY=640;
+  x=x-mapSizeX/2;
+  y=y-mapSizeX/2;
   scale=4;
   playerSize=32;
   
