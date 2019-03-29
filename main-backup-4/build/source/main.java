@@ -1,3 +1,19 @@
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class main extends PApplet {
+
 PGraphics Map, //set up map images
 PsymonW, PsymonA, PsymonS, PsymonD, //Psymon default stances
 PsymonWw1, PsymonAw1, PsymonSw1, PsymonDw1, //Psymon anamation images
@@ -23,9 +39,7 @@ zone;
   */
 //text variables
 String text;
-void setup() {
-  background(30);
-  imageMode(CENTER);
+public void setup() {
   setText(); //gives all text variables their text
   zone=1; //sets to default map since waking up anamation is not set up yet
   walkSpeed=5; //how fast Psymon walks
@@ -33,15 +47,15 @@ void setup() {
   flipFrames=5; //amout of frames till anamations move to next frame
   mapSizeX=840; //window size x
   mapSizeY=640; //window size y
-  x=mapSizeX/2; //starting x position
-  y=mapSizeY/2; //starting y position
+  x=x-mapSizeX/2; //starting x position
+  y=y-mapSizeX/2; //starting y position
   scale=4; //scale images up and down
   playerSize=32; //default player size (of origonal pixelart)
   //fullScreen();
-  size(840,640); //window size
+   //window size
   render(); //loads files
 }
-void draw() {
+public void draw() {
   switch(zone) { //what map or cutscene is being rendered at the current moment
     default: image(Map,x,y); zone=1; //load map
     break; case '0': wakeUp(); zone=1;
@@ -50,32 +64,32 @@ void draw() {
   }
 
   switch(key) { //when player is not moving, this is the way Psymon is facing
-    default: image(PsymonS,width/2,height/2);
-    break; case 'w': image(PsymonW,width/2,height/2);
-    break; case 'a': image(PsymonA,width/2,height/2);
-    break; case 's': image(PsymonS,width/2,height/2);
-    break; case 'd': image(PsymonD,width/2,height/2);
+    default: image(PsymonW,356,256);
+    break; case 'w': image(PsymonW,356,256);
+    break; case 'a': image(PsymonA,356,256);
+    break; case 's': image(PsymonS,356,256);
+    break; case 'd': image(PsymonD,356,256);
     break;
   }
   if(keyPressed) { //when player is moving, this is the anamation
     switch(key) {
-      default: image(PsymonW,width/2,height/2);
+      default: image(PsymonW,356,256);
       break; case 'w': if(!boarderUp()) {y=y+walkSpeed;} background(30); image(Map,x,y);
-        if(flip>=0 && flip<=flipFrames) {image(PsymonWw1,width/2,height/2);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonWw2,width/2,height/2);flip++;} else {image(PsymonW,width/2,height/2);flip=0;}
+        if(flip>=0 && flip<=flipFrames) {image(PsymonWw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonWw2,356,256);flip++;} else {image(PsymonW,356,256);flip=0;}
       break; case 'a': if(!boarderLeft()) {x=x+walkSpeed;} background(30); image(Map,x,y);
-        if(flip>=0 && flip<=flipFrames) {image(PsymonAw1,width/2,height/2);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonAw2,width/2,height/2);flip++;} else {image(PsymonA,width/2,height/2);flip=0;}
+        if(flip>=0 && flip<=flipFrames) {image(PsymonAw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonAw2,356,256);flip++;} else {image(PsymonA,356,256);flip=0;}
       break; case 's': if(!boarderDown()) {y=y-walkSpeed;} background(30); image(Map,x,y);
-        if(flip>=0 && flip<=flipFrames) {image(PsymonSw1,width/2,height/2);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonSw2,width/2,height/2);flip++;} else {image(PsymonS,width/2,height/2);flip=0;}
+        if(flip>=0 && flip<=flipFrames) {image(PsymonSw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonSw2,356,256);flip++;} else {image(PsymonS,356,256);flip=0;}
       break; case 'd': if(!boarderRight()) {x=x-walkSpeed;} background(30); image(Map,x,y);
-        if(flip>=0 && flip<=flipFrames) {image(PsymonDw1,width/2,height/2);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonDw2,width/2,height/2);flip++;} else {image(PsymonD,width/2,height/2);flip=0;}
+        if(flip>=0 && flip<=flipFrames) {image(PsymonDw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonDw2,356,256);flip++;} else {image(PsymonD,356,256);flip=0;}
       break; case 'e': interact();
       break;
     }
   }
-  System.out.println("y: " + y + " x: " + x); //display for bugtesting. //Psymon's toes extend 16 out
+  //System.out.println("y: " + y + " x: " + x); //display for bugtesting. //Psymon's toes extend 16 out
 }
 
-void interact() { //when interact button pressed, what happens?
+public void interact() { //when interact button pressed, what happens?
   if(x>=0 && x<=0 && y>=0 && x<=0) {
     zone=2;
   } else if(x>=0 && x<=0 && y>=0 && x<=0) {
@@ -85,38 +99,38 @@ void interact() { //when interact button pressed, what happens?
   }
 }
 
-boolean boarderUp() { //any boarders that would stop the player from moving up would result in true
-  if(y>=1240) {
+public boolean boarderUp() { //any boarders that would stop the player from moving up would result in true
+  if(y>=280) {
     return true;
   } else { //System.out.println("y: " + y + " x: " + x);
     return false;
   }
 }
-boolean boarderLeft() { //etc
-  if(x>=1660-16) {
+public boolean boarderLeft() { //etc
+  if(x>=384) {
     return true;
   } else { //System.out.println("y: " + y + " x: " + x);
     return false;
   }
 }
-boolean boarderDown() { //etc
-  if(y<=-895) {
+public boolean boarderDown() { //etc
+  if(y<=-1755) {
     return true;
   } else { //System.out.println("y: " + y + " x: " + x);
     return false;
   }
 }
-boolean boarderRight() { //etc
-  if(x<=-1245+16) {
+public boolean boarderRight() { //etc
+  if(x<=-2489) {
     return true;
   } else { //System.out.println("y: " + y + " x: " + x);
     return false;
   }
 }
-void wakeUp() { //waking up anamation
+public void wakeUp() { //waking up anamation
 
 }
-void render() {
+public void render() {
   //create sprite sizes
   PsymonW = createGraphics(playerSize*scale,playerSize*scale);
   PsymonA = createGraphics(playerSize*scale,playerSize*scale);
@@ -251,6 +265,16 @@ void render() {
   Map.image(loadImage("template_map.png"),x,y,mapSizeX*scale,mapSizeY*scale);
   Map.endDraw();
 }
-void setText() { //sets all text variables
+public void setText() { //sets all text variables
   text="text";
+}
+  public void settings() {  size(840,640); }
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "main" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
 }

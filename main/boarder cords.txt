@@ -1,3 +1,4 @@
 CHECKERED MAP
-- top left = y: 280 x: 384
-- bottom right = y: -1755 x: -2505
+toes extend out 16 pix
+- top left = y: 1240 x: 1660
+- bottom right = y: -895 x: -1245
