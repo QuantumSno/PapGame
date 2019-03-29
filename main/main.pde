@@ -26,6 +26,7 @@ void setup() {
   scale=4; //scale images up and down
   playerSize=32; //default player size (of origonal pixelart)
   size(840,640); //window size
+  //fullScreen();
   //create sprite sizes
     PsymonW = createGraphics(playerSize*scale,playerSize*scale);
     PsymonA = createGraphics(playerSize*scale,playerSize*scale);
@@ -67,34 +68,68 @@ void draw() {
   if(keyPressed) { //when player is moving, this is the anamation
     switch(key) {
       default: image(PsymonW,356,256);
-      break; case 'w': y=y+walkSpeed; image(Map,x,y);
+      break; case 'w': if(!boarderUp()) {y=y+walkSpeed;} background(30); image(Map,x,y);
         if(flip>=0 && flip<=flipFrames) {image(PsymonWw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonWw2,356,256);flip++;} else {image(PsymonW,356,256);flip=0;}
-      break; case 'a': x=x+walkSpeed; image(Map,x,y);
+      break; case 'a': if(!boarderLeft()) {x=x+walkSpeed;} background(30); image(Map,x,y);
         if(flip>=0 && flip<=flipFrames) {image(PsymonAw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonAw2,356,256);flip++;} else {image(PsymonA,356,256);flip=0;}
-      break; case 's': y=y-walkSpeed; image(Map,x,y);
+      break; case 's': if(!boarderDown()) {y=y-walkSpeed;} background(30); image(Map,x,y);
         if(flip>=0 && flip<=flipFrames) {image(PsymonSw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonSw2,356,256);flip++;} else {image(PsymonS,356,256);flip=0;}
-      break; case 'd': x=x-walkSpeed; image(Map,x,y);
+      break; case 'd': if(!boarderRight()) {x=x-walkSpeed;} background(30); image(Map,x,y);
         if(flip>=0 && flip<=flipFrames) {image(PsymonDw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonDw2,356,256);flip++;} else {image(PsymonD,356,256);flip=0;}
       break;
     }
   }
+  System.out.println("y: " + y + " x: " + x);
 }
+
+boolean boarderUp() { //any boarders that would stop the player from moving up would result in true
+  if(false) {
+    return true;
+  } else { //System.out.println("y: " + y + " x: " + x);
+    return false;
+  }
+}
+boolean boarderLeft() { //etc
+  if(false) {
+    return true;
+  } else { //System.out.println("y: " + y + " x: " + x);
+    return false;
+  }
+}
+boolean boarderDown() { //etc
+  if(false) {
+    return true;
+  } else { //System.out.println("y: " + y + " x: " + x);
+    return false;
+  }
+}
+boolean boarderRight() { //etc
+  if(false) {
+    return true;
+  } else { //System.out.println("y: " + y + " x: " + x);
+    return false;
+  }
+}
+
 void render() { //load assets
   PsymonW.beginDraw();
   PsymonW.noStroke();
-  PsymonW.image(loadImage("Psymon-behind.png"),0,0,playerSize*scale,playerSize*scale);
+  //PsymonW.image(loadImage("Psymon-behind.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonW.rect(0,0,1,1);
   PsymonW.endDraw();
   PsymonA.beginDraw();
   PsymonA.noStroke();
-  PsymonA.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
+  //PsymonA.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonA.rect(0,0,1,1);
   PsymonA.endDraw();
   PsymonS.beginDraw();
   PsymonS.noStroke();
-  PsymonS.image(loadImage("Psymon-front.png"),0,0,playerSize*scale,playerSize*scale);
+  //PsymonS.image(loadImage("Psymon-front.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonS.rect(0,0,1,1);
   PsymonS.endDraw();
   PsymonD.beginDraw();
   PsymonD.noStroke();
-  PsymonD.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
+  //PsymonD.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
   PsymonD.endDraw();
 
   PsymonWw1.beginDraw();
