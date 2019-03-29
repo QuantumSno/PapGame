@@ -7,15 +7,25 @@ WhyattWw1, WhyattAw1, WhyattSw1, WhyattDw1, //Whyatt anamation
 WhyattWw2, WhyattAw2, WhyattSw2, WhyattDw2;
 int playerSize, scale, walkSpeed, //size and scale for player
 mapSizeX, mapSizeY, //size of window
-x, y, flip, flipFrames; //x and y for player as well as other movement related ints
+x, y, flip, flipFrames,  //x and y for player as well as other movement related ints
  /*
  1 = [w] up
  2 = [a] left
  3 = [s] down
  4 = [d] left
  */
+zone,
+  /*
+   ZONE KEY:
+   0 = waking up anamation
+   1 = default map
 
+  */
+//text variables
+text;
 void setup() {
+  setText(); //gives all text variables their text
+  zone=1; //sets to default map since waking up anamation is not set up yet
   walkSpeed=5; //how fast Psymon walks
   flip=0; //count till flipFrames
   flipFrames=5; //amout of frames till anamations move to next frame
@@ -56,7 +66,13 @@ void setup() {
   render(); //loads files
 }
 void draw() {
-  image(Map,x,y); //load map
+  switch(zone) { //what map or cutscene is being rendered at the current moment
+    default: image(Map,x,y); zone=1; //load map
+    break; case '0': wakeUp(); zone=1;
+    break; case '1': image(Map,x,y); //load map
+    break;
+  }
+
   switch(key) { //when player is not moving, this is the way Psymon is facing
     default: image(PsymonW,356,256);
     break; case 'w': image(PsymonW,356,256);
@@ -76,10 +92,21 @@ void draw() {
         if(flip>=0 && flip<=flipFrames) {image(PsymonSw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonSw2,356,256);flip++;} else {image(PsymonS,356,256);flip=0;}
       break; case 'd': if(!boarderRight()) {x=x-walkSpeed;} background(30); image(Map,x,y);
         if(flip>=0 && flip<=flipFrames) {image(PsymonDw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonDw2,356,256);flip++;} else {image(PsymonD,356,256);flip=0;}
+      break; case 'e': interact();
       break;
     }
   }
   //System.out.println("y: " + y + " x: " + x); //display for bugtesting. //Psymon's toes extend 16 out
+}
+
+void interact() { //when interact button pressed, what happens?
+  if(x>= && x<= && y>= && x<=) {
+    zone=2;
+  } else if(x>= && x<= && y>= && x<=) {
+    zone=3;
+  } else {
+    zone=1;
+  }
 }
 
 boolean boarderUp() { //any boarders that would stop the player from moving up would result in true
@@ -110,7 +137,9 @@ boolean boarderRight() { //etc
     return false;
   }
 }
+void wakeUp() { //waking up anamation
 
+}
 void render() { //load assets
   PsymonW.beginDraw();
   PsymonW.noStroke();
@@ -218,4 +247,7 @@ void render() { //load assets
   Map.noStroke();
   Map.image(loadImage("template_map.png"),x,y,mapSizeX*scale,mapSizeY*scale);
   Map.endDraw();
+}
+void setText() { //sets all text variables
+
 }

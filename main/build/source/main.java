@@ -95,7 +95,7 @@ public void draw() {
       break;
     }
   }
-  System.out.println("y: " + y + " x: " + x);
+  //System.out.println("y: " + y + " x: " + x); //display for bugtesting. //Psymon's toes extend 16 out
 }
 
 public boolean boarderUp() { //any boarders that would stop the player from moving up would result in true
