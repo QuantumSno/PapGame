@@ -16,11 +16,12 @@ public class main extends PApplet {
 
 PGraphics Map,
 PsymonW, PsymonA, PsymonS, PsymonD,
-PsymonWw, PsymonAw, PsymonSw, PsymonDw
-;
+PsymonWw1, PsymonAw1, PsymonSw1, PsymonDw1,
+PsymonWw2, PsymonAw2, PsymonSw2, PsymonDw2;
 int playerSize, scale,
 mapSizeX, mapSizeY,
 x, y;
+boolean flip;
  /*
  1 = [w] up
  2 = [a] left
@@ -29,6 +30,7 @@ x, y;
  */
 
 public void setup() {
+  flip=true;
   mapSizeX=840;
   mapSizeY=640;
   x=x-mapSizeX/2;
@@ -40,10 +42,14 @@ public void setup() {
   PsymonA = createGraphics(playerSize*scale,playerSize*scale);
   PsymonS = createGraphics(playerSize*scale,playerSize*scale);
   PsymonD = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonWw = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonAw = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonSw = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonDw = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonWw1 = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonWw2 = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonAw1 = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonAw2 = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonSw1 = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonSw2 = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonDw1 = createGraphics(playerSize*scale,playerSize*scale);
+  PsymonDw2 = createGraphics(playerSize*scale,playerSize*scale);
   Map = createGraphics(mapSizeX*scale,mapSizeY*scale);
   render();
 }
@@ -60,11 +66,14 @@ public void draw() {
   if(keyPressed) {
     switch(key) {
       default: image(PsymonW,356,256);
-      break; case 'w': y++; image(Map,x,y); image(PsymonWw,356,256);
-      break; case 'a': x++; image(Map,x,y); image(PsymonAw,356,256);
-      break; case 's': y--; image(Map,x,y); image(PsymonSw,356,256);
-      break; case 'd': x--; image(Map,x,y); image(PsymonDw,356,256);
-
+      break; case 'w': y++; image(Map,x,y);
+        if(flip) {image(PsymonWw1,356,256); flip = !flip;} else {image(PsymonWw2,356,256); flip = !flip;}
+      break; case 'a': x++; image(Map,x,y);
+        image(PsymonAw1,356,256);
+      break; case 's': y--; image(Map,x,y);
+        if(flip) {image(PsymonSw1,356,256); flip = !flip;} else {image(PsymonSw2,356,256); flip = !flip;}
+      break; case 'd': x--; image(Map,x,y);
+        image(PsymonDw1,356,256);
       break;
     }
   }
@@ -87,22 +96,38 @@ public void render() {
   PsymonD.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
   PsymonD.endDraw();
 
-  PsymonWw.beginDraw();
-  PsymonWw.noStroke();
-  PsymonWw.image(loadImage("Psymon-behind-walking.gif"),0,0,playerSize*scale,playerSize*scale);
-  PsymonWw.endDraw();
-  PsymonAw.beginDraw();
-  PsymonAw.noStroke();
-  PsymonAw.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
-  PsymonAw.endDraw();
-  PsymonSw.beginDraw();
-  PsymonSw.noStroke();
-  PsymonSw.image(loadImage("Psymon-front-walking.gif"),0,0,playerSize*scale,playerSize*scale);
-  PsymonSw.endDraw();
-  PsymonDw.beginDraw();
-  PsymonDw.noStroke();
-  PsymonDw.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
-  PsymonDw.endDraw();
+  PsymonWw1.beginDraw();
+  PsymonWw1.noStroke();
+  PsymonWw1.image(loadImage("Psymon-behind-walking-1.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonWw1.endDraw();
+  PsymonWw2.beginDraw();
+  PsymonWw2.noStroke();
+  PsymonWw2.image(loadImage("Psymon-behind-walking-2.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonWw2.endDraw();
+  PsymonAw1.beginDraw();
+  PsymonAw1.noStroke();
+  PsymonAw1.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonAw1.endDraw();
+  PsymonAw2.beginDraw();
+  PsymonAw2.noStroke();
+  PsymonAw2.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonAw2.endDraw();
+  PsymonSw1.beginDraw();
+  PsymonSw1.noStroke();
+  PsymonSw1.image(loadImage("Psymon-front-walking-1.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonSw1.endDraw();
+  PsymonSw2.beginDraw();
+  PsymonSw2.noStroke();
+  PsymonSw2.image(loadImage("Psymon-front-walking-2.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonSw2.endDraw();
+  PsymonDw1.beginDraw();
+  PsymonDw1.noStroke();
+  PsymonDw1.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonDw1.endDraw();
+  PsymonDw2.beginDraw();
+  PsymonDw2.noStroke();
+  PsymonDw2.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonDw2.endDraw();
 
   Map.beginDraw();
   Map.noStroke();
