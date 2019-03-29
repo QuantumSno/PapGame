@@ -19,8 +19,10 @@ x, y, flip, flipFrames, //x and y for player as well as other movement related i
 zone;
   /*
    ZONE KEY:
-   0 = waking up anamation
-   1 = default map
+   0 = default map
+   1 = menu 1
+   2 = menu 2
+   3 = menu 3
   */
 //text variables
 String text;
@@ -30,7 +32,7 @@ void setup() {
   background(30);
   imageMode(CENTER);
   setText(); //gives all text variables their text
-  zone=2; //sets to default map since waking up anamation is not set up yet
+  zone=0; //sets to default map since waking up anamation is not set up yet
   walkSpeed=5; //how fast Psymon walks
   flip=0; //count till flipFrames
   flipFrames=5; //amout of frames till anamations move to next frame
@@ -45,55 +47,51 @@ void setup() {
   render(); //loads files
 }
 void draw() {
-  switch(zone) { //what map or cutscene is being rendered at the current moment
-    default:
-      image(Map,x,y);
-      switch(key) { //when player is not moving, this is the way Psymon is facing
-        default: image(PsymonS,width/2,height/2);
-        break; case 'w': image(PsymonW,width/2,height/2);
-        break; case 'a': image(PsymonA,width/2,height/2);
-        break; case 's': image(PsymonS,width/2,height/2);
-        break; case 'd': image(PsymonD,width/2,height/2);
+  if(zone==0) {
+    image(Map,x,y);
+    switch(key) { //when player is not moving, this is the way Psymon is facing
+      default: image(PsymonS,width/2,height/2);
+      break; case 'w': image(PsymonW,width/2,height/2);
+      break; case 'a': image(PsymonA,width/2,height/2);
+      break; case 's': image(PsymonS,width/2,height/2);
+      break; case 'd': image(PsymonD,width/2,height/2);
+      break;
+    }
+    if(keyPressed) { //when player is moving, this is the anamation
+      switch(key) {
+        default: image(PsymonW,width/2,height/2);
+        break; case 'w': if(!boarderUp()) {y=y+walkSpeed;} image(Map,x,y);
+          if(flip>=0 && flip<=flipFrames) {image(PsymonWw1,width/2,height/2);flip++;}
+          else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonWw2,width/2,height/2);flip++;}
+          else {image(PsymonW,width/2,height/2);flip=0;}
+        break; case 'a': if(!boarderLeft()) {x=x+walkSpeed;} image(Map,x,y);
+          if(flip>=0 && flip<=flipFrames) {image(PsymonAw1,width/2,height/2);flip++;}
+          else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonAw2,width/2,height/2);flip++;}
+          else if (flip>flipFrames*2 && flip<=flipFrames*3){image(PsymonAw3,width/2,height/2);flip++;}
+          else if (flip>flipFrames*3 && flip<=flipFrames*4){image(PsymonAw4,width/2,height/2);flip++;}
+          else {image(PsymonA,width/2,height/2);flip=0;}
+        break; case 's': if(!boarderDown()) {y=y-walkSpeed;} image(Map,x,y);
+          if(flip>=0 && flip<=flipFrames) {image(PsymonSw1,width/2,height/2);flip++;}
+          else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonSw2,width/2,height/2);flip++;}
+          else {image(PsymonS,width/2,height/2);flip=0;}
+        break; case 'd': if(!boarderRight()) {x=x-walkSpeed;} image(Map,x,y);
+          if(flip>=0 && flip<=flipFrames) {image(PsymonDw1,width/2,height/2);flip++;}
+          else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonDw2,width/2,height/2);flip++;}
+          else if (flip>flipFrames*2 && flip<=flipFrames*3){image(PsymonDw3,width/2,height/2);flip++;}
+          else if (flip>flipFrames*3 && flip<=flipFrames*4){image(PsymonDw4,width/2,height/2);flip++;}
+          else {image(PsymonD,width/2,height/2);flip=0;}
+        break; case 'e': interact();
+        break; case TAB: zone=2;
         break;
       }
-      if(keyPressed) { //when player is moving, this is the anamation
-        switch(key) {
-          default: image(PsymonW,width/2,height/2);
-          break; case 'w': if(!boarderUp()) {y=y+walkSpeed;} image(Map,x,y);
-            if(flip>=0 && flip<=flipFrames) {image(PsymonWw1,width/2,height/2);flip++;}
-            else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonWw2,width/2,height/2);flip++;}
-            else {image(PsymonW,width/2,height/2);flip=0;}
-          break; case 'a': if(!boarderLeft()) {x=x+walkSpeed;} image(Map,x,y);
-            if(flip>=0 && flip<=flipFrames) {image(PsymonAw1,width/2,height/2);flip++;}
-            else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonAw2,width/2,height/2);flip++;}
-            else if (flip>flipFrames*2 && flip<=flipFrames*3){image(PsymonAw3,width/2,height/2);flip++;}
-            else if (flip>flipFrames*3 && flip<=flipFrames*4){image(PsymonAw4,width/2,height/2);flip++;}
-            else {image(PsymonA,width/2,height/2);flip=0;}
-          break; case 's': if(!boarderDown()) {y=y-walkSpeed;} image(Map,x,y);
-            if(flip>=0 && flip<=flipFrames) {image(PsymonSw1,width/2,height/2);flip++;}
-            else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonSw2,width/2,height/2);flip++;}
-            else {image(PsymonS,width/2,height/2);flip=0;}
-          break; case 'd': if(!boarderRight()) {x=x-walkSpeed;} image(Map,x,y);
-            if(flip>=0 && flip<=flipFrames) {image(PsymonDw1,width/2,height/2);flip++;}
-            else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonDw2,width/2,height/2);flip++;}
-            else if (flip>flipFrames*2 && flip<=flipFrames*3){image(PsymonDw3,width/2,height/2);flip++;}
-            else if (flip>flipFrames*3 && flip<=flipFrames*4){image(PsymonDw4,width/2,height/2);flip++;}
-            else {image(PsymonD,width/2,height/2);flip=0;}
-          break; case 'e': interact();
-          break; case TAB: zone=2;
-          break;
-        }
-      }
-      //System.out.println("y: " + y + " x: " + x); //display for bugtesting. //Psymon's toes extend 16 out
-      System.out.println(zone);
-    break; case '0': wakeUp(); zone=1;
-    break; case '1': //load map
-    break; case '2': image(Menu1,x,y); //menu 1
-    break; case '3': image(Menu2,x,y); //menu 2
-    break; case '4': image(Menu3,x,y); //menu 3
-    break;
+    }
+  } else if(zone==1) {
+    image(Menu1,width/2,height/2);
+  } else if(zone==2) {
+    image(Menu2,width/2,height/2);
+  } else if(zone==3) {
+    image(Menu3,width/2,height/2);
   }
-  image(Menu1,x,y);
 }
 
 void interact() { //when interact button pressed, what happens?
