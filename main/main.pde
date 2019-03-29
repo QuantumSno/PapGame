@@ -1,13 +1,13 @@
-PGraphics Map,
-PsymonW, PsymonA, PsymonS, PsymonD,
-PsymonWw1, PsymonAw1, PsymonSw1, PsymonDw1,
+PGraphics Map, //set up map images
+PsymonW, PsymonA, PsymonS, PsymonD, //Psymon default stances
+PsymonWw1, PsymonAw1, PsymonSw1, PsymonDw1, //Psymon anamation images
 PsymonWw2, PsymonAw2, PsymonSw2, PsymonDw2,
-WhyattW, WhyattA, WhyattS, WhyattD,
-WhyattWw1, WhyattAw1, WhyattSw1, WhyattDw1,
+WhyattW, WhyattA, WhyattS, WhyattD, //Whyatt default stances
+WhyattWw1, WhyattAw1, WhyattSw1, WhyattDw1, //Whyatt anamation
 WhyattWw2, WhyattAw2, WhyattSw2, WhyattDw2;
-int playerSize, scale, walkSpeed,
-mapSizeX, mapSizeY,
-x, y, flip, flipFrames;
+int playerSize, scale, walkSpeed, //size and scale for player
+mapSizeX, mapSizeY, //size of window
+x, y, flip, flipFrames; //x and y for player as well as other movement related ints
  /*
  1 = [w] up
  2 = [a] left
@@ -16,46 +16,47 @@ x, y, flip, flipFrames;
  */
 
 void setup() {
-  walkSpeed=5;
-  flip=0;
-  flipFrames=5;
-  mapSizeX=840;
-  mapSizeY=640;
-  x=x-mapSizeX/2;
-  y=y-mapSizeX/2;
-  scale=4;
-  playerSize=32;
-  size(840,640);
-  PsymonW = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonA = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonS = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonD = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonWw1 = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonWw2 = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonAw1 = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonAw2 = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonSw1 = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonSw2 = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonDw1 = createGraphics(playerSize*scale,playerSize*scale);
-  PsymonDw2 = createGraphics(playerSize*scale,playerSize*scale);
-  WhyattW = createGraphics(playerSize*scale,playerSize*scale);
-  WhyattA = createGraphics(playerSize*scale,playerSize*scale);
-  WhyattS = createGraphics(playerSize*scale,playerSize*scale);
-  WhyattD = createGraphics(playerSize*scale,playerSize*scale);
-  WhyattWw1 = createGraphics(playerSize*scale,playerSize*scale);
-  WhyattWw2 = createGraphics(playerSize*scale,playerSize*scale);
-  WhyattAw1 = createGraphics(playerSize*scale,playerSize*scale);
-  WhyattAw2 = createGraphics(playerSize*scale,playerSize*scale);
-  WhyattSw1 = createGraphics(playerSize*scale,playerSize*scale);
-  WhyattSw2 = createGraphics(playerSize*scale,playerSize*scale);
-  WhyattDw1 = createGraphics(playerSize*scale,playerSize*scale);
-  WhyattDw2 = createGraphics(playerSize*scale,playerSize*scale);
-  Map = createGraphics(mapSizeX*scale,mapSizeY*scale);
-  render();
+  walkSpeed=5; //how fast Psymon walks
+  flip=0; //count till flipFrames
+  flipFrames=5; //amout of frames till anamations move to next frame
+  mapSizeX=840; //window size x
+  mapSizeY=640; //window size y
+  x=x-mapSizeX/2; //starting x position
+  y=y-mapSizeX/2; //starting y position
+  scale=4; //scale images up and down
+  playerSize=32; //default player size (of origonal pixelart)
+  size(840,640); //window size
+  //create sprite sizes
+    PsymonW = createGraphics(playerSize*scale,playerSize*scale);
+    PsymonA = createGraphics(playerSize*scale,playerSize*scale);
+    PsymonS = createGraphics(playerSize*scale,playerSize*scale);
+    PsymonD = createGraphics(playerSize*scale,playerSize*scale);
+    PsymonWw1 = createGraphics(playerSize*scale,playerSize*scale);
+    PsymonWw2 = createGraphics(playerSize*scale,playerSize*scale);
+    PsymonAw1 = createGraphics(playerSize*scale,playerSize*scale);
+    PsymonAw2 = createGraphics(playerSize*scale,playerSize*scale);
+    PsymonSw1 = createGraphics(playerSize*scale,playerSize*scale);
+    PsymonSw2 = createGraphics(playerSize*scale,playerSize*scale);
+    PsymonDw1 = createGraphics(playerSize*scale,playerSize*scale);
+    PsymonDw2 = createGraphics(playerSize*scale,playerSize*scale);
+    WhyattW = createGraphics(playerSize*scale,playerSize*scale);
+    WhyattA = createGraphics(playerSize*scale,playerSize*scale);
+    WhyattS = createGraphics(playerSize*scale,playerSize*scale);
+    WhyattD = createGraphics(playerSize*scale,playerSize*scale);
+    WhyattWw1 = createGraphics(playerSize*scale,playerSize*scale);
+    WhyattWw2 = createGraphics(playerSize*scale,playerSize*scale);
+    WhyattAw1 = createGraphics(playerSize*scale,playerSize*scale);
+    WhyattAw2 = createGraphics(playerSize*scale,playerSize*scale);
+    WhyattSw1 = createGraphics(playerSize*scale,playerSize*scale);
+    WhyattSw2 = createGraphics(playerSize*scale,playerSize*scale);
+    WhyattDw1 = createGraphics(playerSize*scale,playerSize*scale);
+    WhyattDw2 = createGraphics(playerSize*scale,playerSize*scale);
+  Map = createGraphics(mapSizeX*scale,mapSizeY*scale); //create map sprite
+  render(); //loads files
 }
 void draw() {
-  image(Map,x,y);
-  switch(key) {
+  image(Map,x,y); //load map
+  switch(key) { //when player is not moving, this is the way Psymon is facing
     default: image(PsymonW,356,256);
     break; case 'w': image(PsymonW,356,256);
     break; case 'a': image(PsymonA,356,256);
@@ -63,7 +64,7 @@ void draw() {
     break; case 'd': image(PsymonD,356,256);
     break;
   }
-  if(keyPressed) {
+  if(keyPressed) { //when player is moving, this is the anamation
     switch(key) {
       default: image(PsymonW,356,256);
       break; case 'w': y=y+walkSpeed; image(Map,x,y);
@@ -78,7 +79,7 @@ void draw() {
     }
   }
 }
-void render() {
+void render() { //load assets
   PsymonW.beginDraw();
   PsymonW.noStroke();
   PsymonW.image(loadImage("Psymon-behind.png"),0,0,playerSize*scale,playerSize*scale);
