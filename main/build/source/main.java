@@ -145,6 +145,7 @@ public void render() {
   PsymonDw2.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
   PsymonDw2.endDraw();
 
+/* Cut off render for Whyatt while sprites are in development
   WhyattW.beginDraw();
   WhyattW.noStroke();
   WhyattW.image(loadImage("Whyatt-behind.png"),0,0,playerSize*scale,playerSize*scale);
@@ -194,6 +195,7 @@ public void render() {
   WhyattDw2.noStroke();
   WhyattDw2.image(loadImage("Whyatt-side-right.png"),0,0,playerSize*scale,playerSize*scale);
   WhyattDw2.endDraw();
+  */
 
   Map.beginDraw();
   Map.noStroke();
