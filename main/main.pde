@@ -4,8 +4,7 @@ PsymonWw1, PsymonAw1, PsymonSw1, PsymonDw1,
 PsymonWw2, PsymonAw2, PsymonSw2, PsymonDw2;
 int playerSize, scale,
 mapSizeX, mapSizeY,
-x, y;
-boolean flip;
+x, y, flip, flipFrames;
  /*
  1 = [w] up
  2 = [a] left
@@ -14,7 +13,8 @@ boolean flip;
  */
 
 void setup() {
-  flip=true;
+  flip=0;
+  flipFrames=5;
   mapSizeX=840;
   mapSizeY=640;
   x=x-mapSizeX/2;
@@ -51,13 +51,13 @@ void draw() {
     switch(key) {
       default: image(PsymonW,356,256);
       break; case 'w': y++; image(Map,x,y);
-        if(flip) {image(PsymonWw1,356,256); flip = !flip;} else {image(PsymonWw2,356,256); flip = !flip;}
+        if(flip>=0 && flip<=flipFrames) {image(PsymonWw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonWw2,356,256);flip++;} else {image(PsymonW,356,256);flip=0;}
       break; case 'a': x++; image(Map,x,y);
-        image(PsymonAw1,356,256);
+        if(flip>=0 && flip<=flipFrames) {image(PsymonAw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonAw2,356,256);flip++;} else {image(PsymonA,356,256);flip=0;}
       break; case 's': y--; image(Map,x,y);
-        if(flip) {image(PsymonSw1,356,256); flip = !flip;} else {image(PsymonSw2,356,256); flip = !flip;}
+        if(flip>=0 && flip<=flipFrames) {image(PsymonSw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonSw2,356,256);flip++;} else {image(PsymonS,356,256);flip=0;}
       break; case 'd': x--; image(Map,x,y);
-        image(PsymonDw1,356,256);
+        if(flip>=0 && flip<=flipFrames) {image(PsymonDw1,356,256);flip++;} else if (flip>flipFrames && flip<=flipFrames*2){image(PsymonDw2,356,256);flip++;} else {image(PsymonD,356,256);flip=0;}
       break;
     }
   }
