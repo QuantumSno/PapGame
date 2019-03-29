@@ -58,8 +58,8 @@ public void setup() {
   y=mapSizeY/2; //starting y position
   scale=4; //scale images up and down
   playerSize=32; //default player size (of origonal pixelart)
-  
-  //size(840,640); //window size
+  //fullScreen();
+   //window size
   render(); //loads files
 }
 public void draw() {
@@ -97,16 +97,49 @@ public void draw() {
           else if (flip>flipFrames*3 && flip<=flipFrames*4){image(PsymonDw4,width/2,height/2);flip++;}
           else {image(PsymonD,width/2,height/2);flip=0;}
         break; case 'e': interact();
-        break; case TAB: zone=2;
+        break; case TAB: zone=1;
         break;
       }
     }
   } else if(zone==1) {
+    image(Map,x,y);
+    image(PsymonS,width/2,height/2);
     image(Menu1,width/2,height/2);
+    if(keyPressed) {
+      switch (key) {
+        default:
+        break; case 'w': zone=1; delay(50);
+        break; case 's': zone=2; delay(50);
+        break; case ENTER:
+        break;
+      }
+    }
   } else if(zone==2) {
+    image(Map,x,y);
+    image(PsymonS,width/2,height/2);
     image(Menu2,width/2,height/2);
+    if(keyPressed) {
+      switch (key) {
+        default:
+        break; case 'w': zone=1; delay(50);
+        break; case 's': zone=3; delay(50);
+        break; case ENTER:
+        break;
+      }
+    }
   } else if(zone==3) {
+    image(Map,x,y);
+    image(PsymonS,width/2,height/2);
     image(Menu3,width/2,height/2);
+    if(keyPressed) {
+      switch (key) {
+        default:
+        break; case 'w': zone=2; delay(50);
+        break; case 's': zone=3; delay(50);
+        break; case ENTER:
+        break;
+      }
+    }
   }
 }
 
@@ -330,7 +363,7 @@ class item {
   }
 
 }
-  public void settings() {  fullScreen(); }
+  public void settings() {  size(840,640); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
     if (passedArgs != null) {
