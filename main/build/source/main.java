@@ -130,19 +130,22 @@ public boolean boarderRight() { //etc
 public void render() { //load assets
   PsymonW.beginDraw();
   PsymonW.noStroke();
-  PsymonW.image(loadImage("Psymon-behind.png"),0,0,playerSize*scale,playerSize*scale);
+  //PsymonW.image(loadImage("Psymon-behind.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonW.rect(0,0,1,1);
   PsymonW.endDraw();
   PsymonA.beginDraw();
   PsymonA.noStroke();
-  PsymonA.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
+  //PsymonA.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonA.rect(0,0,1,1);
   PsymonA.endDraw();
   PsymonS.beginDraw();
   PsymonS.noStroke();
-  PsymonS.image(loadImage("Psymon-front.png"),0,0,playerSize*scale,playerSize*scale);
+  //PsymonS.image(loadImage("Psymon-front.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonS.rect(0,0,1,1);
   PsymonS.endDraw();
   PsymonD.beginDraw();
   PsymonD.noStroke();
-  PsymonD.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
+  //PsymonD.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
   PsymonD.endDraw();
 
   PsymonWw1.beginDraw();
