@@ -1,7 +1,10 @@
 PGraphics Map,
 PsymonW, PsymonA, PsymonS, PsymonD,
 PsymonWw1, PsymonAw1, PsymonSw1, PsymonDw1,
-PsymonWw2, PsymonAw2, PsymonSw2, PsymonDw2;
+PsymonWw2, PsymonAw2, PsymonSw2, PsymonDw2,
+WhyattW, WhyattA, WhyattS, WhyattD,
+WhyattWw1, WhyattAw1, WhyattSw1, WhyattDw1,
+WhyattWw2, WhyattAw2, WhyattSw2, WhyattDw2;
 int playerSize, scale, walkSpeed,
 mapSizeX, mapSizeY,
 x, y, flip, flipFrames;
@@ -35,6 +38,18 @@ void setup() {
   PsymonSw2 = createGraphics(playerSize*scale,playerSize*scale);
   PsymonDw1 = createGraphics(playerSize*scale,playerSize*scale);
   PsymonDw2 = createGraphics(playerSize*scale,playerSize*scale);
+  WhyattW = createGraphics(playerSize*scale,playerSize*scale);
+  WhyattA = createGraphics(playerSize*scale,playerSize*scale);
+  WhyattS = createGraphics(playerSize*scale,playerSize*scale);
+  WhyattD = createGraphics(playerSize*scale,playerSize*scale);
+  WhyattWw1 = createGraphics(playerSize*scale,playerSize*scale);
+  WhyattWw2 = createGraphics(playerSize*scale,playerSize*scale);
+  WhyattAw1 = createGraphics(playerSize*scale,playerSize*scale);
+  WhyattAw2 = createGraphics(playerSize*scale,playerSize*scale);
+  WhyattSw1 = createGraphics(playerSize*scale,playerSize*scale);
+  WhyattSw2 = createGraphics(playerSize*scale,playerSize*scale);
+  WhyattDw1 = createGraphics(playerSize*scale,playerSize*scale);
+  WhyattDw2 = createGraphics(playerSize*scale,playerSize*scale);
   Map = createGraphics(mapSizeX*scale,mapSizeY*scale);
   render();
 }
@@ -113,6 +128,58 @@ void render() {
   PsymonDw2.noStroke();
   PsymonDw2.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
   PsymonDw2.endDraw();
+
+/* Cut off render for Whyatt while sprites are in development 
+  WhyattW.beginDraw();
+  WhyattW.noStroke();
+  WhyattW.image(loadImage("Whyatt-behind.png"),0,0,playerSize*scale,playerSize*scale);
+  WhyattW.endDraw();
+  WhyattA.beginDraw();
+  WhyattA.noStroke();
+  WhyattA.image(loadImage("Whyatt-side-left.png"),0,0,playerSize*scale,playerSize*scale);
+  WhyattA.endDraw();
+  WhyattS.beginDraw();
+  WhyattS.noStroke();
+  WhyattS.image(loadImage("Whyatt-front.png"),0,0,playerSize*scale,playerSize*scale);
+  WhyattS.endDraw();
+  WhyattD.beginDraw();
+  WhyattD.noStroke();
+  WhyattD.image(loadImage("Whyatt-side-right.png"),0,0,playerSize*scale,playerSize*scale);
+  WhyattD.endDraw();
+
+  WhyattWw1.beginDraw();
+  WhyattWw1.noStroke();
+  WhyattWw1.image(loadImage("Whyatt-behind-walking-1.png"),0,0,playerSize*scale,playerSize*scale);
+  WhyattWw1.endDraw();
+  WhyattWw2.beginDraw();
+  WhyattWw2.noStroke();
+  WhyattWw2.image(loadImage("Whyatt-behind-walking-2.png"),0,0,playerSize*scale,playerSize*scale);
+  WhyattWw2.endDraw();
+  WhyattAw1.beginDraw();
+  WhyattAw1.noStroke();
+  WhyattAw1.image(loadImage("Whyatt-side-left.png"),0,0,playerSize*scale,playerSize*scale);
+  WhyattAw1.endDraw();
+  WhyattAw2.beginDraw();
+  WhyattAw2.noStroke();
+  WhyattAw2.image(loadImage("Whyatt-side-left.png"),0,0,playerSize*scale,playerSize*scale);
+  WhyattAw2.endDraw();
+  WhyattSw1.beginDraw();
+  WhyattSw1.noStroke();
+  WhyattSw1.image(loadImage("Whyatt-front-walking-1.png"),0,0,playerSize*scale,playerSize*scale);
+  WhyattSw1.endDraw();
+  WhyattSw2.beginDraw();
+  WhyattSw2.noStroke();
+  WhyattSw2.image(loadImage("Whyatt-front-walking-2.png"),0,0,playerSize*scale,playerSize*scale);
+  WhyattSw2.endDraw();
+  WhyattDw1.beginDraw();
+  WhyattDw1.noStroke();
+  WhyattDw1.image(loadImage("Whyatt-side-right.png"),0,0,playerSize*scale,playerSize*scale);
+  WhyattDw1.endDraw();
+  WhyattDw2.beginDraw();
+  WhyattDw2.noStroke();
+  WhyattDw2.image(loadImage("Whyatt-side-right.png"),0,0,playerSize*scale,playerSize*scale);
+  WhyattDw2.endDraw();
+  */
 
   Map.beginDraw();
   Map.noStroke();
