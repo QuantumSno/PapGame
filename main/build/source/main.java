@@ -99,28 +99,28 @@ public void draw() {
 }
 
 public boolean boarderUp() { //any boarders that would stop the player from moving up would result in true
-  if(false) {
+  if(y>=280) {
     return true;
   } else { //System.out.println("y: " + y + " x: " + x);
     return false;
   }
 }
 public boolean boarderLeft() { //etc
-  if(false) {
+  if(x>=384) {
     return true;
   } else { //System.out.println("y: " + y + " x: " + x);
     return false;
   }
 }
 public boolean boarderDown() { //etc
-  if(false) {
+  if(y<=-1755) {
     return true;
   } else { //System.out.println("y: " + y + " x: " + x);
     return false;
   }
 }
 public boolean boarderRight() { //etc
-  if(false) {
+  if(x<=-2489) {
     return true;
   } else { //System.out.println("y: " + y + " x: " + x);
     return false;
@@ -130,22 +130,19 @@ public boolean boarderRight() { //etc
 public void render() { //load assets
   PsymonW.beginDraw();
   PsymonW.noStroke();
-  //PsymonW.image(loadImage("Psymon-behind.png"),0,0,playerSize*scale,playerSize*scale);
-  PsymonW.rect(0,0,1,1);
+  PsymonW.image(loadImage("Psymon-behind.png"),0,0,playerSize*scale,playerSize*scale);
   PsymonW.endDraw();
   PsymonA.beginDraw();
   PsymonA.noStroke();
-  //PsymonA.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
-  PsymonA.rect(0,0,1,1);
+  PsymonA.image(loadImage("Psymon-side-left.png"),0,0,playerSize*scale,playerSize*scale);
   PsymonA.endDraw();
   PsymonS.beginDraw();
   PsymonS.noStroke();
-  //PsymonS.image(loadImage("Psymon-front.png"),0,0,playerSize*scale,playerSize*scale);
-  PsymonS.rect(0,0,1,1);
+  PsymonS.image(loadImage("Psymon-front.png"),0,0,playerSize*scale,playerSize*scale);
   PsymonS.endDraw();
   PsymonD.beginDraw();
   PsymonD.noStroke();
-  //PsymonD.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
+  PsymonD.image(loadImage("Psymon-side-right.png"),0,0,playerSize*scale,playerSize*scale);
   PsymonD.endDraw();
 
   PsymonWw1.beginDraw();

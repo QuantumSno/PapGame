@@ -1,0 +1,3 @@
+CHECKERED MAP
+- top left = y: 280 x: 384
+- bottom right = y: -1755 x: -2505
