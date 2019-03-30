@@ -1,45 +1,48 @@
-import processing.core.*; 
-import processing.data.*; 
-import processing.event.*; 
-import processing.opengl.*; 
-
-import java.util.*; 
-
-import java.util.HashMap; 
-import java.util.ArrayList; 
-import java.io.File; 
-import java.io.BufferedReader; 
-import java.io.PrintWriter; 
-import java.io.InputStream; 
-import java.io.OutputStream; 
-import java.io.IOException; 
-
-public class main extends PApplet {
-
-
+import java.util.*;
 ArrayList<sprite> sprites;
 int x, y,
 playerSize, mapX, mapY, scale;
-public void setup() {
+renderTests rt;
+void setup() {
+  rt= new renderTests();
   imageMode(CENTER);
   //fullScreen();
-  
+  size(840,640);
   setVariables();
   sprites = new ArrayList<sprite>();
   loadSprites();
 }
-public void draw() {
-  image(f("m"), width/2, height/2);
-  image(f("pf"), width/2, height/2);
 
+void draw() {
+  image(f("m"), width/2, height/2);
+  switch(key) {
+    default: image(f("pf"), width/2, height/2);
+    break; case 'w': image(f("pf"), width/2, height/2);
+    break; case 'a': image(f("pl"), width/2, height/2);
+    break; case 's': image(f("pd"), width/2, height/2);
+    break; case 'd': image(f("pr"), width/2, height/2);
+    break;
+  }
+  if(keyPressed) {
+    switch(key) {
+      default: image(f("pf"), width/2, height/2);
+      break; case 'w': image(f("pf"), width/2, height/2);
+      break; case 'a': image(f("pl"), width/2, height/2);
+      break; case 's': image(f("pd"), width/2, height/2);
+      break; case 'd': image(f("pr"), width/2, height/2);
+      break;
+    }
+  }
 }
-public PImage f(String find) {
+
+PImage f(String find) {
   for(int t=0; t<sprites.size(); t++)
     if(sprites.get(t).getName() == find)
       return sprites.get(t).out();
   return sprites.get(0).out();
 }
-public void setVariables() {
+
+void setVariables() {
   x=0;
   y=0;
   mapX=840;
@@ -47,8 +50,7 @@ public void setVariables() {
   playerSize=32;
   scale=4;
 }
-
-public void loadSprites() {
+void loadSprites() {
   //load menus
   sprites.add(new sprite(loadImage("menu-1.png"), width, height, "mu1"));
   sprites.add(new sprite(loadImage("menu-2.png"), width, height, "mu2"));
@@ -76,55 +78,4 @@ public void loadSprites() {
   sprites.add(new sprite(loadImage("Psymon-side-right.png"), playerSize*scale, playerSize*scale, "psr"));
 
   sprites.add(new sprite(loadImage("template_map.png"), mapX*scale, mapY*scale, "m"));
-}
-class item {
-  String item;
-  public item(String i) {
-    item=i;
-  }
-  public String returnName() {
-    return item;
-  }
-
-}
-class sprite {
-  PImage sprite;
-  PGraphics render;
-  String name;
-  int x,y, sizeX, sizeY;
-  public sprite(PImage s, int o, int p, String n) {
-    sprite=s;
-    sizeX=o;
-    sizeY=p;
-    name=n;
-    Gload();
-  }
-  //set name from file name
-  public void setCords(int o, int p) {
-    x=o;
-    y=p;
-  }
-  public void Gload() {
-    render = createGraphics(sizeX,sizeY);
-    render.beginDraw();
-    render.noStroke();
-    render.image(sprite, 0, 0, sizeX, sizeY);
-    render.endDraw();
-  }
-  public String getName() {
-    return name;
-  }
-  public PGraphics out() {
-    return render;
-  }
-}
-  public void settings() {  size(840,640); }
-  static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
-    if (passedArgs != null) {
-      PApplet.main(concat(appletArgs, passedArgs));
-    } else {
-      PApplet.main(appletArgs);
-    }
-  }
 }
