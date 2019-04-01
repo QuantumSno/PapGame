@@ -154,8 +154,9 @@ public void keyReleased() {
         case ENTER:
                 if (zone == 1)
                 zone = 0;
+                move=true;
             break;
-    }
+  }
 }
 class Map {
   PGraphics map;
