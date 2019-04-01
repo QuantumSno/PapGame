@@ -9,9 +9,9 @@ class ui {
     loadUi();
   }
 
-  PImage tab1() { return tab1; }
-  PImage tab2() { return tab2; }
-  PImage tab3() { return tab3; }
+  void tab1() { image(tab1, width/2, height/2); }
+  void tab2() { image(tab2, width/2, height/2); }
+  void tab3() { image(tab3, width/2, height/2); }
 
 
   void loadUi() {

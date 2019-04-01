@@ -231,26 +231,26 @@ class Psymon {
     loadPsymon();
   }
 
-  public void pW() { loadImage(PsymonW, width/2, height/2); }
-  public void pA() { loadImage(PsymonA, width/2, height/2); }
-  public void pS() { loadImage(PsymonS, width/2, height/2); }
-  public void pD() { loadImage(PsymonD, width/2, height/2); }
+  public void pW() { image(PsymonW, width/2, height/2); }
+  public void pA() { image(PsymonA, width/2, height/2); }
+  public void pS() { image(PsymonS, width/2, height/2); }
+  public void pD() { image(PsymonD, width/2, height/2); }
 
-  public void pW1() { loadImage(PsymonWw1, width/2, height/2); }
-  public void pW2() { loadImage(PsymonWw2, width/2, height/2); }
+  public void pW1() { image(PsymonWw1, width/2, height/2); }
+  public void pW2() { image(PsymonWw2, width/2, height/2); }
 
-  public void pA1() { loadImage(PsymonAw1, width/2, height/2); }
-  public void pA2() { loadImage(PsymonAw2, width/2, height/2); }
-  public void pA3() { loadImage(PsymonAw3, width/2, height/2); }
-  public void pA4() { loadImage(PsymonAw4, width/2, height/2); }
+  public void pA1() { image(PsymonAw1, width/2, height/2); }
+  public void pA2() { image(PsymonAw2, width/2, height/2); }
+  public void pA3() { image(PsymonAw3, width/2, height/2); }
+  public void pA4() { image(PsymonAw4, width/2, height/2); }
 
-  public void pS1() { loadImage(PsymonSw1, width/2, height/2); }
-  public void pS2() { loadImage(PsymonSw2, width/2, height/2); }
+  public void pS1() { image(PsymonSw1, width/2, height/2); }
+  public void pS2() { image(PsymonSw2, width/2, height/2); }
 
-  public void pD1() { loadImage(PsymonDw1, width/2, height/2); }
-  public void pD2() { loadImage(PsymonDw2, width/2, height/2); }
-  public void pD3() { loadImage(PsymonDw3, width/2, height/2); }
-  public void pD4() { loadImage(PsymonDw4, width/2, height/2); }
+  public void pD1() { image(PsymonDw1, width/2, height/2); }
+  public void pD2() { image(PsymonDw2, width/2, height/2); }
+  public void pD3() { image(PsymonDw3, width/2, height/2); }
+  public void pD4() { image(PsymonDw4, width/2, height/2); }
 
   public void loadPsymon() {
     PsymonW.beginDraw();
@@ -333,9 +333,9 @@ class ui {
     loadUi();
   }
 
-  public PImage tab1() { return tab1; }
-  public PImage tab2() { return tab2; }
-  public PImage tab3() { return tab3; }
+  public void tab1() { image(tab1, width/2, height/2); }
+  public void tab2() { image(tab2, width/2, height/2); }
+  public void tab3() { image(tab3, width/2, height/2); }
 
 
   public void loadUi() {
@@ -357,7 +357,7 @@ class ui {
 }
   public void settings() {  size(840, 640); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "main" };
+    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {
