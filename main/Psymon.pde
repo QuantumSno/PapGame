@@ -32,14 +32,18 @@ class Psymon {
   PImage pA() { return PsymonA; }
   PImage pS() { return PsymonS; }
   PImage pD() { return PsymonD; }
+
   PImage pW1() { return PsymonWw1; }
   PImage pW2() { return PsymonWw2; }
+
   PImage pA1() { return PsymonAw1; }
   PImage pA2() { return PsymonAw2; }
   PImage pA3() { return PsymonAw3; }
   PImage pA4() { return PsymonAw4; }
-  PImage pS1() { return PsymonWw1; }
-  PImage pS2() { return PsymonWw2; }
+
+  PImage pS1() { return PsymonSw1; }
+  PImage pS2() { return PsymonSw2; }
+
   PImage pD1() { return PsymonDw1; }
   PImage pD2() { return PsymonDw2; }
   PImage pD3() { return PsymonDw3; }
@@ -82,20 +86,20 @@ class Psymon {
 
     PsymonS.beginDraw();
     PsymonS.noStroke();
-    PsymonS.image(loadImage("Psymon-behind.png"),0,0,size,size);
+    PsymonS.image(loadImage("Psymon-front.png"),0,0,size,size);
     PsymonS.endDraw();
     PsymonSw1.beginDraw();
     PsymonSw1.noStroke();
-    PsymonSw1.image(loadImage("Psymon-behind-walking-1.png"),0,0,size,size);
+    PsymonSw1.image(loadImage("Psymon-front-walking-1.png"),0,0,size,size);
     PsymonSw1.endDraw();
     PsymonSw2.beginDraw();
     PsymonSw2.noStroke();
-    PsymonSw2.image(loadImage("Psymon-behind-walking-2.png"),0,0,size,size);
+    PsymonSw2.image(loadImage("Psymon-front-walking-2.png"),0,0,size,size);
     PsymonSw2.endDraw();
 
     PsymonD.beginDraw();
     PsymonD.noStroke();
-    PsymonD.image(loadImage("Psymon-behind.png"),0,0,size,size);
+    PsymonD.image(loadImage("Psymon-side-right.png"),0,0,size,size);
     PsymonD.endDraw();
     PsymonDw1.beginDraw();
     PsymonDw1.noStroke();

@@ -14,21 +14,88 @@ import java.io.IOException;
 
 public class main extends PApplet {
 
-int scale, flipTime, flip;
+int scale, flipTime, flip, zone, x, y, walkSpeed;
 Psymon psymon;
 Map map;
 public void setup() {
   
   flipTime=5;
   flip=0;
+  zone=0;
+  x=0;
+  y=0;
+  walkSpeed=5;
   imageMode(CENTER);
   psymon= new Psymon();
   map= new Map();
 }
 public void draw() {
-  image(map.m(), width/2, height/2);
-  image(psymon.pS(), width/2, height/2);
+  if(flip>=flipTime*4)
+    flip=0;
+}
+
+public void keyPressed() {
+  image(map.m(), x, y);
   flip++;
+  switch(key) {
+    default:
+    break; case 'w':
+      y=y+walkSpeed;
+      if(!map.boarderUp())
+        if(flip>=0 && flip<flipTime)
+          image(psymon.pW1(), width/2, height/2);
+        else if(flip>=flipTime && flip<flipTime*2)
+          image(psymon.pW2(), width/2, height/2);
+        else if(flip>=flipTime*2 && flip<flipTime*3)
+          image(psymon.pW1(), width/2, height/2);
+        else
+          image(psymon.pW2(), width/2, height/2);
+    break; case 'a':
+      x=x+walkSpeed;
+      if(!map.boarderLeft())
+        if(flip>=0 && flip<flipTime)
+          image(psymon.pA1(), width/2, height/2);
+        else if(flip>=flipTime && flip<flipTime*2)
+          image(psymon.pA2(), width/2, height/2);
+        else if(flip>=flipTime*2 && flip<flipTime*3)
+          image(psymon.pA3(), width/2, height/2);
+        else
+          image(psymon.pA4(), width/2, height/2);
+    break; case 's':
+    y=y-walkSpeed;
+    if(!map.boarderDown())
+      if(flip>=0 && flip<flipTime)
+        image(psymon.pS1(), width/2, height/2);
+      else if(flip>=flipTime && flip<flipTime*2)
+        image(psymon.pS2(), width/2, height/2);
+      else if(flip>=flipTime*2 && flip<flipTime*3)
+        image(psymon.pS1(), width/2, height/2);
+      else
+        image(psymon.pS2(), width/2, height/2);
+    break; case 'd':
+    x=x-walkSpeed;
+      if(!map.boarderRight())
+        if(flip>=0 && flip<flipTime)
+          image(psymon.pD1(), width/2, height/2);
+        else if(flip>=flipTime && flip<flipTime*2)
+          image(psymon.pD2(), width/2, height/2);
+        else if(flip>=flipTime*2 && flip<flipTime*3)
+          image(psymon.pD3(), width/2, height/2);
+        else
+          image(psymon.pD4(), width/2, height/2);
+    break;
+  }
+}
+public void keyReleased() {
+  image(map.m(), x, y);
+  switch(key) {
+    default:
+    break; case 'w': image(psymon.pW(), width/2, height/2);
+    break; case 'a': image(psymon.pA(), width/2, height/2);
+    break; case 's': image(psymon.pS(), width/2, height/2);
+    break; case 'd': image(psymon.pD(), width/2, height/2);
+    break;
+  }
 }
 class Map {
   PGraphics map;
@@ -46,6 +113,31 @@ class Map {
     map.noStroke();
     map.image(loadImage("template_map.png"),0,0,840*scale,640*scale);
     map.endDraw();
+  }
+  public boolean boarderUp() {
+    if(false)
+      return true;
+    else
+      return false;
+  }
+  public boolean boarderLeft() {
+    if(false)
+      return true;
+    else
+      return false;
+  }
+
+  public boolean boarderDown() {
+    if(false)
+      return true;
+    else
+      return false;
+  }
+  public boolean boarderRight() {
+    if(false)
+      return true;
+    else
+      return false;
   }
 }
 class Psymon {
@@ -82,14 +174,18 @@ class Psymon {
   public PImage pA() { return PsymonA; }
   public PImage pS() { return PsymonS; }
   public PImage pD() { return PsymonD; }
+
   public PImage pW1() { return PsymonWw1; }
   public PImage pW2() { return PsymonWw2; }
+
   public PImage pA1() { return PsymonAw1; }
   public PImage pA2() { return PsymonAw2; }
   public PImage pA3() { return PsymonAw3; }
   public PImage pA4() { return PsymonAw4; }
-  public PImage pS1() { return PsymonWw1; }
-  public PImage pS2() { return PsymonWw2; }
+
+  public PImage pS1() { return PsymonSw1; }
+  public PImage pS2() { return PsymonSw2; }
+
   public PImage pD1() { return PsymonDw1; }
   public PImage pD2() { return PsymonDw2; }
   public PImage pD3() { return PsymonDw3; }
@@ -132,20 +228,20 @@ class Psymon {
 
     PsymonS.beginDraw();
     PsymonS.noStroke();
-    PsymonS.image(loadImage("Psymon-behind.png"),0,0,size,size);
+    PsymonS.image(loadImage("Psymon-front.png"),0,0,size,size);
     PsymonS.endDraw();
     PsymonSw1.beginDraw();
     PsymonSw1.noStroke();
-    PsymonSw1.image(loadImage("Psymon-behind-walking-1.png"),0,0,size,size);
+    PsymonSw1.image(loadImage("Psymon-front-walking-1.png"),0,0,size,size);
     PsymonSw1.endDraw();
     PsymonSw2.beginDraw();
     PsymonSw2.noStroke();
-    PsymonSw2.image(loadImage("Psymon-behind-walking-2.png"),0,0,size,size);
+    PsymonSw2.image(loadImage("Psymon-front-walking-2.png"),0,0,size,size);
     PsymonSw2.endDraw();
 
     PsymonD.beginDraw();
     PsymonD.noStroke();
-    PsymonD.image(loadImage("Psymon-behind.png"),0,0,size,size);
+    PsymonD.image(loadImage("Psymon-side-right.png"),0,0,size,size);
     PsymonD.endDraw();
     PsymonDw1.beginDraw();
     PsymonDw1.noStroke();
