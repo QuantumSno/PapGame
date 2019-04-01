@@ -7,7 +7,7 @@ class Map {
     loadMap();
   }
 
-  PImage m() { return map; }
+  void m(int x, int y) { image(map, x, y); }
 
   void loadMap() {
     map.beginDraw();

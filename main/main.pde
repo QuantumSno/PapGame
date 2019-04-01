@@ -6,7 +6,7 @@ boolean move;
 void setup() {
   move = true;
   size(840, 640);
-  flipTime = 5;
+  flipTime = 10;
   flip = 0;
   zone = 0;
   x = 0;
@@ -16,7 +16,7 @@ void setup() {
   psymon = new Psymon();
   map = new Map();
   ui = new ui();
-  image(map.m(), x, y);
+  map.m(x,y);
   image(psymon.pS(), width / 2, height / 2);
 }
 void draw() {
@@ -26,15 +26,15 @@ void draw() {
     if (move)
         keyPressed();
   if (zone == 1) {
-    image(map.m(), x, y);
+    map.m(x,y);
     image(psymon.pS(), width / 2, height / 2);
     image(ui.tab1(), width / 2, height / 2);
   } else if (zone == 2) {
-    image(map.m(), x, y);
+    map.m(x,y);
     image(psymon.pS(), width / 2, height / 2);
     image(ui.tab2(), width / 2, height / 2);
   } else if (zone == 3) {
-    image(map.m(), x, y);
+    map.m(x,y);
     image(psymon.pS(), width / 2, height / 2);
     image(ui.tab3(), width / 2, height / 2);
   }
@@ -42,7 +42,7 @@ void draw() {
 
   void keyPressed() {
   if (keyPressed)
-    image(map.m(), x, y);
+    map.m(x,y);
   flip++;
   switch (key) {
     default: image(psymon.pS(), width / 2, height / 2);
@@ -111,7 +111,7 @@ void draw() {
   }
 }
 void keyReleased() {
-  image(map.m(), x, y);
+  map.m(x,y);
   switch (key) {
     default: image(psymon.pS(), width / 2, height / 2);
     break;
