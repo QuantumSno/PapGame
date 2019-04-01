@@ -33,7 +33,7 @@ public void setup() {
   map = new Map();
   ui = new ui();
   map.m(x,y);
-  image(psymon.pS(), width / 2, height / 2);
+  psymon.pS();
 }
 public void draw() {
   if (flip >= flipTime * 4)
@@ -43,16 +43,16 @@ public void draw() {
         keyPressed();
   if (zone == 1) {
     map.m(x,y);
-    image(psymon.pS(), width / 2, height / 2);
-    image(ui.tab1(), width / 2, height / 2);
+    psymon.pS();
+    ui.tab1();
   } else if (zone == 2) {
     map.m(x,y);
-    image(psymon.pS(), width / 2, height / 2);
-    image(ui.tab2(), width / 2, height / 2);
+    psymon.pS();
+    ui.tab2();
   } else if (zone == 3) {
     map.m(x,y);
-    image(psymon.pS(), width / 2, height / 2);
-    image(ui.tab3(), width / 2, height / 2);
+    psymon.pS();
+    ui.tab3();
   }
 }
 
@@ -61,20 +61,20 @@ public void draw() {
     map.m(x,y);
   flip++;
   switch (key) {
-    default: image(psymon.pS(), width / 2, height / 2);
+    default: psymon.pS();
     break;
     case 'w':
       if (move) {
         y = y + walkSpeed;
         if (!map.boarderUp())
           if (flip >= 0 && flip < flipTime)
-            image(psymon.pW1(), width / 2, height / 2);
+            psymon.pW1();
           else if (flip >= flipTime && flip < flipTime * 2)
-            image(psymon.pW2(), width / 2, height / 2);
+            psymon.pW2();
           else if (flip >= flipTime * 2 && flip < flipTime * 3)
-            image(psymon.pW1(), width / 2, height / 2);
+            psymon.pW1();
           else
-            image(psymon.pW2(), width / 2, height / 2);
+            psymon.pW2();
       }
     break;
     case 'a':
@@ -82,13 +82,13 @@ public void draw() {
         x = x + walkSpeed;
         if (!map.boarderLeft())
           if (flip >= 0 && flip < flipTime)
-            image(psymon.pA1(), width / 2, height / 2);
+            psymon.pA1();
           else if (flip >= flipTime && flip < flipTime * 2)
-            image(psymon.pA2(), width / 2, height / 2);
+            psymon.pA2();
           else if (flip >= flipTime * 2 && flip < flipTime * 3)
-            image(psymon.pA3(), width / 2, height / 2);
+            psymon.pA3();
           else
-            image(psymon.pA4(), width / 2, height / 2);
+            psymon.pA4();
       }
     break;
     case 's':
@@ -96,13 +96,13 @@ public void draw() {
         y = y - walkSpeed;
         if (!map.boarderDown())
           if (flip >= 0 && flip < flipTime)
-            image(psymon.pS1(), width / 2, height / 2);
+            psymon.pS1();
           else if (flip >= flipTime && flip < flipTime * 2)
-            image(psymon.pS2(), width / 2, height / 2);
+            psymon.pS2();
           else if (flip >= flipTime * 2 && flip < flipTime * 3)
-            image(psymon.pS1(), width / 2, height / 2);
+            psymon.pS1();
           else
-            image(psymon.pS2(), width / 2, height / 2);
+            psymon.pS2();
       }
     break;
     case 'd':
@@ -110,13 +110,13 @@ public void draw() {
         x = x - walkSpeed;
         if (!map.boarderRight())
           if (flip >= 0 && flip < flipTime)
-            image(psymon.pD1(), width / 2, height / 2);
+            psymon.pD1();
           else if (flip >= flipTime && flip < flipTime * 2)
-            image(psymon.pD2(), width / 2, height / 2);
+            psymon.pD2();
           else if (flip >= flipTime * 2 && flip < flipTime * 3)
-            image(psymon.pD3(), width / 2, height / 2);
+            psymon.pD3();
           else
-          image(psymon.pD4(), width / 2, height / 2);
+          psymon.pD4();
       }
     break;
     case TAB:
@@ -129,27 +129,27 @@ public void draw() {
 public void keyReleased() {
   map.m(x,y);
   switch (key) {
-    default: image(psymon.pS(), width / 2, height / 2);
+    default: psymon.pS();
     break;
     case 'w':
-      image(psymon.pW(), width / 2, height / 2);
+      psymon.pW();
       if (zone == 2)
         zone = 1;
       if (zone == 3)
         zone = 2;
     break;
     case 'a':
-      image(psymon.pA(), width / 2, height / 2);
+      psymon.pA();
     break;
     case 's':
-      image(psymon.pS(), width / 2, height / 2);
+      psymon.pS();
       if (zone == 1)
         zone = 2;
       if (zone == 2)
         zone = 3;
     break;
     case 'd':
-      image(psymon.pD(), width / 2, height / 2);
+      psymon.pD();
     break;
     case ENTER:
       if (zone == 1)
@@ -231,26 +231,26 @@ class Psymon {
     loadPsymon();
   }
 
-  public PImage pW() { return PsymonW; }
-  public PImage pA() { return PsymonA; }
-  public PImage pS() { return PsymonS; }
-  public PImage pD() { return PsymonD; }
+  public void pW() { loadImage(PsymonW, width/2, height/2); }
+  public void pA() { loadImage(PsymonA, width/2, height/2); }
+  public void pS() { loadImage(PsymonS, width/2, height/2); }
+  public void pD() { loadImage(PsymonD, width/2, height/2); }
 
-  public PImage pW1() { return PsymonWw1; }
-  public PImage pW2() { return PsymonWw2; }
+  public void pW1() { loadImage(PsymonWw1, width/2, height/2); }
+  public void pW2() { loadImage(PsymonWw2, width/2, height/2); }
 
-  public PImage pA1() { return PsymonAw1; }
-  public PImage pA2() { return PsymonAw2; }
-  public PImage pA3() { return PsymonAw3; }
-  public PImage pA4() { return PsymonAw4; }
+  public void pA1() { loadImage(PsymonAw1, width/2, height/2); }
+  public void pA2() { loadImage(PsymonAw2, width/2, height/2); }
+  public void pA3() { loadImage(PsymonAw3, width/2, height/2); }
+  public void pA4() { loadImage(PsymonAw4, width/2, height/2); }
 
-  public PImage pS1() { return PsymonSw1; }
-  public PImage pS2() { return PsymonSw2; }
+  public void pS1() { loadImage(PsymonSw1, width/2, height/2); }
+  public void pS2() { loadImage(PsymonSw2, width/2, height/2); }
 
-  public PImage pD1() { return PsymonDw1; }
-  public PImage pD2() { return PsymonDw2; }
-  public PImage pD3() { return PsymonDw3; }
-  public PImage pD4() { return PsymonDw4; }
+  public void pD1() { loadImage(PsymonDw1, width/2, height/2); }
+  public void pD2() { loadImage(PsymonDw2, width/2, height/2); }
+  public void pD3() { loadImage(PsymonDw3, width/2, height/2); }
+  public void pD4() { loadImage(PsymonDw4, width/2, height/2); }
 
   public void loadPsymon() {
     PsymonW.beginDraw();

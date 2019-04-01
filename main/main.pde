@@ -17,7 +17,7 @@ void setup() {
   map = new Map();
   ui = new ui();
   map.m(x,y);
-  image(psymon.pS(), width / 2, height / 2);
+  psymon.pS();
 }
 void draw() {
   if (flip >= flipTime * 4)
@@ -27,16 +27,16 @@ void draw() {
         keyPressed();
   if (zone == 1) {
     map.m(x,y);
-    image(psymon.pS(), width / 2, height / 2);
-    image(ui.tab1(), width / 2, height / 2);
+    psymon.pS();
+    ui.tab1();
   } else if (zone == 2) {
     map.m(x,y);
-    image(psymon.pS(), width / 2, height / 2);
-    image(ui.tab2(), width / 2, height / 2);
+    psymon.pS();
+    ui.tab2();
   } else if (zone == 3) {
     map.m(x,y);
-    image(psymon.pS(), width / 2, height / 2);
-    image(ui.tab3(), width / 2, height / 2);
+    psymon.pS();
+    ui.tab3();
   }
 }
 
@@ -45,20 +45,20 @@ void draw() {
     map.m(x,y);
   flip++;
   switch (key) {
-    default: image(psymon.pS(), width / 2, height / 2);
+    default: psymon.pS();
     break;
     case 'w':
       if (move) {
         y = y + walkSpeed;
         if (!map.boarderUp())
           if (flip >= 0 && flip < flipTime)
-            image(psymon.pW1(), width / 2, height / 2);
+            psymon.pW1();
           else if (flip >= flipTime && flip < flipTime * 2)
-            image(psymon.pW2(), width / 2, height / 2);
+            psymon.pW2();
           else if (flip >= flipTime * 2 && flip < flipTime * 3)
-            image(psymon.pW1(), width / 2, height / 2);
+            psymon.pW1();
           else
-            image(psymon.pW2(), width / 2, height / 2);
+            psymon.pW2();
       }
     break;
     case 'a':
@@ -66,13 +66,13 @@ void draw() {
         x = x + walkSpeed;
         if (!map.boarderLeft())
           if (flip >= 0 && flip < flipTime)
-            image(psymon.pA1(), width / 2, height / 2);
+            psymon.pA1();
           else if (flip >= flipTime && flip < flipTime * 2)
-            image(psymon.pA2(), width / 2, height / 2);
+            psymon.pA2();
           else if (flip >= flipTime * 2 && flip < flipTime * 3)
-            image(psymon.pA3(), width / 2, height / 2);
+            psymon.pA3();
           else
-            image(psymon.pA4(), width / 2, height / 2);
+            psymon.pA4();
       }
     break;
     case 's':
@@ -80,13 +80,13 @@ void draw() {
         y = y - walkSpeed;
         if (!map.boarderDown())
           if (flip >= 0 && flip < flipTime)
-            image(psymon.pS1(), width / 2, height / 2);
+            psymon.pS1();
           else if (flip >= flipTime && flip < flipTime * 2)
-            image(psymon.pS2(), width / 2, height / 2);
+            psymon.pS2();
           else if (flip >= flipTime * 2 && flip < flipTime * 3)
-            image(psymon.pS1(), width / 2, height / 2);
+            psymon.pS1();
           else
-            image(psymon.pS2(), width / 2, height / 2);
+            psymon.pS2();
       }
     break;
     case 'd':
@@ -94,13 +94,13 @@ void draw() {
         x = x - walkSpeed;
         if (!map.boarderRight())
           if (flip >= 0 && flip < flipTime)
-            image(psymon.pD1(), width / 2, height / 2);
+            psymon.pD1();
           else if (flip >= flipTime && flip < flipTime * 2)
-            image(psymon.pD2(), width / 2, height / 2);
+            psymon.pD2();
           else if (flip >= flipTime * 2 && flip < flipTime * 3)
-            image(psymon.pD3(), width / 2, height / 2);
+            psymon.pD3();
           else
-          image(psymon.pD4(), width / 2, height / 2);
+          psymon.pD4();
       }
     break;
     case TAB:
@@ -113,27 +113,27 @@ void draw() {
 void keyReleased() {
   map.m(x,y);
   switch (key) {
-    default: image(psymon.pS(), width / 2, height / 2);
+    default: psymon.pS();
     break;
     case 'w':
-      image(psymon.pW(), width / 2, height / 2);
+      psymon.pW();
       if (zone == 2)
         zone = 1;
       if (zone == 3)
         zone = 2;
     break;
     case 'a':
-      image(psymon.pA(), width / 2, height / 2);
+      psymon.pA();
     break;
     case 's':
-      image(psymon.pS(), width / 2, height / 2);
+      psymon.pS();
       if (zone == 1)
         zone = 2;
       if (zone == 2)
         zone = 3;
     break;
     case 'd':
-      image(psymon.pD(), width / 2, height / 2);
+      psymon.pD();
     break;
     case ENTER:
       if (zone == 1)

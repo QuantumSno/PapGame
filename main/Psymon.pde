@@ -28,26 +28,26 @@ class Psymon {
     loadPsymon();
   }
 
-  void pW() { return PsymonW; }
-  void pA() { return PsymonA; }
-  void pS() { return PsymonS; }
-  void pD() { return PsymonD; }
+  void pW() { loadImage(PsymonW, width/2, height/2); }
+  void pA() { loadImage(PsymonA, width/2, height/2); }
+  void pS() { loadImage(PsymonS, width/2, height/2); }
+  void pD() { loadImage(PsymonD, width/2, height/2); }
 
-  void pW1() { return PsymonWw1; }
-  void pW2() { return PsymonWw2; }
+  void pW1() { loadImage(PsymonWw1, width/2, height/2); }
+  void pW2() { loadImage(PsymonWw2, width/2, height/2); }
 
-  void pA1() { return PsymonAw1; }
-  void pA2() { return PsymonAw2; }
-  void pA3() { return PsymonAw3; }
-  void pA4() { return PsymonAw4; }
+  void pA1() { loadImage(PsymonAw1, width/2, height/2); }
+  void pA2() { loadImage(PsymonAw2, width/2, height/2); }
+  void pA3() { loadImage(PsymonAw3, width/2, height/2); }
+  void pA4() { loadImage(PsymonAw4, width/2, height/2); }
 
-  void pS1() { return PsymonSw1; }
-  void pS2() { return PsymonSw2; }
+  void pS1() { loadImage(PsymonSw1, width/2, height/2); }
+  void pS2() { loadImage(PsymonSw2, width/2, height/2); }
 
-  void pD1() { return PsymonDw1; }
-  void pD2() { return PsymonDw2; }
-  void pD3() { return PsymonDw3; }
-  void pD4() { return PsymonDw4; }
+  void pD1() { loadImage(PsymonDw1, width/2, height/2); }
+  void pD2() { loadImage(PsymonDw2, width/2, height/2); }
+  void pD3() { loadImage(PsymonDw3, width/2, height/2); }
+  void pD4() { loadImage(PsymonDw4, width/2, height/2); }
 
   void loadPsymon() {
     PsymonW.beginDraw();
