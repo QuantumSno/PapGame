@@ -17,7 +17,9 @@ public class main extends PApplet {
 int scale, flipTime, flip, zone, x, y, walkSpeed;
 Psymon psymon;
 Map map;
+boolean move;
 public void setup() {
+  move=true;
   
   flipTime=5;
   flip=0;
@@ -28,17 +30,22 @@ public void setup() {
   imageMode(CENTER);
   psymon= new Psymon();
   map= new Map();
+  //image(map.m(), x, y);
+  //image(psymon.pW(), width/2, height/2);
 }
 public void draw() {
   if(flip>=flipTime*4)
     flip=0;
+    if(move)
+    keyPressed();
 }
 
 public void keyPressed() {
+  move=true;
   image(map.m(), x, y);
   flip++;
   switch(key) {
-    default:
+    default: image(psymon.pS(),width/2,height/2);
     break; case 'w':
       y=y+walkSpeed;
       if(!map.boarderUp())
@@ -87,9 +94,10 @@ public void keyPressed() {
   }
 }
 public void keyReleased() {
+  move=false;
   image(map.m(), x, y);
   switch(key) {
-    default:
+    default: image(psymon.pS(),width/2,height/2);
     break; case 'w': image(psymon.pW(), width/2, height/2);
     break; case 'a': image(psymon.pA(), width/2, height/2);
     break; case 's': image(psymon.pS(), width/2, height/2);

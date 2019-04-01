@@ -1,7 +1,9 @@
 int scale, flipTime, flip, zone, x, y, walkSpeed;
 Psymon psymon;
 Map map;
+boolean move;
 void setup() {
+  move=true;
   size(840,640);
   flipTime=5;
   flip=0;
@@ -16,13 +18,16 @@ void setup() {
 void draw() {
   if(flip>=flipTime*4)
     flip=0;
+    if(move)
+    keyPressed();
 }
 
 void keyPressed() {
+  move=true;
   image(map.m(), x, y);
   flip++;
   switch(key) {
-    default:
+    default: image(psymon.pS(),width/2,height/2);
     break; case 'w':
       y=y+walkSpeed;
       if(!map.boarderUp())
@@ -71,9 +76,10 @@ void keyPressed() {
   }
 }
 void keyReleased() {
+  move=false;
   image(map.m(), x, y);
   switch(key) {
-    default:
+    default: image(psymon.pS(),width/2,height/2);
     break; case 'w': image(psymon.pW(), width/2, height/2);
     break; case 'a': image(psymon.pA(), width/2, height/2);
     break; case 's': image(psymon.pS(), width/2, height/2);
