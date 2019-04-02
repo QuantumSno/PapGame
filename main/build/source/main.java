@@ -20,6 +20,7 @@ Map map;
 ui ui;
 boolean move;
 public void setup() {
+  
   move = true;
   
   flipTime = 10;
@@ -36,84 +37,84 @@ public void setup() {
   psymon.pS();
 }
 public void draw() {
-  if (flip >= flipTime * 4)
+  clip(width/2, height/2, width, height);
+  if(flip >= flipTime * 4)
   flip = 0;
-  if (keyPressed)
-    if (move)
-        keyPressed();
-  if (zone == 1) {
+  if(keyPressed)
+    if(move)
+      keyPressed();
+  if(zone == 1) {
     map.m(x,y);
     psymon.pS();
     ui.tab1();
-  } else if (zone == 2) {
+  } else if(zone == 2) {
     map.m(x,y);
     psymon.pS();
     ui.tab2();
-  } else if (zone == 3) {
+  } else if(zone == 3) {
     map.m(x,y);
     psymon.pS();
     ui.tab3();
   }
 }
-
   public void keyPressed() {
-  if (keyPressed)
+  if(keyPressed)
     map.m(x,y);
   flip++;
   switch (key) {
     default: psymon.pS();
     break;
     case 'w':
-      if (move) {
+      if(move) {
         y = y + walkSpeed;
-        if (!map.boarderUp())
-          if (flip >= 0 && flip < flipTime)
+        if(!map.boarderUp())
+          if(flip >= 0 && flip < flipTime)
             psymon.pW1();
-          else if (flip >= flipTime && flip < flipTime * 2)
+          else if(flip >= flipTime && flip < flipTime * 2)
             psymon.pW2();
-          else if (flip >= flipTime * 2 && flip < flipTime * 3)
+          else if(flip >= flipTime * 2 && flip < flipTime * 3)
             psymon.pW1();
           else
             psymon.pW2();
       }
     break;
     case 'a':
-      if (move) {
+      if(move) {
         x = x + walkSpeed;
-        if (!map.boarderLeft())
-          if (flip >= 0 && flip < flipTime)
+        if(!map.boarderLeft())
+          if(flip >= 0 && flip < flipTime)
             psymon.pA1();
-          else if (flip >= flipTime && flip < flipTime * 2)
+          else if(flip >= flipTime && flip < flipTime * 2)
             psymon.pA2();
-          else if (flip >= flipTime * 2 && flip < flipTime * 3)
+          else if(flip >= flipTime * 2 && flip < flipTime * 3)
             psymon.pA3();
           else
             psymon.pA4();
       }
     break;
     case 's':
-      if (move) {
+      if(move) {
         y = y - walkSpeed;
-        if (!map.boarderDown())
-          if (flip >= 0 && flip < flipTime)
+        if(!map.boarderDown())
+          if(flip >= 0 && flip < flipTime)
             psymon.pS1();
-          else if (flip >= flipTime && flip < flipTime * 2)
+          else if(flip >= flipTime && flip < flipTime * 2)
             psymon.pS2();
-          else if (flip >= flipTime * 2 && flip < flipTime * 3)
+          else if(flip >= flipTime * 2 && flip < flipTime * 3)
             psymon.pS1();
           else
             psymon.pS2();
       }
     break;
     case 'd':
-      if (move) {
+      if(move) {
         x = x - walkSpeed;
-        if (!map.boarderRight())
-          if (flip >= 0 && flip < flipTime)
+        if(!map.boarderRight())
+          if(flip >= 0 && flip < flipTime)
             psymon.pD1();
-          else if (flip >= flipTime && flip < flipTime * 2)
+          else if(flip >= flipTime && flip < flipTime * 2)
             psymon.pD2();
-          else if (flip >= flipTime * 2 && flip < flipTime * 3)
+          else if(flip >= flipTime * 2 && flip < flipTime * 3)
             psymon.pD3();
           else
           psymon.pD4();
@@ -127,15 +128,14 @@ public void draw() {
   }
 }
 public void keyReleased() {
-  map.m(x,y);
   switch (key) {
     default: psymon.pS();
     break;
     case 'w':
       psymon.pW();
-      if (zone == 2)
+      if(zone == 2)
         zone = 1;
-      if (zone == 3)
+      if(zone == 3)
         zone = 2;
     break;
     case 'a':
@@ -143,16 +143,16 @@ public void keyReleased() {
     break;
     case 's':
       psymon.pS();
-      if (zone == 1)
-        zone = 2;
-      if (zone == 2)
+      if(zone == 2)
         zone = 3;
+      if(zone == 1)
+          zone = 2;
     break;
     case 'd':
       psymon.pD();
     break;
     case ENTER:
-      if (zone == 1)
+      if(zone == 1)
       zone = 0;
       move=true;
     break;
@@ -322,6 +322,11 @@ class Psymon {
     PsymonDw4.endDraw();
   }
 }
+class keyboard {
+  public keyboard() {
+
+  }
+}
 class ui {
   PGraphics tab1, tab2, tab3;
   int scale;
@@ -355,7 +360,7 @@ class ui {
     tab3.endDraw();
   }
 }
-  public void settings() {  size(840, 640); }
+  public void settings() {  size(840, 640);  noSmooth(); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
     if (passedArgs != null) {
