@@ -14,14 +14,13 @@ import java.io.IOException;
 
 public class main extends PApplet {
 
-  int scale, flipTime, flip, zone, x, y, walkSpeed;
-  Psymon psymon;
-  Map map;
-  ui ui;
-  Whyatt whyatt;
+  int scale, flipTime, flip, zone, x, y, walkSpeed, direction;
   boolean move;
+  RenderOrder ro;
+  Map map;
   //CREATE RENDER ORDER
 public void setup() {
+  map= new Map();
   move = true;
   
   flipTime = 10;
@@ -29,140 +28,43 @@ public void setup() {
   zone = 0;
   x = 0;
   y = 0;
+  direction=0;
   walkSpeed = 5;
   imageMode(CENTER);
   
-  psymon = new Psymon();
-  map = new Map();
-  ui = new ui();
-  whyatt = new Whyatt(500,500);
-  map.m(x,y);
-  psymon.pS();
+  ro= new RenderOrder(x, y);
 }
 public void draw() {
   if(flip >= flipTime * 4)
   flip = 0;
-  if(zone == 0 ) {
-    if(keyPressed)
-      if(move)
-          keyPressed();
-  } else if(zone == 1) {
-    map.m(x,y);
-    psymon.pS();
-    ui.tab1();
-  } else if(zone == 2) {
-    map.m(x,y);
-    psymon.pS();
-    ui.tab2();
-  } else if(zone == 3) {
-    map.m(x,y);
-    psymon.pS();
-    ui.tab3();
-  }
-  whyatt.wS(x, y);
-
+  keyPressed();
+  ro.render(zone, x, y, direction, flip);
 }
 public void keyPressed() {
-  if(keyPressed)
-    map.m(x,y);
-  flip++;
-  switch (key) {
-    default: psymon.pS();
-    break;
-    case 'w':
-      if(move) {
-        y = y + walkSpeed;
-        if(!map.boarderUp())
-          if(flip >= 0 && flip < flipTime)
-            psymon.pW1();
-          else if(flip >= flipTime && flip < flipTime * 2)
-            psymon.pW2();
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
-            psymon.pW1();
-          else
-            psymon.pW2();
-      }
-    break;
-    case 'a':
-      if(move) {
-        x = x + walkSpeed;
-        if(!map.boarderLeft())
-          if(flip >= 0 && flip < flipTime)
-            psymon.pA1();
-          else if(flip >= flipTime && flip < flipTime * 2)
-            psymon.pA2();
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
-            psymon.pA3();
-          else
-            psymon.pA4();
-      }
-    break;
-    case 's':
-      if(move) {
-        y = y - walkSpeed;
-        if(!map.boarderDown())
-          if(flip >= 0 && flip < flipTime)
-            psymon.pS1();
-          else if(flip >= flipTime && flip < flipTime * 2)
-            psymon.pS2();
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
-            psymon.pS1();
-          else
-            psymon.pS2();
-      }
-    break;
-    case 'd':
-      if(move) {
-        x = x - walkSpeed;
-        if(!map.boarderRight())
-          if(flip >= 0 && flip < flipTime)
-            psymon.pD1();
-          else if(flip >= flipTime && flip < flipTime * 2)
-            psymon.pD2();
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
-            psymon.pD3();
-          else
-          psymon.pD4();
-      }
-    break;
-    case TAB:
-      zone = 1;
-      delay(100);
-      move = false;
-    break;
+  if(zone==0)
+  if(keyPressed) {
+    if(key=='w' && !map.boarderUp()) {
+      y= y+walkSpeed;
+      direction=1;
+    } else if(key=='a' && !map.boarderRight()) {
+      x= x+walkSpeed;
+      direction=2;
+    } else if(key=='s' && !map.boarderDown()) {
+      y= y-walkSpeed;
+      direction=3;
+    } else if(key=='d' && !map.boarderLeft()) {
+      x= x-walkSpeed;
+      direction=4;
+    }
+    else if(key==TAB);
   }
 }
 public void keyReleased() {
-  map.m(x,y);
-  switch (key) {
-    default: psymon.pS();
-    break;
-    case 'w':
-      psymon.pW();
-      if(zone == 2)
-        zone = 1;
-      if(zone == 3)
-        zone = 2;
-    break;
-    case 'a':
-      psymon.pA();
-    break;
-    case 's':
-      psymon.pS();
-      if(zone == 1)
-        zone = 2;
-      if(zone == 2)
-        zone = 3;
-    break;
-    case 'd':
-      psymon.pD();
-    break;
-    case ENTER:
-      if(zone == 1)
-      zone = 0;
-      move=true;
-    break;
-  }
+  if(zone==0)
+  if(key=='w') direction=1;
+  if(key=='a') direction=2;
+  if(key=='s') direction=3;
+  if(key=='d') direction=4;
 }
 class Map {
   PGraphics map;
@@ -329,11 +231,40 @@ class Psymon {
   }
 }
 class RenderOrder {
-  public RenderOrder() {
-
+    Psymon psymon;
+    Map map;
+    ui ui;
+    Whyatt whyatt;
+  public RenderOrder(int x, int y) {
+    psymon = new Psymon();
+    map = new Map();
+    ui = new ui();
+    whyatt = new Whyatt(500,500);
+    map.m(x,y);
+    psymon.pS();
   }
-  public void render() {
-    int x= super.x;
+  public void render(int zone, int x, int y, int direction, int flip) {
+    if(zone==0) {
+      map.m(x, y);
+      switch(direction) {
+        default: psymon.pS(); break;
+        case 1: psymon.pW(); break;
+        case 2: psymon.pA(); break;
+        case 3: psymon.pS(); break;
+        case 4: psymon.pD(); break;
+        case 5: psymon.pW1(); break;
+        case 6: psymon.pW2(); break;
+        case 7: psymon.pA1(); break;
+        case 8: psymon.pA2(); break;
+        case 9: psymon.pA3(); break;
+        case 10: psymon.pA4(); break;
+        case 11: psymon.pS1(); break;
+        case 12: psymon.pS2(); break;
+        case 13: psymon.pS(); break;
+        case 14: psymon.pA(); break;
+        case 15: psymon.pA(); break;
+      }
+    }
   }
 }
 class Whyatt {

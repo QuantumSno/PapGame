@@ -1,8 +1,10 @@
   int scale, flipTime, flip, zone, x, y, walkSpeed, direction;
   boolean move;
   RenderOrder ro;
+  Map map;
   //CREATE RENDER ORDER
 void setup() {
+  map= new Map();
   move = true;
   size(840, 640);
   flipTime = 10;
@@ -19,45 +21,32 @@ void setup() {
 void draw() {
   if(flip >= flipTime * 4)
   flip = 0;
+  keyPressed();
   ro.render(zone, x, y, direction, flip);
 }
 void keyPressed() {
   if(zone==0)
   if(keyPressed) {
-    if(key=='w') {
+    if(key=='w' && !map.boarderUp()) {
       y= y+walkSpeed;
       direction=1;
-    } else if(key=='w' && key== 'd') {
-      y= y+walkSpeed;
+    } else if(key=='a' && !map.boarderRight()) {
       x= x+walkSpeed;
       direction=2;
-    } else if(key=='d') {
-      x= x+walkSpeed;
+    } else if(key=='s' && !map.boarderDown()) {
+      y= y-walkSpeed;
       direction=3;
-    } else if(key=='d' && key=='s') {
-      x= x+walkSpeed;
-      y= y-walkSpeed;
+    } else if(key=='d' && !map.boarderLeft()) {
+      x= x-walkSpeed;
       direction=4;
-    } else if(key=='s') {
-      y= y-walkSpeed;
-      direction=5;
-    } else if(key=='s' && key=='a') {
-      y= y-walkSpeed;
-      x= x-walkSpeed;
-      direction=6;
-    } else if(key=='a') {
-      x= x-walkSpeed;
-      direction=7;
-    } else if(key=='a' && key=='w') {
-      x= x-walkSpeed;
-      y= y+walkSpeed;
-      direction=8;
     }
     else if(key==TAB);
-    else;
   }
 }
 void keyReleased() {
-
-  }
+  if(zone==0)
+  if(key=='w') direction=1;
+  if(key=='a') direction=2;
+  if(key=='s') direction=3;
+  if(key=='d') direction=4;
 }
