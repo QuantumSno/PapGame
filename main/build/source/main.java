@@ -14,13 +14,13 @@ import java.io.IOException;
 
 public class main extends PApplet {
 
-int scale, flipTime, flip, zone, x, y, walkSpeed;
-Psymon psymon;
-Map map;
-ui ui;
-boolean move;
+  int scale, flipTime, flip, zone, x, y, walkSpeed;
+  Psymon psymon;
+  Map map;
+  ui ui;
+  Whyatt whyatt;
+  boolean move;
 public void setup() {
-  
   move = true;
   
   flipTime = 10;
@@ -33,17 +33,19 @@ public void setup() {
   psymon = new Psymon();
   map = new Map();
   ui = new ui();
+  whyatt = new Whyatt(500,500);
   map.m(x,y);
   psymon.pS();
 }
 public void draw() {
-  clip(width/2, height/2, width, height);
   if(flip >= flipTime * 4)
   flip = 0;
-  if(keyPressed)
-    if(move)
-      keyPressed();
-  if(zone == 1) {
+  whyatt.wS();
+  if(zone == 0 ) {
+    if(keyPressed)
+      if(move)
+          keyPressed();
+  } else if(zone == 1) {
     map.m(x,y);
     psymon.pS();
     ui.tab1();
@@ -57,7 +59,7 @@ public void draw() {
     ui.tab3();
   }
 }
-  public void keyPressed() {
+public void keyPressed() {
   if(keyPressed)
     map.m(x,y);
   flip++;
@@ -128,6 +130,7 @@ public void draw() {
   }
 }
 public void keyReleased() {
+  map.m(x,y);
   switch (key) {
     default: psymon.pS();
     break;
@@ -143,10 +146,10 @@ public void keyReleased() {
     break;
     case 's':
       psymon.pS();
+      if(zone == 1)
+        zone = 2;
       if(zone == 2)
         zone = 3;
-      if(zone == 1)
-          zone = 2;
     break;
     case 'd':
       psymon.pD();
@@ -322,10 +325,128 @@ class Psymon {
     PsymonDw4.endDraw();
   }
 }
-class keyboard {
-  public keyboard() {
+class Whyatt {
+  PGraphics
+  WhyattW, WhyattA, WhyattS, WhyattD,
+  WhyattWw1, WhyattAw1, WhyattSw1, WhyattDw1,
+  WhyattWw2, WhyattAw2, WhyattSw2, WhyattDw2,
+  WhyattAw3, WhyattAw4, WhyattDw3, WhyattDw4;
+  int scale, size, x, y;
+public Whyatt(int o, int p) {
+  x=o;
+  y=p;
+  scale=4;
+  size=32*scale;
+  WhyattW = createGraphics(size,size);
+  WhyattWw1 = createGraphics(size,size);
+  WhyattWw2 = createGraphics(size,size);
+  WhyattA = createGraphics(size,size);
+  WhyattAw1 = createGraphics(size,size);
+  WhyattAw2 = createGraphics(size,size);
+  WhyattAw3 = createGraphics(size,size);
+  WhyattAw4 = createGraphics(size,size);
+  WhyattS = createGraphics(size,size);
+  WhyattSw1 = createGraphics(size,size);
+  WhyattSw2 = createGraphics(size,size);
+  WhyattD = createGraphics(size,size);
+  WhyattDw1 = createGraphics(size,size);
+  WhyattDw2 = createGraphics(size,size);
+  WhyattDw3 = createGraphics(size,size);
+  WhyattDw4 = createGraphics(size,size);
 
-  }
+  loadWhyatt();
+}
+
+public void wW() { image(WhyattW, x, y); }
+public void wA() { image(WhyattA, x, y); }
+public void wS() { image(WhyattS, x, y); }
+public void wD() { image(WhyattD, x, y); }
+
+public void wW1() { image(WhyattWw1, x, y); }
+public void wW2() { image(WhyattWw2, x, y); }
+
+public void wA1() { image(WhyattAw1, x, y); }
+public void wA2() { image(WhyattAw2, x, y); }
+public void wA3() { image(WhyattAw3, x, y); }
+public void wA4() { image(WhyattAw4, x, y); }
+
+public void wS1() { image(WhyattSw1, x, y); }
+public void wS2() { image(WhyattSw2, x, y); }
+
+public void wD1() { image(WhyattDw1, x, y); }
+public void wD2() { image(WhyattDw2, x, y); }
+public void wD3() { image(WhyattDw3, x, y); }
+public void wD4() { image(WhyattDw4, x, y); }
+
+public void loadWhyatt() {
+  WhyattW.beginDraw();
+  WhyattW.noStroke();
+  //WhyattW.image(loadImage("Whyatt-behind.png"),0,0,size,size);
+  WhyattW.endDraw();
+  WhyattWw1.beginDraw();
+  WhyattWw1.noStroke();
+  //WhyattWw1.image(loadImage("Whyatt-behind-walking-1.png"),0,0,size,size);
+  WhyattWw1.endDraw();
+  WhyattWw2.beginDraw();
+  WhyattWw2.noStroke();
+  //WhyattWw2.image(loadImage("Whyatt-behind-walking-2.png"),0,0,size,size);
+  WhyattWw2.endDraw();
+
+  WhyattA.beginDraw();
+  WhyattA.noStroke();
+  //WhyattA.image(loadImage("Whyatt-side-left.png"),0,0,size,size);
+  WhyattA.endDraw();
+  WhyattAw1.beginDraw();
+  WhyattAw1.noStroke();
+  //WhyattAw1.image(loadImage("Whyatt-side-left-walking-1.png"),0,0,size,size);
+  WhyattAw1.endDraw();
+  WhyattAw2.beginDraw();
+  WhyattAw2.noStroke();
+  //WhyattAw2.image(loadImage("Whyatt-side-left-walking-2.png"),0,0,size,size);
+  WhyattAw2.endDraw();
+  WhyattAw3.beginDraw();
+  WhyattAw3.noStroke();
+  //WhyattAw3.image(loadImage("Whyatt-side-left-walking-3.png"),0,0,size,size);
+  WhyattAw3.endDraw();
+  WhyattAw4.beginDraw();
+  WhyattAw4.noStroke();
+  //WhyattAw4.image(loadImage("Whyatt-side-left-walking-4.png"),0,0,size,size);
+  WhyattAw4.endDraw();
+
+  WhyattS.beginDraw();
+  WhyattS.noStroke();
+  WhyattS.image(loadImage("Whyatt-front.png"),0,0,size,size);
+  WhyattS.endDraw();
+  WhyattSw1.beginDraw();
+  WhyattSw1.noStroke();
+  WhyattSw1.image(loadImage("Whyatt-front-walking-1.png"),0,0,size,size);
+  WhyattSw1.endDraw();
+  WhyattSw2.beginDraw();
+  WhyattSw2.noStroke();
+  WhyattSw2.image(loadImage("Whyatt-front-walking-2.png"),0,0,size,size);
+  WhyattSw2.endDraw();
+
+  WhyattD.beginDraw();
+  WhyattD.noStroke();
+  //WhyattD.image(loadImage("Whyatt-side-right.png"),0,0,size,size);
+  WhyattD.endDraw();
+  WhyattDw1.beginDraw();
+  WhyattDw1.noStroke();
+  //WhyattDw1.image(loadImage("Whyatt-side-right-walking-1.png"),0,0,size,size);
+  WhyattDw1.endDraw();
+  WhyattDw2.beginDraw();
+  WhyattDw2.noStroke();
+  //WhyattDw2.image(loadImage("Whyatt-side-right-walking-2.png"),0,0,size,size);
+  WhyattDw2.endDraw();
+  WhyattDw3.beginDraw();
+  WhyattDw3.noStroke();
+  //WhyattDw3.image(loadImage("Whyatt-side-right-walking-3.png"),0,0,size,size);
+  WhyattDw3.endDraw();
+  WhyattDw4.beginDraw();
+  WhyattDw4.noStroke();
+  //WhyattDw4.image(loadImage("Whyatt-side-right-walking-4.png"),0,0,size,size);
+  WhyattDw4.endDraw();
+}
 }
 class ui {
   PGraphics tab1, tab2, tab3;
@@ -360,9 +481,9 @@ class ui {
     tab3.endDraw();
   }
 }
-  public void settings() {  size(840, 640);  noSmooth(); }
+  public void settings() {  size(840, 640); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
+    String[] appletArgs = new String[] { "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

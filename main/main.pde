@@ -1,10 +1,10 @@
-int scale, flipTime, flip, zone, x, y, walkSpeed;
-Psymon psymon;
-Map map;
-ui ui;
-boolean move;
+  int scale, flipTime, flip, zone, x, y, walkSpeed;
+  Psymon psymon;
+  Map map;
+  ui ui;
+  Whyatt whyatt;
+  boolean move;
 void setup() {
-  noSmooth();
   move = true;
   size(840, 640);
   flipTime = 10;
@@ -17,17 +17,19 @@ void setup() {
   psymon = new Psymon();
   map = new Map();
   ui = new ui();
+  whyatt = new Whyatt(500,500);
   map.m(x,y);
   psymon.pS();
 }
 void draw() {
-  clip(width/2, height/2, width, height);
   if(flip >= flipTime * 4)
   flip = 0;
-  if(keyPressed)
-    if(move)
-      keyPressed();
-  if(zone == 1) {
+  whyatt.wS();
+  if(zone == 0 ) {
+    if(keyPressed)
+      if(move)
+          keyPressed();
+  } else if(zone == 1) {
     map.m(x,y);
     psymon.pS();
     ui.tab1();
@@ -41,7 +43,7 @@ void draw() {
     ui.tab3();
   }
 }
-  void keyPressed() {
+void keyPressed() {
   if(keyPressed)
     map.m(x,y);
   flip++;
@@ -112,6 +114,7 @@ void draw() {
   }
 }
 void keyReleased() {
+  map.m(x,y);
   switch (key) {
     default: psymon.pS();
     break;
@@ -127,10 +130,10 @@ void keyReleased() {
     break;
     case 's':
       psymon.pS();
+      if(zone == 1)
+        zone = 2;
       if(zone == 2)
         zone = 3;
-      if(zone == 1)
-          zone = 2;
     break;
     case 'd':
       psymon.pD();
