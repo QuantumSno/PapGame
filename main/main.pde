@@ -1,9 +1,7 @@
-  int scale, flipTime, flip, zone, x, y, walkSpeed;
-  Psymon psymon;
-  Map map;
-  ui ui;
-  Whyatt whyatt;
+  int scale, flipTime, flip, zone, x, y, walkSpeed, direction;
   boolean move;
+  RenderOrder ro;
+  //CREATE RENDER ORDER
 void setup() {
   move = true;
   size(840, 640);
@@ -12,136 +10,54 @@ void setup() {
   zone = 0;
   x = 0;
   y = 0;
+  direction=0;
   walkSpeed = 5;
   imageMode(CENTER);
-  psymon = new Psymon();
-  map = new Map();
-  ui = new ui();
-  whyatt = new Whyatt(500,500);
-  map.m(x,y);
-  psymon.pS();
+  noSmooth();
+  ro= new RenderOrder(x, y);
 }
 void draw() {
   if(flip >= flipTime * 4)
   flip = 0;
-  whyatt.wS();
-  if(zone == 0 ) {
-    if(keyPressed)
-      if(move)
-          keyPressed();
-  } else if(zone == 1) {
-    map.m(x,y);
-    psymon.pS();
-    ui.tab1();
-  } else if(zone == 2) {
-    map.m(x,y);
-    psymon.pS();
-    ui.tab2();
-  } else if(zone == 3) {
-    map.m(x,y);
-    psymon.pS();
-    ui.tab3();
-  }
+  ro.render(zone, x, y, direction, flip);
 }
 void keyPressed() {
-  if(keyPressed)
-    map.m(x,y);
-  flip++;
-  switch (key) {
-    default: psymon.pS();
-    break;
-    case 'w':
-      if(move) {
-        y = y + walkSpeed;
-        if(!map.boarderUp())
-          if(flip >= 0 && flip < flipTime)
-            psymon.pW1();
-          else if(flip >= flipTime && flip < flipTime * 2)
-            psymon.pW2();
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
-            psymon.pW1();
-          else
-            psymon.pW2();
-      }
-    break;
-    case 'a':
-      if(move) {
-        x = x + walkSpeed;
-        if(!map.boarderLeft())
-          if(flip >= 0 && flip < flipTime)
-            psymon.pA1();
-          else if(flip >= flipTime && flip < flipTime * 2)
-            psymon.pA2();
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
-            psymon.pA3();
-          else
-            psymon.pA4();
-      }
-    break;
-    case 's':
-      if(move) {
-        y = y - walkSpeed;
-        if(!map.boarderDown())
-          if(flip >= 0 && flip < flipTime)
-            psymon.pS1();
-          else if(flip >= flipTime && flip < flipTime * 2)
-            psymon.pS2();
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
-            psymon.pS1();
-          else
-            psymon.pS2();
-      }
-    break;
-    case 'd':
-      if(move) {
-        x = x - walkSpeed;
-        if(!map.boarderRight())
-          if(flip >= 0 && flip < flipTime)
-            psymon.pD1();
-          else if(flip >= flipTime && flip < flipTime * 2)
-            psymon.pD2();
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
-            psymon.pD3();
-          else
-          psymon.pD4();
-      }
-    break;
-    case TAB:
-      zone = 1;
-      delay(100);
-      move = false;
-    break;
+  if(zone==0)
+  if(keyPressed) {
+    if(key=='w') {
+      y= y+walkSpeed;
+      direction=1;
+    } else if(key=='w' && key== 'd') {
+      y= y+walkSpeed;
+      x= x+walkSpeed;
+      direction=2;
+    } else if(key=='d') {
+      x= x+walkSpeed;
+      direction=3;
+    } else if(key=='d' && key=='s') {
+      x= x+walkSpeed;
+      y= y-walkSpeed;
+      direction=4;
+    } else if(key=='s') {
+      y= y-walkSpeed;
+      direction=5;
+    } else if(key=='s' && key=='a') {
+      y= y-walkSpeed;
+      x= x-walkSpeed;
+      direction=6;
+    } else if(key=='a') {
+      x= x-walkSpeed;
+      direction=7;
+    } else if(key=='a' && key=='w') {
+      x= x-walkSpeed;
+      y= y+walkSpeed;
+      direction=8;
+    }
+    else if(key==TAB);
+    else;
   }
 }
 void keyReleased() {
-  map.m(x,y);
-  switch (key) {
-    default: psymon.pS();
-    break;
-    case 'w':
-      psymon.pW();
-      if(zone == 2)
-        zone = 1;
-      if(zone == 3)
-        zone = 2;
-    break;
-    case 'a':
-      psymon.pA();
-    break;
-    case 's':
-      psymon.pS();
-      if(zone == 1)
-        zone = 2;
-      if(zone == 2)
-        zone = 3;
-    break;
-    case 'd':
-      psymon.pD();
-    break;
-    case ENTER:
-      if(zone == 1)
-      zone = 0;
-      move=true;
-    break;
+
   }
 }
