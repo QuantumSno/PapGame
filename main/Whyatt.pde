@@ -32,6 +32,12 @@ void update(int o, int p) {
   x=o;
   y=p;
 }
+int getX() {
+  return x;
+}
+int getY() {
+  return y;
+}
 
 void wW(int o, int p) { image(WhyattW, o-x, p-y); }
 void wA(int o, int p) { image(WhyattA, o-x, p-y); }
