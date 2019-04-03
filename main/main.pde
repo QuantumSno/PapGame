@@ -2,9 +2,11 @@
   boolean move;
   RenderOrder ro;
   Map map;
+  ui ui;
   //CREATE RENDER ORDER
 void setup() {
   map= new Map();
+  ui= new ui();
   move = true;
   size(840, 640);
   flipTime = 10;
@@ -20,33 +22,62 @@ void setup() {
 }
 void draw() {
   if(flip >= flipTime * 4)
-  flip = 0;
+    flip = 0;
   keyPressed();
-  ro.render(zone, x, y, direction, flip);
+  ro.render(zone, x, y, direction, flip, flipTime);
 }
 void keyPressed() {
   if(zone==0)
   if(keyPressed) {
     if(key=='w' && !map.boarderUp()) {
       y= y+walkSpeed;
-      direction=1;
+      direction=5;
+      flip++;
     } else if(key=='a' && !map.boarderRight()) {
       x= x+walkSpeed;
-      direction=2;
+      direction=6;
+      flip++;
     } else if(key=='s' && !map.boarderDown()) {
       y= y-walkSpeed;
-      direction=3;
+      direction=7;
+      flip++;
     } else if(key=='d' && !map.boarderLeft()) {
       x= x-walkSpeed;
-      direction=4;
+      direction=8;
+      flip++;
     }
-    else if(key==TAB);
   }
 }
 void keyReleased() {
   if(zone==0)
-  if(key=='w') direction=1;
-  if(key=='a') direction=2;
-  if(key=='s') direction=3;
-  if(key=='d') direction=4;
+    if(key=='w') direction=1;
+    else if(key=='a') direction=2;
+    else if(key=='s') direction=3;
+    else if(key=='d') direction=4;
+    else if(key==TAB) {
+      zone=1;
+      noLoop();
+      ui.tab1();
+    }
+  if(zone==2)
+    if(key=='w') {
+      zone=1;
+      redraw();
+    } else if(key=='s') {
+      zone=3;
+      redraw();
+    }
+  if(zone==3)
+    if(key=='w') {
+      zone=2;
+      redraw();
+    }
+  if(zone==1)
+    if(key=='s') {
+      redraw();
+      zone=2;
+    } else if(key==ENTER) {
+      zone=0;
+      loop();
+    }
 }

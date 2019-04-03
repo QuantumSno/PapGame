@@ -18,9 +18,11 @@ public class main extends PApplet {
   boolean move;
   RenderOrder ro;
   Map map;
+  ui ui;
   //CREATE RENDER ORDER
 public void setup() {
   map= new Map();
+  ui= new ui();
   move = true;
   
   flipTime = 10;
@@ -36,35 +38,64 @@ public void setup() {
 }
 public void draw() {
   if(flip >= flipTime * 4)
-  flip = 0;
+    flip = 0;
   keyPressed();
-  ro.render(zone, x, y, direction, flip);
+  ro.render(zone, x, y, direction, flip, flipTime);
 }
 public void keyPressed() {
   if(zone==0)
   if(keyPressed) {
     if(key=='w' && !map.boarderUp()) {
       y= y+walkSpeed;
-      direction=1;
+      direction=5;
+      flip++;
     } else if(key=='a' && !map.boarderRight()) {
       x= x+walkSpeed;
-      direction=2;
+      direction=6;
+      flip++;
     } else if(key=='s' && !map.boarderDown()) {
       y= y-walkSpeed;
-      direction=3;
+      direction=7;
+      flip++;
     } else if(key=='d' && !map.boarderLeft()) {
       x= x-walkSpeed;
-      direction=4;
+      direction=8;
+      flip++;
     }
-    else if(key==TAB);
   }
 }
 public void keyReleased() {
   if(zone==0)
-  if(key=='w') direction=1;
-  if(key=='a') direction=2;
-  if(key=='s') direction=3;
-  if(key=='d') direction=4;
+    if(key=='w') direction=1;
+    else if(key=='a') direction=2;
+    else if(key=='s') direction=3;
+    else if(key=='d') direction=4;
+    else if(key==TAB) {
+      zone=1;
+      noLoop();
+      ui.tab1();
+    }
+  if(zone==2)
+    if(key=='w') {
+      zone=1;
+      redraw();
+    } else if(key=='s') {
+      zone=3;
+      redraw();
+    }
+  if(zone==3)
+    if(key=='w') {
+      zone=2;
+      redraw();
+    }
+  if(zone==1)
+    if(key=='s') {
+      redraw();
+      zone=2;
+    } else if(key==ENTER) {
+      zone=0;
+      loop();
+    }
 }
 class Map {
   PGraphics map;
@@ -243,27 +274,71 @@ class RenderOrder {
     map.m(x,y);
     psymon.pS();
   }
-  public void render(int zone, int x, int y, int direction, int flip) {
+  public void render(int zone, int x, int y, int direction, int flip, int flipTime) {
     if(zone==0) {
       map.m(x, y);
-      switch(direction) {
-        default: psymon.pS(); break;
-        case 1: psymon.pW(); break;
-        case 2: psymon.pA(); break;
-        case 3: psymon.pS(); break;
-        case 4: psymon.pD(); break;
-        case 5: psymon.pW1(); break;
-        case 6: psymon.pW2(); break;
-        case 7: psymon.pA1(); break;
-        case 8: psymon.pA2(); break;
-        case 9: psymon.pA3(); break;
-        case 10: psymon.pA4(); break;
-        case 11: psymon.pS1(); break;
-        case 12: psymon.pS2(); break;
-        case 13: psymon.pS(); break;
-        case 14: psymon.pA(); break;
-        case 15: psymon.pA(); break;
-      }
+      psymon();
+    } else if(zone==1) {
+      map.m(x, y);
+      psymon();
+      ui.tab1();
+    } else if(zone==2) {
+      map.m(x, y);
+      psymon();
+      ui.tab2();
+    } else if(zone==3) {
+      map.m(x, y);
+      psymon();
+      ui.tab3();
+    }
+  }
+  public void psymon() {
+    switch(direction) {
+      default: psymon.pS(); break;
+      case 1: psymon.pW(); break;
+      case 2: psymon.pA(); break;
+      case 3: psymon.pS(); break;
+      case 4: psymon.pD(); break;
+      case 5:
+        if(flip >= 0 && flip < flipTime)
+          psymon.pW1();
+        else if(flip >= flipTime && flip < flipTime * 2)
+          psymon.pW2();
+        else if(flip >= flipTime * 2 && flip < flipTime * 3)
+          psymon.pW1();
+        else
+          psymon.pW2();
+        break;
+      case 6:
+        if(flip >= 0 && flip < flipTime)
+          psymon.pA1();
+        else if(flip >= flipTime && flip < flipTime * 2)
+          psymon.pA2();
+        else if(flip >= flipTime * 2 && flip < flipTime * 3)
+          psymon.pA3();
+        else
+          psymon.pA4();
+        break;
+      case 7:
+        if(flip >= 0 && flip < flipTime)
+          psymon.pS1();
+        else if(flip >= flipTime && flip < flipTime * 2)
+          psymon.pS2();
+        else if(flip >= flipTime * 2 && flip < flipTime * 3)
+          psymon.pS1();
+        else
+          psymon.pS2();
+        break;
+      case 8:
+        if(flip >= 0 && flip < flipTime)
+          psymon.pD1();
+        else if(flip >= flipTime && flip < flipTime * 2)
+          psymon.pD2();
+        else if(flip >= flipTime * 2 && flip < flipTime * 3)
+          psymon.pD3();
+        else
+          psymon.pD4();
+        break;
     }
   }
 }
