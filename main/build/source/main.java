@@ -97,6 +97,21 @@ public void keyReleased() {
       loop();
     }
 }
+class AI {
+  int active;
+  public void AI(int a) {
+    active=a;
+  }
+  public boolean gunnawalk() {
+    if(PApplet.parseInt(random(0, active))==active)
+      return true;
+    else
+      return false;
+  }
+  public int walk() {
+    return PApplet.parseInt(random(5, active/2));
+  }
+}
 class Map {
   PGraphics map;
   int scale;
@@ -266,16 +281,19 @@ class RenderOrder {
     Map map;
     ui ui;
     Whyatt whyatt;
+    int wd, wdt;
   public RenderOrder(int x, int y) {
     psymon = new Psymon();
     map = new Map();
     ui = new ui();
     whyatt = new Whyatt(500,500);
+    whyatt.AI(10);
     map.m(x,y);
     psymon.pS();
   }
   public void render(int zone, int x, int y, int direction, int flip, int flipTime) {
     if(zone==0) {
+      aiTests();
       map.m(x, y);
       whyatt.wS(x, y);
       psymon();
@@ -292,6 +310,24 @@ class RenderOrder {
       psymon();
       ui.tab3();
     }
+  }
+  public void aiTests() {
+    if(true) {
+      wd=whyatt.walk();
+      wdt=0;
+    }
+    if(wdt<wd) {
+      if(flip >= 0 && flip < flipTime)
+        whyatt.wS1(x, y);
+      else if(flip >= flipTime && flip < flipTime * 2)
+        whyatt.wS2(x, y);
+      else if(flip >= flipTime * 2 && flip < flipTime * 3)
+        whyatt.wS1(x, y);
+      else
+        whyatt.wS2(x, y);
+      wdt++;
+    }
+
   }
   public void psymon() {
     switch(direction) {
@@ -343,7 +379,7 @@ class RenderOrder {
     }
   }
 }
-class Whyatt {
+class Whyatt extends AI {
   PGraphics
   WhyattW, WhyattA, WhyattS, WhyattD,
   WhyattWw1, WhyattAw1, WhyattSw1, WhyattDw1,
@@ -371,8 +407,11 @@ public Whyatt(int o, int p) {
   WhyattDw2 = createGraphics(size,size);
   WhyattDw3 = createGraphics(size,size);
   WhyattDw4 = createGraphics(size,size);
-
   loadWhyatt();
+}
+public void update(int o, int p) {
+  x=o;
+  y=p;
 }
 
 public void wW(int o, int p) { image(WhyattW, o-x, p-y); }

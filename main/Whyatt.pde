@@ -1,4 +1,4 @@
-class Whyatt {
+class Whyatt extends AI {
   PGraphics
   WhyattW, WhyattA, WhyattS, WhyattD,
   WhyattWw1, WhyattAw1, WhyattSw1, WhyattDw1,
@@ -26,8 +26,11 @@ public Whyatt(int o, int p) {
   WhyattDw2 = createGraphics(size,size);
   WhyattDw3 = createGraphics(size,size);
   WhyattDw4 = createGraphics(size,size);
-
   loadWhyatt();
+}
+void update(int o, int p) {
+  x=o;
+  y=p;
 }
 
 void wW(int o, int p) { image(WhyattW, o-x, p-y); }

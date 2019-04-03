@@ -3,16 +3,19 @@ class RenderOrder {
     Map map;
     ui ui;
     Whyatt whyatt;
+    int wd, wdt;
   public RenderOrder(int x, int y) {
     psymon = new Psymon();
     map = new Map();
     ui = new ui();
     whyatt = new Whyatt(500,500);
+    whyatt.AI(10);
     map.m(x,y);
     psymon.pS();
   }
   void render(int zone, int x, int y, int direction, int flip, int flipTime) {
     if(zone==0) {
+      aiTests();
       map.m(x, y);
       whyatt.wS(x, y);
       psymon();
@@ -29,6 +32,24 @@ class RenderOrder {
       psymon();
       ui.tab3();
     }
+  }
+  void aiTests() {
+    if(true) {
+      wd=whyatt.walk();
+      wdt=0;
+    }
+    if(wdt<wd) {
+      if(flip >= 0 && flip < flipTime)
+        whyatt.wS1(x, y);
+      else if(flip >= flipTime && flip < flipTime * 2)
+        whyatt.wS2(x, y);
+      else if(flip >= flipTime * 2 && flip < flipTime * 3)
+        whyatt.wS1(x, y);
+      else
+        whyatt.wS2(x, y);
+      wdt++;
+    }
+
   }
   void psymon() {
     switch(direction) {
