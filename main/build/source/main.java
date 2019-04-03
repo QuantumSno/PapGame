@@ -277,6 +277,7 @@ class RenderOrder {
   public void render(int zone, int x, int y, int direction, int flip, int flipTime) {
     if(zone==0) {
       map.m(x, y);
+      whyatt.wS(x, y);
       psymon();
     } else if(zone==1) {
       map.m(x, y);
@@ -353,7 +354,7 @@ public Whyatt(int o, int p) {
   x=o;
   y=p;
   scale=4;
-  size=32*scale;
+  size=38*scale;
   WhyattW = createGraphics(size,size);
   WhyattWw1 = createGraphics(size,size);
   WhyattWw2 = createGraphics(size,size);

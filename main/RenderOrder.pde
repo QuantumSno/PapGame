@@ -14,6 +14,7 @@ class RenderOrder {
   void render(int zone, int x, int y, int direction, int flip, int flipTime) {
     if(zone==0) {
       map.m(x, y);
+      whyatt.wS(x, y);
       psymon();
     } else if(zone==1) {
       map.m(x, y);
