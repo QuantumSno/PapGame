@@ -6,11 +6,12 @@
   //CREATE RENDER ORDER
   //map size 2080x1750
 void setup() {
+  noCursor();
   map= new Map();
   ui= new ui();
   move = true;
-  //size(840, 640);
-  fullScreen();
+  size(840, 640);
+  //fullScreen();
   flipTime = 10;
   flip = 0;
   zone = 0;

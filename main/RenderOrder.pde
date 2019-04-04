@@ -39,6 +39,7 @@ class RenderOrder {
   void aiTests() {
     whyatt();
   }
+
   void whyatt() {
     if(whyatt.gunnawalk()) {
       wd=whyatt.walk();

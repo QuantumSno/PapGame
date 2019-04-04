@@ -324,6 +324,7 @@ class RenderOrder {
   public void aiTests() {
     whyatt();
   }
+
   public void whyatt() {
     if(whyatt.gunnawalk()) {
       wd=whyatt.walk();
