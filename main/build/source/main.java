@@ -26,8 +26,8 @@ public void setup() {
   map= new Map();
   ui= new ui();
   move = true;
+  //size(840, 640, P2D);
   
-  //fullScreen();
   flipTime = 10;
   flip = 0;
   zone = 0;
@@ -45,6 +45,7 @@ public void draw() {
     flip = 0;
   keyPressed();
   ro.render(zone, x, y, direction, flip, flipTime);
+  System.out.println("x: " + x + " y: " +  y);
 }
 public void keyPressed() {
   if(zone==0)
@@ -125,7 +126,7 @@ class Map {
   public Map() {
     scale=4;
     //map size 2080x1750
-    map = createGraphics(2080,1750);
+    map = createGraphics(2080*scale,1750*scale);
     loadMap();
   }
 
@@ -137,7 +138,7 @@ class Map {
   public void loadMap() {
     map.beginDraw();
     map.noStroke();
-    map.image(loadImage("collider map.png"),0,0,2080,1750);
+    map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
     map.endDraw();
   }
   public boolean boarderUp() {
@@ -295,39 +296,39 @@ class RenderOrder {
     int wd, wdt, wdd, ws;
   public RenderOrder(int x, int y) {
     ws=3;
-    //psymon = new Psymon();
+    psymon = new Psymon();
     map = new Map();
-    //ui = new ui();
-    //whyatt = new Whyatt(-100,-100);
-    //map.m(x,y);
-    //psymon.pS();
+    ui = new ui();
+    whyatt = new Whyatt(-100,-100);
+    map.m(x,y);
+    psymon.pS();
   }
 
   public void render(int zone, int x, int y, int direction, int flip, int flipTime) {
     map.m(x,y);
     if(zone==0) {
-      //aiTests();
+      aiTests();
       //map.translate(x,y);
-      //whyatt();
-      //psymon();
+      whyatt();
+      psymon();
     } else if(zone==1) {
       //map.translate(x,y);
-      //map.m(x, y);
-      //whyatt();
-      //psymon();
-      //ui.tab1();
+      map.m(x, y);
+      whyatt();
+      psymon();
+      ui.tab1();
     } else if(zone==2) {
       //map.translate(x,y);
-      //map.m(x, y);
-      //whyatt();
-      //psymon();
-      //ui.tab2();
+      map.m(x, y);
+      whyatt();
+      psymon();
+      ui.tab2();
     } else if(zone==3) {
       //map.translate(x, y);
-      //map.m(x, y);
-      //whyatt();
-      //psymon();
-      //ui.tab3();
+      map.m(x, y);
+      whyatt();
+      psymon();
+      ui.tab3();
     }
   }
   public void aiTests() {
@@ -616,7 +617,7 @@ class ui {
     tab3.endDraw();
   }
 }
-  public void settings() {  size(840, 640, P2D);  noSmooth(); }
+  public void settings() {  fullScreen(P2D);  noSmooth(); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "main" };
     if (passedArgs != null) {

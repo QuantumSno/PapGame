@@ -10,8 +10,8 @@ void setup() {
   map= new Map();
   ui= new ui();
   move = true;
-  size(840, 640, P2D);
-  //fullScreen();
+  //size(840, 640, P2D);
+  fullScreen(P2D);
   flipTime = 10;
   flip = 0;
   zone = 0;
@@ -29,6 +29,7 @@ void draw() {
     flip = 0;
   keyPressed();
   ro.render(zone, x, y, direction, flip, flipTime);
+  System.out.println("x: " + x + " y: " +  y);
 }
 void keyPressed() {
   if(zone==0)

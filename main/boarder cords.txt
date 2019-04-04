@@ -1,4 +1,125 @@
-CHECKERED MAP
-toes extend out 16 pix
-- top left = y: 1240 x: 1660
-- bottom right = y: -895 x: -1245
+x: 4840 y: -1875
+x: 4840 y: -1655
+x: 4725 y: -1655
+x: 4715 y: -1545
+x: 4595 y: -1535
+x: 4595 y: -1105
+x: 4854 y: -1110
+x: 4845 y: -1015
+x: 4720 y: -1015
+x: 4720 y: -855
+x: 4830 y: -845
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:
+x:  y:

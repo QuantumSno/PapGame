@@ -6,39 +6,39 @@ class RenderOrder {
     int wd, wdt, wdd, ws;
   public RenderOrder(int x, int y) {
     ws=3;
-    //psymon = new Psymon();
+    psymon = new Psymon();
     map = new Map();
-    //ui = new ui();
-    //whyatt = new Whyatt(-100,-100);
-    //map.m(x,y);
-    //psymon.pS();
+    ui = new ui();
+    whyatt = new Whyatt(-100,-100);
+    map.m(x,y);
+    psymon.pS();
   }
 
   void render(int zone, int x, int y, int direction, int flip, int flipTime) {
     map.m(x,y);
     if(zone==0) {
-      //aiTests();
+      aiTests();
       //map.translate(x,y);
-      //whyatt();
-      //psymon();
+      whyatt();
+      psymon();
     } else if(zone==1) {
       //map.translate(x,y);
-      //map.m(x, y);
-      //whyatt();
-      //psymon();
-      //ui.tab1();
+      map.m(x, y);
+      whyatt();
+      psymon();
+      ui.tab1();
     } else if(zone==2) {
       //map.translate(x,y);
-      //map.m(x, y);
-      //whyatt();
-      //psymon();
-      //ui.tab2();
+      map.m(x, y);
+      whyatt();
+      psymon();
+      ui.tab2();
     } else if(zone==3) {
       //map.translate(x, y);
-      //map.m(x, y);
-      //whyatt();
-      //psymon();
-      //ui.tab3();
+      map.m(x, y);
+      whyatt();
+      psymon();
+      ui.tab3();
     }
   }
   void aiTests() {
