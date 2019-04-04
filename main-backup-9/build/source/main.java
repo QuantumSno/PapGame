@@ -130,9 +130,6 @@ class Map {
   }
 
   public void m(int x, int y) { image(map, x, y); }
-  public void translate(int x, int y) {
-    translate(x, y);
-  }
 
   public void loadMap() {
     map.beginDraw();
@@ -295,45 +292,41 @@ class RenderOrder {
     int wd, wdt, wdd, ws;
   public RenderOrder(int x, int y) {
     ws=3;
-    //psymon = new Psymon();
+    psymon = new Psymon();
     map = new Map();
-    //ui = new ui();
+    ui = new ui();
     //whyatt = new Whyatt(-100,-100);
-    //map.m(x,y);
-    //psymon.pS();
-  }
-
-  public void render(int zone, int x, int y, int direction, int flip, int flipTime) {
     map.m(x,y);
+    psymon.pS();
+  }
+  public void render(int zone, int x, int y, int direction, int flip, int flipTime) {
     if(zone==0) {
-      //aiTests();
-      //map.translate(x,y);
+      aiTests();
+      map.m(x, y);
       //whyatt();
-      //psymon();
+      psymon();
     } else if(zone==1) {
-      //map.translate(x,y);
-      //map.m(x, y);
+      map.m(x, y);
       //whyatt();
-      //psymon();
-      //ui.tab1();
+      psymon();
+      ui.tab1();
     } else if(zone==2) {
-      //map.translate(x,y);
-      //map.m(x, y);
+      map.m(x, y);
       //whyatt();
-      //psymon();
-      //ui.tab2();
+      psymon();
+      ui.tab2();
     } else if(zone==3) {
-      //map.translate(x, y);
-      //map.m(x, y);
+      map.m(x, y);
       //whyatt();
-      //psymon();
-      //ui.tab3();
+      psymon();
+      ui.tab3();
     }
   }
   public void aiTests() {
-    whyatt();
+    //whyatt();
   }
-  public void whyatt() {
+/*
+  void whyatt() {
     if(whyatt.gunnawalk()) {
       wd=whyatt.walk();
       wdd=whyatt.direction();
@@ -401,6 +394,7 @@ class RenderOrder {
       }
     }
   }
+  */
   public void psymon() {
     switch(direction) {
       default: psymon.pS(); break;
@@ -616,7 +610,7 @@ class ui {
     tab3.endDraw();
   }
 }
-  public void settings() {  size(840, 640, P2D);  noSmooth(); }
+  public void settings() {  size(840, 640);  noSmooth(); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "main" };
     if (passedArgs != null) {

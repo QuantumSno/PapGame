@@ -9,9 +9,6 @@ class Map {
   }
 
   void m(int x, int y) { image(map, x, y); }
-  void translate(int x, int y) {
-    translate(x, y);
-  }
 
   void loadMap() {
     map.beginDraw();

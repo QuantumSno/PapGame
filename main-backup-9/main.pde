@@ -10,7 +10,7 @@ void setup() {
   map= new Map();
   ui= new ui();
   move = true;
-  size(840, 640, P2D);
+  size(840, 640);
   //fullScreen();
   flipTime = 10;
   flip = 0;
