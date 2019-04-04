@@ -13,6 +13,6 @@ class AI {
     return int(random(5, active/2));
   }
   int direction() {
-    return int(random(1,4));
+    return int(random(1,5));
   }
 }

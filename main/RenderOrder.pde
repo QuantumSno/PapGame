@@ -17,18 +17,21 @@ class RenderOrder {
     if(zone==0) {
       aiTests();
       map.m(x, y);
-      whyatt.wS(x, y);
+      whyatt();
       psymon();
     } else if(zone==1) {
       map.m(x, y);
+      whyatt();
       psymon();
       ui.tab1();
     } else if(zone==2) {
       map.m(x, y);
+      whyatt();
       psymon();
       ui.tab2();
     } else if(zone==3) {
       map.m(x, y);
+      whyatt();
       psymon();
       ui.tab3();
     }
@@ -43,48 +46,65 @@ class RenderOrder {
       wdt=0;
     }
     if(wdt<wd) {
-      if(wdd==1) {
-        whyatt.update(whyatt.getX(),whyatt.getY()+ws);
-        if(flip >= 0 && flip < flipTime)
-          whyatt.wS1(x, y);
-        else if(flip >= flipTime && flip < flipTime * 2)
-          whyatt.wS2(x, y);
-        else if(flip >= flipTime * 2 && flip < flipTime * 3)
-          whyatt.wS1(x, y);
-        else
-          whyatt.wS2(x, y);
-      } else if(wdd==2) {
-        whyatt.update(whyatt.getX()+ws,whyatt.getY());
-        if(flip >= 0 && flip < flipTime)
-          whyatt.wS1(x, y);
-        else if(flip >= flipTime && flip < flipTime * 2)
-          whyatt.wS2(x, y);
-        else if(flip >= flipTime * 2 && flip < flipTime * 3)
-          whyatt.wS1(x, y);
-        else
-          whyatt.wS2(x, y);
-      } else if(wdd==3) {
-        whyatt.update(whyatt.getX(),whyatt.getY()-ws);
-        if(flip >= 0 && flip < flipTime)
-          whyatt.wS1(x, y);
-        else if(flip >= flipTime && flip < flipTime * 2)
-          whyatt.wS2(x, y);
-        else if(flip >= flipTime * 2 && flip < flipTime * 3)
-          whyatt.wS1(x, y);
-        else
-          whyatt.wS2(x, y);
-      } else if(wdd==4) {
-        whyatt.update(whyatt.getX()-ws,whyatt.getY());
-        if(flip >= 0 && flip < flipTime)
-          whyatt.wS1(x, y);
-        else if(flip >= flipTime && flip < flipTime * 2)
-          whyatt.wS2(x, y);
-        else if(flip >= flipTime * 2 && flip < flipTime * 3)
-          whyatt.wS1(x, y);
-        else
-          whyatt.wS2(x, y);
+      switch(wdd) {
+        case 1:
+          whyatt.update(whyatt.getX(),whyatt.getY()+ws);
+          if(flip >= 0 && flip < flipTime)
+            whyatt.wS1(x, y);
+          else if(flip >= flipTime && flip < flipTime * 2)
+            whyatt.wS2(x, y);
+          else if(flip >= flipTime * 2 && flip < flipTime * 3)
+            whyatt.wS1(x, y);
+          else
+            whyatt.wS2(x, y);
+          flip++;
+          break;
+        case 2:
+          whyatt.update(whyatt.getX()-ws,whyatt.getY());
+          if(flip >= 0 && flip < flipTime)
+            whyatt.wS1(x, y);
+          else if(flip >= flipTime && flip < flipTime * 2)
+            whyatt.wS2(x, y);
+          else if(flip >= flipTime * 2 && flip < flipTime * 3)
+            whyatt.wS1(x, y);
+          else
+            whyatt.wS2(x, y);
+          flip++;
+          break;
+        case 3:
+          whyatt.update(whyatt.getX(),whyatt.getY()-ws);
+          if(flip >= 0 && flip < flipTime)
+            whyatt.wS1(x, y);
+          else if(flip >= flipTime && flip < flipTime * 2)
+            whyatt.wS2(x, y);
+          else if(flip >= flipTime * 2 && flip < flipTime * 3)
+            whyatt.wS1(x, y);
+          else
+            whyatt.wS2(x, y);
+          flip++;
+          break;
+        case 4:
+          whyatt.update(whyatt.getX()+ws,whyatt.getY());
+          if(flip >= 0 && flip < flipTime)
+            whyatt.wS1(x, y);
+          else if(flip >= flipTime && flip < flipTime * 2)
+            whyatt.wS2(x, y);
+          else if(flip >= flipTime * 2 && flip < flipTime * 3)
+            whyatt.wS1(x, y);
+          else
+            whyatt.wS2(x, y);
+          flip++;
+          break;
       }
       wdt++;
+    } else {
+      switch(wdd) {
+        default: whyatt.wS(x, y); break;
+        case 1: whyatt.wS(x, y); break;
+        case 2: whyatt.wS(x, y); break;
+        case 3: whyatt.wS(x, y); break;
+        case 4: whyatt.wS(x, y); break;
+      }
     }
   }
   void psymon() {

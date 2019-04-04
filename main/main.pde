@@ -4,11 +4,13 @@
   Map map;
   ui ui;
   //CREATE RENDER ORDER
+  //map size 2080x1750
 void setup() {
   map= new Map();
   ui= new ui();
   move = true;
-  size(840, 640);
+  //size(840, 640);
+  fullScreen();
   flipTime = 10;
   flip = 0;
   zone = 0;
@@ -18,6 +20,7 @@ void setup() {
   walkSpeed = 5;
   imageMode(CENTER);
   noSmooth();
+  clip(width/2, height/2, width, height);
   ro= new RenderOrder(x, y);
 }
 void draw() {
