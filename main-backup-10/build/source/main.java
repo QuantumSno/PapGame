@@ -22,11 +22,10 @@ public class main extends PApplet {
   //CREATE RENDER ORDER
   //map size 2080x1750
 public void setup() {
-  noCursor();
   map= new Map();
   ui= new ui();
   move = true;
-  //size(840, 640, P2D);
+  //size(840, 640);
   
   flipTime = 10;
   flip = 0;
@@ -45,7 +44,6 @@ public void draw() {
     flip = 0;
   keyPressed();
   ro.render(zone, x, y, direction, flip, flipTime);
-  System.out.println("x: " + x + " y: " +  y);
 }
 public void keyPressed() {
   if(zone==0)
@@ -131,9 +129,6 @@ class Map {
   }
 
   public void m(int x, int y) { image(map, x, y); }
-  public void translate(int x, int y) {
-    translate(x, y);
-  }
 
   public void loadMap() {
     map.beginDraw();
@@ -303,28 +298,23 @@ class RenderOrder {
     map.m(x,y);
     psymon.pS();
   }
-
   public void render(int zone, int x, int y, int direction, int flip, int flipTime) {
-    map.m(x,y);
     if(zone==0) {
       aiTests();
-      //map.translate(x,y);
+      map.m(x, y);
       whyatt();
       psymon();
     } else if(zone==1) {
-      //map.translate(x,y);
       map.m(x, y);
       whyatt();
       psymon();
       ui.tab1();
     } else if(zone==2) {
-      //map.translate(x,y);
       map.m(x, y);
       whyatt();
       psymon();
       ui.tab2();
     } else if(zone==3) {
-      //map.translate(x, y);
       map.m(x, y);
       whyatt();
       psymon();
@@ -334,6 +324,7 @@ class RenderOrder {
   public void aiTests() {
     whyatt();
   }
+
   public void whyatt() {
     if(whyatt.gunnawalk()) {
       wd=whyatt.walk();
@@ -617,7 +608,7 @@ class ui {
     tab3.endDraw();
   }
 }
-  public void settings() {  fullScreen(P2D);  noSmooth(); }
+  public void settings() {  fullScreen();  noSmooth(); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
     if (passedArgs != null) {
