@@ -22,12 +22,12 @@ public class main extends PApplet {
   //CREATE RENDER ORDER
   //map size 2080x1750
 public void setup() {
-  noCursor();
+  //noCursor();
   map= new Map();
   ui= new ui();
   move = true;
-  //size(840, 640, P2D);
   
+  //fullScreen(P2D);
   flipTime = 10;
   flip = 0;
   zone = 0;
@@ -123,7 +123,9 @@ class AI {
 class Map {
   PGraphics map;
   int scale;
+  boarders b;
   public Map() {
+    b= new boarders();
     scale=4;
     //map size 2080x1750
     map = createGraphics(2080*scale,1750*scale);
@@ -142,29 +144,25 @@ class Map {
     map.endDraw();
   }
   public boolean boarderUp() {
-    if(false)
+    if(b.up(x,y))
       return true;
-    else
-      return false;
+    return false;
   }
   public boolean boarderLeft() {
-    if(false)
+    if(b.left(x,y))
       return true;
-    else
-      return false;
+    return false;
   }
 
   public boolean boarderDown() {
-    if(false)
+    if(b.down(x,y))
       return true;
-    else
-      return false;
+    return false;
   }
   public boolean boarderRight() {
-    if(false)
+    if(b.right(x,y))
       return true;
-    else
-      return false;
+    return false;
   }
 }
 class Psymon {
@@ -584,6 +582,20 @@ public void loadWhyatt() {
   WhyattDw4.endDraw();
 }
 }
+class boarders{
+  public boolean up(int x, int y) {
+    return false;
+  }
+  public boolean left(int x, int y) {
+    return false;
+  }
+  public boolean down(int x, int y) {
+    return false;
+  }
+  public boolean right(int x, int y) {
+    return false;
+  }
+}
 class ui {
   PGraphics tab1, tab2, tab3;
   int scale;
@@ -617,9 +629,9 @@ class ui {
     tab3.endDraw();
   }
 }
-  public void settings() {  fullScreen(P2D);  noSmooth(); }
+  public void settings() {  size(840, 640, P2D);  noSmooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
+    String[] appletArgs = new String[] { "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

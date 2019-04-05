@@ -1,9 +1,9 @@
 class Map {
   PGraphics map;
   int scale;
-  boarder b;
+  boarders b;
   public Map() {
-    b= new boarder();
+    b= new boarders();
     scale=4;
     //map size 2080x1750
     map = createGraphics(2080*scale,1750*scale);
@@ -22,16 +22,24 @@ class Map {
     map.endDraw();
   }
   boolean boarderUp() {
-    b.up(x,y);
+    if(b.up(x,y))
+      return true;
+    return false;
   }
   boolean boarderLeft() {
-    b.left(x,y);
+    if(b.left(x,y))
+      return true;
+    return false;
   }
 
   boolean boarderDown() {
-    b.down(x,y);
+    if(b.down(x,y))
+      return true;
+    return false;
   }
   boolean boarderRight() {
-    b.right(x,y);
+    if(b.right(x,y))
+      return true;
+    return false;
   }
 }
