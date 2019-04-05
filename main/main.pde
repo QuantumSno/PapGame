@@ -29,7 +29,7 @@ void draw() {
     flip = 0;
   keyPressed();
   ro.render(zone, x, y, direction, flip, flipTime);
-  System.out.println("x: " + x + " y: " +  y);
+  //System.out.println("x: " + x + " y: " +  y);
 }
 void keyPressed() {
   if(zone==0)
@@ -63,6 +63,9 @@ void keyReleased() {
       zone=1;
       noLoop();
       ui.tab1();
+    } else if(key=='e') {
+      noLoop();
+      
     }
   if(zone==2)
     if(key=='w') {

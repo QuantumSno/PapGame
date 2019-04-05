@@ -15,4 +15,7 @@ class AI {
   int direction() {
     return int(random(1,5));
   }
+  String voice() {
+    return "text";
+  }
 }
