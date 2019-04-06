@@ -1,9 +1,8 @@
   int scale, flipTime, flip, zone, x, y, walkSpeed, direction;
-  boolean move;
+  boolean move, talking;
   RenderOrder ro;
   Map map;
   ui ui;
-  //CREATE RENDER ORDER
   //map size 2080x1750
 void setup() {
   //noCursor();
@@ -64,8 +63,18 @@ void keyReleased() {
       noLoop();
       ui.tab1();
     } else if(key=='e') {
-      noLoop();
-      
+      textAlign(CENTER, CENTER);
+      textSize(42);
+      stroke(153);
+      fill(0, 102, 153);
+        if(ro.wrange(x,y)) {
+        talking=true;
+        noLoop();
+        text(ro.wvoice(), x-ro.wgetX(), y-ro.wgetY()-100);
+      }
+    } else if(key==ENTER && talking) {
+      loop();
+      talking=false;
     }
   if(zone==2)
     if(key=='w') {

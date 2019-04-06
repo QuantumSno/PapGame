@@ -9,7 +9,6 @@ class AI {
       return false;
   }
   int walk() {
-    //System.out.println("walking");
     return int(random(5, active/2));
   }
   int direction() {
@@ -17,5 +16,10 @@ class AI {
   }
   String voice() {
     return "text";
+  }
+  boolean range(int o, int p) {
+    if(o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100)
+      return true;
+    return false;
   }
 }

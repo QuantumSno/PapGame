@@ -9,7 +9,7 @@ class RenderOrder {
     psymon = new Psymon();
     map = new Map();
     ui = new ui();
-    whyatt = new Whyatt(-100,-100);
+    whyatt = new Whyatt(0,0);
     map.m(x,y);
     psymon.pS();
   }
@@ -18,23 +18,19 @@ class RenderOrder {
     map.m(x,y);
     if(zone==0) {
       aiTests();
-      //map.translate(x,y);
       whyatt();
       psymon();
     } else if(zone==1) {
-      //map.translate(x,y);
       map.m(x, y);
       whyatt();
       psymon();
       ui.tab1();
     } else if(zone==2) {
-      //map.translate(x,y);
       map.m(x, y);
       whyatt();
       psymon();
       ui.tab2();
     } else if(zone==3) {
-      //map.translate(x, y);
       map.m(x, y);
       whyatt();
       psymon();
@@ -43,6 +39,18 @@ class RenderOrder {
   }
   void aiTests() {
     whyatt();
+  }
+  String wvoice() {
+    return whyatt.voice(int(random(1,4)));
+  }
+  boolean wrange(int x, int y) {
+    return whyatt.range(x,y);
+  }
+  int wgetX() {
+    return whyatt.getX();
+  }
+  int wgetY() {
+    return whyatt.getY();
   }
   void whyatt() {
     if(whyatt.gunnawalk()) {

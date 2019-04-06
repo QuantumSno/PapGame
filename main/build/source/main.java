@@ -15,11 +15,10 @@ import java.io.IOException;
 public class main extends PApplet {
 
   int scale, flipTime, flip, zone, x, y, walkSpeed, direction;
-  boolean move;
+  boolean move, talking;
   RenderOrder ro;
   Map map;
   ui ui;
-  //CREATE RENDER ORDER
   //map size 2080x1750
 public void setup() {
   //noCursor();
@@ -45,7 +44,7 @@ public void draw() {
     flip = 0;
   keyPressed();
   ro.render(zone, x, y, direction, flip, flipTime);
-  System.out.println("x: " + x + " y: " +  y);
+  //System.out.println("x: " + x + " y: " +  y);
 }
 public void keyPressed() {
   if(zone==0)
@@ -79,6 +78,19 @@ public void keyReleased() {
       zone=1;
       noLoop();
       ui.tab1();
+    } else if(key=='e') {
+      textAlign(CENTER, CENTER);
+      textSize(42);
+      stroke(153);
+      fill(0, 102, 153);
+        if(ro.wrange(x,y)) {
+        talking=true;
+        noLoop();
+        text(ro.wvoice(), x-ro.wgetX(), y-ro.wgetY()-100);
+      }
+    } else if(key==ENTER && talking) {
+      loop();
+      talking=false;
     }
   if(zone==2)
     if(key=='w') {
@@ -113,11 +125,18 @@ class AI {
       return false;
   }
   public int walk() {
-    //System.out.println("walking");
     return PApplet.parseInt(random(5, active/2));
   }
   public int direction() {
     return PApplet.parseInt(random(1,5));
+  }
+  public String voice() {
+    return "text";
+  }
+  public boolean range(int o, int p) {
+    if(o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100)
+      return true;
+    return false;
   }
 }
 class Map {
@@ -297,7 +316,7 @@ class RenderOrder {
     psymon = new Psymon();
     map = new Map();
     ui = new ui();
-    whyatt = new Whyatt(-100,-100);
+    whyatt = new Whyatt(0,0);
     map.m(x,y);
     psymon.pS();
   }
@@ -306,23 +325,19 @@ class RenderOrder {
     map.m(x,y);
     if(zone==0) {
       aiTests();
-      //map.translate(x,y);
       whyatt();
       psymon();
     } else if(zone==1) {
-      //map.translate(x,y);
       map.m(x, y);
       whyatt();
       psymon();
       ui.tab1();
     } else if(zone==2) {
-      //map.translate(x,y);
       map.m(x, y);
       whyatt();
       psymon();
       ui.tab2();
     } else if(zone==3) {
-      //map.translate(x, y);
       map.m(x, y);
       whyatt();
       psymon();
@@ -331,6 +346,18 @@ class RenderOrder {
   }
   public void aiTests() {
     whyatt();
+  }
+  public String wvoice() {
+    return whyatt.voice(PApplet.parseInt(random(1,4)));
+  }
+  public boolean wrange(int x, int y) {
+    return whyatt.range(x,y);
+  }
+  public int wgetX() {
+    return whyatt.getX();
+  }
+  public int wgetY() {
+    return whyatt.getY();
   }
   public void whyatt() {
     if(whyatt.gunnawalk()) {
@@ -484,11 +511,26 @@ public void update(int o, int p) {
   x=o;
   y=p;
 }
+public String voice(int voiceline) {
+  if(voiceline==1)
+    return "Hello!";
+  else if(voiceline==2)
+    return "Goodday Sir";
+  else if(voiceline==3)
+    return "The whether is nice today";
+  else
+    return "error";
+}
 public int getX() {
   return x;
 }
 public int getY() {
   return y;
+}
+public boolean range(int o, int p) {
+  if(o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100) 
+    return true;
+  return false;
 }
 
 public void wW(int o, int p) { image(WhyattW, o-x, p-y); }
@@ -631,7 +673,7 @@ class ui {
 }
   public void settings() {  size(840, 640, P2D);  noSmooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "main" };
+    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {
