@@ -1,4 +1,4 @@
-  int scale, flipTime, flip, zone, x, y, walkSpeed, direction;
+  int scale, flipTime, flip, zone, x, y, walkSpeed, direction, hammer, time;
   boolean move, talking;
   RenderOrder ro;
   Map map;
@@ -27,8 +27,9 @@ void draw() {
   if(flip >= flipTime * 4)
     flip = 0;
   keyPressed();
-  ro.render(zone, x, y, direction, flip, flipTime);
+  ro.render(zone, x, y, direction, flip, flipTime, hammer);
   //System.out.println("x: " + x + " y: " +  y);
+  println(hammer+" "+time);
 }
 void keyPressed() {
   if(zone==0)
@@ -51,6 +52,21 @@ void keyPressed() {
       flip++;
     }
   }
+  if(zone==4)
+    if(keyPressed)
+      if(key=='e')
+        if(time>=0 && time<=100/4) {
+          hammer=1;
+          time+=1;
+        } else if(time>=100/4 && time<=100/2) {
+          hammer=2;
+          time+=1;
+        } else if(time>=100/2 && time<=100-100/4) {
+          hammer=3;
+          time+=1;
+        } else {
+          hammer=4;
+        }
 }
 void keyReleased() {
   if(zone==0)
@@ -75,6 +91,8 @@ void keyReleased() {
     } else if(key==ENTER && talking) {
       loop();
       talking=false;
+    } else if(key=='c') {
+      zone=4;
     }
   if(zone==2)
     if(key=='w') {
@@ -96,5 +114,10 @@ void keyReleased() {
     } else if(key==ENTER) {
       zone=0;
       loop();
+    }
+  if(zone==4)
+    if(key=='e') {
+      time=0;
+      hammer=0;
     }
 }

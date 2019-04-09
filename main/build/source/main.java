@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class main extends PApplet {
 
-  int scale, flipTime, flip, zone, x, y, walkSpeed, direction;
+  int scale, flipTime, flip, zone, x, y, walkSpeed, direction, hammer, time;
   boolean move, talking;
   RenderOrder ro;
   Map map;
@@ -43,8 +43,9 @@ public void draw() {
   if(flip >= flipTime * 4)
     flip = 0;
   keyPressed();
-  ro.render(zone, x, y, direction, flip, flipTime);
+  ro.render(zone, x, y, direction, flip, flipTime, hammer);
   //System.out.println("x: " + x + " y: " +  y);
+  println(hammer+" "+time);
 }
 public void keyPressed() {
   if(zone==0)
@@ -67,6 +68,21 @@ public void keyPressed() {
       flip++;
     }
   }
+  if(zone==4)
+    if(keyPressed)
+      if(key=='e')
+        if(time>=0 && time<=100/4) {
+          hammer=1;
+          time+=1;
+        } else if(time>=100/4 && time<=100/2) {
+          hammer=2;
+          time+=1;
+        } else if(time>=100/2 && time<=100-100/4) {
+          hammer=3;
+          time+=1;
+        } else {
+          hammer=4;
+        }
 }
 public void keyReleased() {
   if(zone==0)
@@ -91,6 +107,8 @@ public void keyReleased() {
     } else if(key==ENTER && talking) {
       loop();
       talking=false;
+    } else if(key=='c') {
+      zone=4;
     }
   if(zone==2)
     if(key=='w') {
@@ -112,6 +130,11 @@ public void keyReleased() {
     } else if(key==ENTER) {
       zone=0;
       loop();
+    }
+  if(zone==4)
+    if(key=='e') {
+      time=0;
+      hammer=0;
     }
 }
 class AI {
@@ -147,7 +170,8 @@ class Map {
     b= new boarders();
     scale=4;
     //map size 2080x1750
-    map = createGraphics(2080*scale,1750*scale);
+    //map = createGraphics(2080*scale,1750*scale);
+    map=createGraphics(1000,1000);
     loadMap();
   }
 
@@ -159,7 +183,8 @@ class Map {
   public void loadMap() {
     map.beginDraw();
     map.noStroke();
-    map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
+    map.background(30);
+    //map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
     map.endDraw();
   }
   public boolean boarderUp() {
@@ -189,7 +214,8 @@ class Psymon {
   PsymonW, PsymonA, PsymonS, PsymonD,
   PsymonWw1, PsymonAw1, PsymonSw1, PsymonDw1,
   PsymonWw2, PsymonAw2, PsymonSw2, PsymonDw2,
-  PsymonAw3, PsymonAw4, PsymonDw3, PsymonDw4;
+  PsymonAw3, PsymonAw4, PsymonDw3, PsymonDw4,
+  PsymonB1, PsymonB2, PsymonB3, PsymonB4, PsymonB5, PsymonB6;
   int scale, size;
   public Psymon() {
     scale=4;
@@ -210,6 +236,12 @@ class Psymon {
     PsymonDw2 = createGraphics(size,size);
     PsymonDw3 = createGraphics(size,size);
     PsymonDw4 = createGraphics(size,size);
+    PsymonB1 = createGraphics(size*2,size*2);
+    PsymonB2 = createGraphics(size*2,size*2);
+    PsymonB3 = createGraphics(size*2,size*2);
+    PsymonB4 = createGraphics(size*2,size*2);
+    PsymonB5 = createGraphics(size*2,size*2);
+    PsymonB6 = createGraphics(size*2,size*2);
 
     loadPsymon();
   }
@@ -234,6 +266,13 @@ class Psymon {
   public void pD2() { image(PsymonDw2, width/2, height/2); }
   public void pD3() { image(PsymonDw3, width/2, height/2); }
   public void pD4() { image(PsymonDw4, width/2, height/2); }
+
+  public void pB1() { image(PsymonB1, width/4, height/2); }
+  public void pB2() { image(PsymonB2, width/4, height/2); }
+  public void pB3() { image(PsymonB3, width/4, height/2); }
+  public void pB4() { image(PsymonB4, width/4, height/2); }
+  public void pB5() { image(PsymonB5, width/4, height/2); }
+  public void pB6() { image(PsymonB6, width/4, height/2); }
 
   public void loadPsymon() {
     PsymonW.beginDraw();
@@ -303,6 +342,31 @@ class Psymon {
     PsymonDw4.noStroke();
     PsymonDw4.image(loadImage("Psymon-side-right-walking-4.png"),0,0,size,size);
     PsymonDw4.endDraw();
+
+    PsymonB1.beginDraw();
+    PsymonB1.noStroke();
+    PsymonB1.image(loadImage("psymon-bat-1.png"),0,0,size*2,size*2);
+    PsymonB1.endDraw();
+    PsymonB2.beginDraw();
+    PsymonB2.noStroke();
+    PsymonB2.image(loadImage("psymon-bat-2.png"),0,0,size*2,size*2);
+    PsymonB2.endDraw();
+    PsymonB3.beginDraw();
+    PsymonB3.noStroke();
+    PsymonB3.image(loadImage("psymon-bat-3.png"),0,0,size*2,size*2);
+    PsymonB3.endDraw();
+    PsymonB4.beginDraw();
+    PsymonB4.noStroke();
+    PsymonB4.image(loadImage("psymon-bat-4.png"),0,0,size*2,size*2);
+    PsymonB4.endDraw();
+    PsymonB5.beginDraw();
+    PsymonB5.noStroke();
+    PsymonB5.image(loadImage("Psymon-side-right.png"),0,0,size*2,size*2);
+    PsymonB5.endDraw();
+    PsymonB6.beginDraw();
+    PsymonB6.noStroke();
+    PsymonB6.image(loadImage("Psymon-side-right.png"),0,0,size*2,size*2);
+    PsymonB6.endDraw();
   }
 }
 class RenderOrder {
@@ -321,7 +385,7 @@ class RenderOrder {
     psymon.pS();
   }
 
-  public void render(int zone, int x, int y, int direction, int flip, int flipTime) {
+  public void render(int zone, int x, int y, int direction, int flip, int flipTime, int hammer) {
     map.m(x,y);
     if(zone==0) {
       aiTests();
@@ -342,6 +406,18 @@ class RenderOrder {
       whyatt();
       psymon();
       ui.tab3();
+    } else if(zone==4) {
+      background(40);
+      switch(hammer) {
+        default: psymon.pB1();
+        break; case 1: psymon.pB1();
+        break; case 2: psymon.pB2();
+        break; case 3: psymon.pB3();
+        break; case 4: psymon.pB4();
+        break; case 5: psymon.pB5();
+        break; case 6: psymon.pB6();
+        break;
+      }
     }
   }
   public void aiTests() {
@@ -673,7 +749,7 @@ class ui {
 }
   public void settings() {  size(840, 640, P2D);  noSmooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
+    String[] appletArgs = new String[] { "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

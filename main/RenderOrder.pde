@@ -14,7 +14,7 @@ class RenderOrder {
     psymon.pS();
   }
 
-  void render(int zone, int x, int y, int direction, int flip, int flipTime) {
+  void render(int zone, int x, int y, int direction, int flip, int flipTime, int hammer) {
     map.m(x,y);
     if(zone==0) {
       aiTests();
@@ -35,6 +35,18 @@ class RenderOrder {
       whyatt();
       psymon();
       ui.tab3();
+    } else if(zone==4) {
+      background(40);
+      switch(hammer) {
+        default: psymon.pB1();
+        break; case 1: psymon.pB1();
+        break; case 2: psymon.pB2();
+        break; case 3: psymon.pB3();
+        break; case 4: psymon.pB4();
+        break; case 5: psymon.pB5();
+        break; case 6: psymon.pB6();
+        break;
+      }
     }
   }
   void aiTests() {

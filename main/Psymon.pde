@@ -3,7 +3,8 @@ class Psymon {
   PsymonW, PsymonA, PsymonS, PsymonD,
   PsymonWw1, PsymonAw1, PsymonSw1, PsymonDw1,
   PsymonWw2, PsymonAw2, PsymonSw2, PsymonDw2,
-  PsymonAw3, PsymonAw4, PsymonDw3, PsymonDw4;
+  PsymonAw3, PsymonAw4, PsymonDw3, PsymonDw4,
+  PsymonB1, PsymonB2, PsymonB3, PsymonB4, PsymonB5, PsymonB6;
   int scale, size;
   public Psymon() {
     scale=4;
@@ -24,6 +25,12 @@ class Psymon {
     PsymonDw2 = createGraphics(size,size);
     PsymonDw3 = createGraphics(size,size);
     PsymonDw4 = createGraphics(size,size);
+    PsymonB1 = createGraphics(size*2,size*2);
+    PsymonB2 = createGraphics(size*2,size*2);
+    PsymonB3 = createGraphics(size*2,size*2);
+    PsymonB4 = createGraphics(size*2,size*2);
+    PsymonB5 = createGraphics(size*2,size*2);
+    PsymonB6 = createGraphics(size*2,size*2);
 
     loadPsymon();
   }
@@ -48,6 +55,13 @@ class Psymon {
   void pD2() { image(PsymonDw2, width/2, height/2); }
   void pD3() { image(PsymonDw3, width/2, height/2); }
   void pD4() { image(PsymonDw4, width/2, height/2); }
+
+  void pB1() { image(PsymonB1, width/4, height/2); }
+  void pB2() { image(PsymonB2, width/4, height/2); }
+  void pB3() { image(PsymonB3, width/4, height/2); }
+  void pB4() { image(PsymonB4, width/4, height/2); }
+  void pB5() { image(PsymonB5, width/4, height/2); }
+  void pB6() { image(PsymonB6, width/4, height/2); }
 
   void loadPsymon() {
     PsymonW.beginDraw();
@@ -117,5 +131,30 @@ class Psymon {
     PsymonDw4.noStroke();
     PsymonDw4.image(loadImage("Psymon-side-right-walking-4.png"),0,0,size,size);
     PsymonDw4.endDraw();
+
+    PsymonB1.beginDraw();
+    PsymonB1.noStroke();
+    PsymonB1.image(loadImage("psymon-bat-1.png"),0,0,size*2,size*2);
+    PsymonB1.endDraw();
+    PsymonB2.beginDraw();
+    PsymonB2.noStroke();
+    PsymonB2.image(loadImage("psymon-bat-2.png"),0,0,size*2,size*2);
+    PsymonB2.endDraw();
+    PsymonB3.beginDraw();
+    PsymonB3.noStroke();
+    PsymonB3.image(loadImage("psymon-bat-3.png"),0,0,size*2,size*2);
+    PsymonB3.endDraw();
+    PsymonB4.beginDraw();
+    PsymonB4.noStroke();
+    PsymonB4.image(loadImage("psymon-bat-4.png"),0,0,size*2,size*2);
+    PsymonB4.endDraw();
+    PsymonB5.beginDraw();
+    PsymonB5.noStroke();
+    PsymonB5.image(loadImage("Psymon-side-right.png"),0,0,size*2,size*2);
+    PsymonB5.endDraw();
+    PsymonB6.beginDraw();
+    PsymonB6.noStroke();
+    PsymonB6.image(loadImage("Psymon-side-right.png"),0,0,size*2,size*2);
+    PsymonB6.endDraw();
   }
 }
