@@ -3,6 +3,7 @@ class RenderOrder {
     Map map;
     ui ui;
     Whyatt whyatt;
+    Surman surman;
     int wd, wdt, wdd, ws;
   public RenderOrder(int x, int y) {
     ws=3;
@@ -10,6 +11,7 @@ class RenderOrder {
     map = new Map();
     ui = new ui();
     whyatt = new Whyatt(0,0);
+    surman= new Surman();
     map.m(x,y);
     psymon.pS();
   }
@@ -47,6 +49,7 @@ class RenderOrder {
         break; case 6: psymon.pB6();
         break;
       }
+      surman.s();
     }
   }
   void aiTests() {

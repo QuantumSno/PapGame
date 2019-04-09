@@ -148,7 +148,6 @@ class AI {
   int active=100;
   public boolean gunnawalk() {
     if(PApplet.parseInt(random(1, active))==1) {
-      //System.out.println("true");
       return true;
     }
     else
@@ -177,8 +176,8 @@ class Map {
     b= new boarders();
     scale=4;
     //map size 2080x1750
-    //map = createGraphics(2080*scale,1750*scale);
-    map=createGraphics(1000,1000);
+    map = createGraphics(2080*scale,1750*scale);
+    //map=createGraphics(1000,1000);
     loadMap();
   }
 
@@ -190,8 +189,8 @@ class Map {
   public void loadMap() {
     map.beginDraw();
     map.noStroke();
-    map.background(30);
-    //map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
+    //map.background(30);
+    map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
     map.endDraw();
   }
   public boolean boarderUp() {
@@ -381,6 +380,7 @@ class RenderOrder {
     Map map;
     ui ui;
     Whyatt whyatt;
+    Surman surman;
     int wd, wdt, wdd, ws;
   public RenderOrder(int x, int y) {
     ws=3;
@@ -388,6 +388,7 @@ class RenderOrder {
     map = new Map();
     ui = new ui();
     whyatt = new Whyatt(0,0);
+    surman= new Surman();
     map.m(x,y);
     psymon.pS();
   }
@@ -425,6 +426,7 @@ class RenderOrder {
         break; case 6: psymon.pB6();
         break;
       }
+      surman.s();
     }
   }
   public void aiTests() {
@@ -558,6 +560,37 @@ class RenderOrder {
           psymon.pD4();
         break;
     }
+  }
+}
+class Surman extends AI {
+  int size, scale, hp, dmg, hitChance;
+  PGraphics surman;
+  public Surman() {
+    scale=4;
+    size=32*scale;
+    surman = createGraphics(size*2,size*2);
+    hp=20;
+    hitChance=5; // 1/5 chance
+    dmg=5;
+    loadsurman();
+  }
+  public void s() { image(surman, width-width/4, height/2); }
+  public int dmg() {
+    if(PApplet.parseInt(random(1,hitChance))==1)
+      return dmg;
+    return 0;
+  }
+  public void hit(int d) {
+    hp-=d;
+  }
+  public int hp() {
+    return hp;
+  }
+  public void loadsurman() {
+    surman.beginDraw();
+    surman.noStroke();
+    surman.image(loadImage("surman.png"),0,0,size*2,size*2);
+    surman.endDraw();
   }
 }
 class Whyatt extends AI {
@@ -756,7 +789,7 @@ class ui {
 }
   public void settings() {  size(840, 640, P2D);  noSmooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "main" };
+    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

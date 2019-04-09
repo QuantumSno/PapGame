@@ -2,7 +2,6 @@ class AI {
   int active=100;
   boolean gunnawalk() {
     if(int(random(1, active))==1) {
-      //System.out.println("true");
       return true;
     }
     else
