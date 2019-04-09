@@ -29,7 +29,6 @@ void draw() {
   keyPressed();
   ro.render(zone, x, y, direction, flip, flipTime, hammer);
   //System.out.println("x: " + x + " y: " +  y);
-  println(hammer+" "+time);
 }
 void keyPressed() {
   if(zone==0)
@@ -52,21 +51,32 @@ void keyPressed() {
       flip++;
     }
   }
-  if(zone==4)
-    if(keyPressed)
-      if(key=='e')
+  if(zone==4) {
+    if(keyPressed) {
+      if(key=='e') {
         if(time>=0 && time<=100/4) {
           hammer=1;
           time+=1;
         } else if(time>=100/4 && time<=100/2) {
           hammer=2;
           time+=1;
-        } else if(time>=100/2 && time<=100-100/4) {
+        } else if(time>=100/2 && time<100-100/4) {
           hammer=3;
           time+=1;
         } else {
           hammer=4;
         }
+      }
+    } else {
+      if(time>0)
+        time-=1;
+      if(time<100-100/4 && time>100/2)
+        hammer=5;
+      else if(time<=100/2 && time>time/4)
+        hammer=6;
+      else hammer=1;
+    }
+  }
 }
 void keyReleased() {
   if(zone==0)
@@ -106,6 +116,8 @@ void keyReleased() {
     if(key=='w') {
       zone=2;
       redraw();
+    } else if(key==ENTER) {
+      exit();
     }
   if(zone==1)
     if(key=='s') {
@@ -114,10 +126,5 @@ void keyReleased() {
     } else if(key==ENTER) {
       zone=0;
       loop();
-    }
-  if(zone==4)
-    if(key=='e') {
-      time=0;
-      hammer=0;
     }
 }
