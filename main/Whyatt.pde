@@ -49,7 +49,7 @@ int getY() {
   return y;
 }
 boolean range(int o, int p) {
-  if(o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100) 
+  if(o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100)
     return true;
   return false;
 }
