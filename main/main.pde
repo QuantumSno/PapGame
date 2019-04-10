@@ -1,5 +1,5 @@
-  int scale, flipTime, flip, zone, x, y, walkSpeed, direction, hammer, time;
-  boolean move, talking;
+  int scale, flipTime, flip, zone, x, y, walkSpeed, direction, hammer, time, dmg;
+  boolean move, talking, doDmg;
   RenderOrder ro;
   Map map;
   ui ui;
@@ -27,25 +27,31 @@ void draw() {
   if(flip >= flipTime * 4)
     flip = 0;
   keyPressed();
-  ro.render(zone, x, y, direction, flip, flipTime, hammer);
-  //System.out.println("x: " + x + " y: " +  y);
+  if(zone==4)
+    if(ro.shp()<=0) {
+      zone=0;
+      ro.shpr();
+    }
+  ro.render(zone, x, y, direction, flip, flipTime, hammer, dmg, doDmg);
+  //println("x: " + x + " y: " +  y);
+  doDmg=false;
 }
 void keyPressed() {
   if(zone==0)
   if(keyPressed) {
-    if(key=='w' && !map.boarderUp()) {
+    if(key=='w' && !map.boarderUp(x, y)) {
       y= y+walkSpeed;
       direction=5;
       flip++;
-    } else if(key=='a' && !map.boarderRight()) {
+    } else if(key=='a' && !map.boarderLeft(x, y)) {
       x= x+walkSpeed;
       direction=6;
       flip++;
-    } else if(key=='s' && !map.boarderDown()) {
+    } else if(key=='s' && !map.boarderDown(x, y)) {
       y= y-walkSpeed;
       direction=7;
       flip++;
-    } else if(key=='d' && !map.boarderLeft()) {
+    } else if(key=='d' && !map.boarderRight(x, y)) {
       x= x-walkSpeed;
       direction=8;
       flip++;
@@ -57,14 +63,18 @@ void keyPressed() {
         if(time>=0 && time<=100/4) {
           hammer=1;
           time+=1;
+          dmg=1;
         } else if(time>=100/4 && time<=100/2) {
           hammer=2;
           time+=1;
+          dmg=2;
         } else if(time>=100/2 && time<100-100/4) {
           hammer=3;
           time+=1;
+          dmg=3;
         } else {
           hammer=4;
+          dmg=5;
         }
       }
     } else {
@@ -127,4 +137,7 @@ void keyReleased() {
       zone=0;
       loop();
     }
+  if(zone==4)
+    if(key=='e')
+      doDmg=true;
 }

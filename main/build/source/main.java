@@ -14,8 +14,8 @@ import java.io.IOException;
 
 public class main extends PApplet {
 
-  int scale, flipTime, flip, zone, x, y, walkSpeed, direction, hammer, time;
-  boolean move, talking;
+  int scale, flipTime, flip, zone, x, y, walkSpeed, direction, hammer, time, dmg;
+  boolean move, talking, doDmg;
   RenderOrder ro;
   Map map;
   ui ui;
@@ -43,25 +43,31 @@ public void draw() {
   if(flip >= flipTime * 4)
     flip = 0;
   keyPressed();
-  ro.render(zone, x, y, direction, flip, flipTime, hammer);
-  //System.out.println("x: " + x + " y: " +  y);
+  if(zone==4)
+    if(ro.shp()<=0) {
+      zone=0;
+      ro.shpr();
+    }
+  ro.render(zone, x, y, direction, flip, flipTime, hammer, dmg, doDmg);
+  //println("x: " + x + " y: " +  y);
+  doDmg=false;
 }
 public void keyPressed() {
   if(zone==0)
   if(keyPressed) {
-    if(key=='w' && !map.boarderUp()) {
+    if(key=='w' && !map.boarderUp(x, y)) {
       y= y+walkSpeed;
       direction=5;
       flip++;
-    } else if(key=='a' && !map.boarderRight()) {
+    } else if(key=='a' && !map.boarderLeft(x, y)) {
       x= x+walkSpeed;
       direction=6;
       flip++;
-    } else if(key=='s' && !map.boarderDown()) {
+    } else if(key=='s' && !map.boarderDown(x, y)) {
       y= y-walkSpeed;
       direction=7;
       flip++;
-    } else if(key=='d' && !map.boarderLeft()) {
+    } else if(key=='d' && !map.boarderRight(x, y)) {
       x= x-walkSpeed;
       direction=8;
       flip++;
@@ -73,14 +79,18 @@ public void keyPressed() {
         if(time>=0 && time<=100/4) {
           hammer=1;
           time+=1;
+          dmg=1;
         } else if(time>=100/4 && time<=100/2) {
           hammer=2;
           time+=1;
+          dmg=2;
         } else if(time>=100/2 && time<100-100/4) {
           hammer=3;
           time+=1;
+          dmg=3;
         } else {
           hammer=4;
+          dmg=5;
         }
       }
     } else {
@@ -143,6 +153,9 @@ public void keyReleased() {
       zone=0;
       loop();
     }
+  if(zone==4)
+    if(key=='e')
+      doDmg=true;
 }
 class AI {
   int active=100;
@@ -171,21 +184,20 @@ class AI {
 class Map {
   PGraphics map;
   int scale;
-  boarders b;
+  ArrayList<boarders> boarder = new ArrayList<boarders>();
   public Map() {
-    b= new boarders();
     scale=4;
     //map size 2080x1750
     map = createGraphics(2080*scale,1750*scale);
     //map=createGraphics(1000,1000);
     loadMap();
+    loadBoarders();
   }
 
   public void m(int x, int y) { image(map, x, y); }
   public void translate(int x, int y) {
     translate(x, y);
   }
-
   public void loadMap() {
     map.beginDraw();
     map.noStroke();
@@ -193,26 +205,63 @@ class Map {
     map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
     map.endDraw();
   }
-  public boolean boarderUp() {
-    if(b.up(x,y))
-      return true;
+  public boolean boarderUp(int x, int y) {
+    for(int t=0; t<boarder.size(); t++)
+      if(boarder.get(t).getD()==1)
+        if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+          return true;
     return false;
   }
-  public boolean boarderLeft() {
-    if(b.left(x,y))
-      return true;
+  public boolean boarderLeft(int x, int y) {
+    for(int t=0; t<boarder.size(); t++)
+      if(boarder.get(t).getD()==2)
+        if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+          return true;
     return false;
   }
-
-  public boolean boarderDown() {
-    if(b.down(x,y))
-      return true;
+  public boolean boarderDown(int x, int y) {
+    for(int t=0; t<boarder.size(); t++)
+      if(boarder.get(t).getD()==3)
+        if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+          return true;
     return false;
   }
-  public boolean boarderRight() {
-    if(b.right(x,y))
-      return true;
+  public boolean boarderRight(int x, int y) {
+    for(int t=0; t<boarder.size(); t++)
+      if(boarder.get(t).getD()==4)
+        if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+          return true;
     return false;
+  }
+  public void loadBoarders() {
+    //boarder.add(new boarders(, , , , )); //
+    boarder.add(new boarders(4305, -1880, 4305, -2095, 2)); //1-2
+    boarder.add(new boarders(4305, -1880, 4185, -1880, 1)); //2-3
+    boarder.add(new boarders(4185, -1755, 4185, -1880, 2)); //3-4
+    boarder.add(new boarders(4180, -1755, 4050, -1755, 1)); //4-5
+    boarder.add(new boarders(4050, -1335, 4050, -1755, 2)); //5-6
+    boarder.add(new boarders(4305, -1335, 4050, -1335, 3)); //6-7
+    boarder.add(new boarders(4305, -1254, 4305, -1335, 2)); //7-8
+    boarder.add(new boarders(4305, -1245, 4180, -1245, 1)); //8-9
+    boarder.add(new boarders(4180, -1080, 4180, -1245, 2)); //9-10
+    boarder.add(new boarders(4305, -1080, 4180, -1080, 3)); //10-11
+    boarder.add(new boarders(4305, 920, 4305, -1080, 2)); //11-24
+    boarder.add(new boarders(4305, 920, 2765, 915, 1)); //24-25
+    boarder.add(new boarders(2765, 915, 2765, 1215, 2)); //25-26
+    boarder.add(new boarders(2765, 1215, 2935, 1215, 3)); //26-27
+    boarder.add(new boarders(2935, 1215, 2935, 1085, 4)); //27-28
+    boarder.add(new boarders(2935, 1085, 4305, 1085, 3)); //28-29
+    boarder.add(new boarders(4305, 1085, 4305, 2570, 2)); //29-34
+    boarder.add(new boarders(4305, 2570, 2935, 2570, 1)); //34-35
+    boarder.add(new boarders(2935, 2570, 2935, 1555, 4)); //35-36
+    boarder.add(new boarders(2935, 1555, 2765, 1555, 1)); //36-37
+    boarder.add(new boarders(2765, 1555, 2765, 2570, 2)); //37-38
+    boarder.add(new boarders(2765, 2570, 2645, 2570, 1)); //38-39
+    boarder.add(new boarders(2645, 2570, 2645, 2740, 2)); //39-40
   }
 }
 class Psymon {
@@ -222,8 +271,9 @@ class Psymon {
   PsymonWw2, PsymonAw2, PsymonSw2, PsymonDw2,
   PsymonAw3, PsymonAw4, PsymonDw3, PsymonDw4,
   PsymonB1, PsymonB2, PsymonB3, PsymonB4, PsymonB5, PsymonB6;
-  int scale, size;
+  int scale, size, hp;
   public Psymon() {
+    hp=20;
     scale=4;
     size=32*scale;
     PsymonW = createGraphics(size,size);
@@ -279,6 +329,9 @@ class Psymon {
   public void pB4() { image(PsymonB4, width/4, height/2); }
   public void pB5() { image(PsymonB5, width/4, height/2); }
   public void pB6() { image(PsymonB6, width/4, height/2); }
+
+  public int hp() { return hp; }
+  public void dmg(int d) { hp-=d; }
 
   public void loadPsymon() {
     PsymonW.beginDraw();
@@ -393,7 +446,7 @@ class RenderOrder {
     psymon.pS();
   }
 
-  public void render(int zone, int x, int y, int direction, int flip, int flipTime, int hammer) {
+  public void render(int zone, int x, int y, int direction, int flip, int flipTime, int hammer, int dmg, boolean doDmg) {
     map.m(x,y);
     if(zone==0) {
       aiTests();
@@ -416,6 +469,11 @@ class RenderOrder {
       ui.tab3();
     } else if(zone==4) {
       background(40);
+      if(doDmg) {
+        surman.hit(dmg);
+        delay(100);
+        psymon.dmg(surman.dmg());
+      }
       switch(hammer) {
         default: psymon.pB1();
         break; case 1: psymon.pB1();
@@ -427,11 +485,18 @@ class RenderOrder {
         break;
       }
       surman.s();
+      textAlign(CENTER, CENTER);
+      textSize(32);
+      fill(255,0,0);
+      text(psymon.hp(), width/4, height-height/4);
+      text(surman.hp(), width-width/4, height-height/4);
     }
   }
   public void aiTests() {
     whyatt();
   }
+  public int shp() { return surman.hp(); }
+  public void shpr() { surman.reset(); }
   public String wvoice() {
     return whyatt.voice(PApplet.parseInt(random(1,4)));
   }
@@ -576,16 +641,13 @@ class Surman extends AI {
   }
   public void s() { image(surman, width-width/4, height/2); }
   public int dmg() {
-    if(PApplet.parseInt(random(1,hitChance))==1)
+    if(PApplet.parseInt(random(1,3))==1)
       return dmg;
     return 0;
   }
-  public void hit(int d) {
-    hp-=d;
-  }
-  public int hp() {
-    return hp;
-  }
+  public void hit(int d) { hp-=d; }
+  public int hp() { return hp; }
+  public void reset() { hp=20; }
   public void loadsurman() {
     surman.beginDraw();
     surman.noStroke();
@@ -740,19 +802,26 @@ public void loadWhyatt() {
   WhyattDw4.endDraw();
 }
 }
-class boarders{
-  public boolean up(int x, int y) {
-    return false;
+class boarders {
+  int x1, y1, x2, y2, direction;
+  /*
+  1= up
+  2= left
+  3= down
+  4= right
+  */
+  public boarders(int ix1, int iy1, int ix2, int iy2, int idirection) {
+    x1=ix1;
+    y1=iy1;
+    x2=ix2;
+    y2=iy2;
+    direction=idirection;
   }
-  public boolean left(int x, int y) {
-    return false;
-  }
-  public boolean down(int x, int y) {
-    return false;
-  }
-  public boolean right(int x, int y) {
-    return false;
-  }
+  public int getD() { return direction; }
+  public int getX1() { return x1; }
+  public int getY1() { return y1; }
+  public int getX2() { return x2; }
+  public int getY2() { return y2; }
 }
 class ui {
   PGraphics tab1, tab2, tab3;

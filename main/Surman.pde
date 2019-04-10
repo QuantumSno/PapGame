@@ -12,16 +12,13 @@ class Surman extends AI {
   }
   void s() { image(surman, width-width/4, height/2); }
   int dmg() {
-    if(int(random(1,hitChance))==1)
+    if(int(random(1,3))==1)
       return dmg;
     return 0;
   }
-  void hit(int d) {
-    hp-=d;
-  }
-  int hp() {
-    return hp;
-  }
+  void hit(int d) { hp-=d; }
+  int hp() { return hp; }
+  void reset() { hp=20; }
   void loadsurman() {
     surman.beginDraw();
     surman.noStroke();

@@ -5,8 +5,9 @@ class Psymon {
   PsymonWw2, PsymonAw2, PsymonSw2, PsymonDw2,
   PsymonAw3, PsymonAw4, PsymonDw3, PsymonDw4,
   PsymonB1, PsymonB2, PsymonB3, PsymonB4, PsymonB5, PsymonB6;
-  int scale, size;
+  int scale, size, hp;
   public Psymon() {
+    hp=20;
     scale=4;
     size=32*scale;
     PsymonW = createGraphics(size,size);
@@ -62,6 +63,9 @@ class Psymon {
   void pB4() { image(PsymonB4, width/4, height/2); }
   void pB5() { image(PsymonB5, width/4, height/2); }
   void pB6() { image(PsymonB6, width/4, height/2); }
+
+  int hp() { return hp; }
+  void dmg(int d) { hp-=d; }
 
   void loadPsymon() {
     PsymonW.beginDraw();

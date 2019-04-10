@@ -16,7 +16,7 @@ class RenderOrder {
     psymon.pS();
   }
 
-  void render(int zone, int x, int y, int direction, int flip, int flipTime, int hammer) {
+  void render(int zone, int x, int y, int direction, int flip, int flipTime, int hammer, int dmg, boolean doDmg) {
     map.m(x,y);
     if(zone==0) {
       aiTests();
@@ -39,6 +39,11 @@ class RenderOrder {
       ui.tab3();
     } else if(zone==4) {
       background(40);
+      if(doDmg) {
+        surman.hit(dmg);
+        delay(100);
+        psymon.dmg(surman.dmg());
+      }
       switch(hammer) {
         default: psymon.pB1();
         break; case 1: psymon.pB1();
@@ -50,11 +55,18 @@ class RenderOrder {
         break;
       }
       surman.s();
+      textAlign(CENTER, CENTER);
+      textSize(32);
+      fill(255,0,0);
+      text(psymon.hp(), width/4, height-height/4);
+      text(surman.hp(), width-width/4, height-height/4);
     }
   }
   void aiTests() {
     whyatt();
   }
+  int shp() { return surman.hp(); }
+  void shpr() { surman.reset(); }
   String wvoice() {
     return whyatt.voice(int(random(1,4)));
   }
