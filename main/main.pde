@@ -43,15 +43,15 @@ void keyPressed() {
       y= y+walkSpeed;
       direction=5;
       flip++;
-    } else if(key=='a' && !map.boarderLeft(x, y)) {
+    } if(key=='a' && !map.boarderLeft(x, y)) {
       x= x+walkSpeed;
       direction=6;
       flip++;
-    } else if(key=='s' && !map.boarderDown(x, y)) {
+    } if(key=='s' && !map.boarderDown(x, y)) {
       y= y-walkSpeed;
       direction=7;
       flip++;
-    } else if(key=='d' && !map.boarderRight(x, y)) {
+    } if(key=='d' && !map.boarderRight(x, y)) {
       x= x-walkSpeed;
       direction=8;
       flip++;
