@@ -49,7 +49,7 @@ public void draw() {
       ro.shpr();
     }
   ro.render(zone, x, y, direction, flip, flipTime, hammer, dmg, doDmg);
-  //println("x: " + x + " y: " +  y);
+  println("x: " + x + " y: " +  y);
   doDmg=false;
 }
 public void keyPressed() {
@@ -188,8 +188,8 @@ class Map {
   public Map() {
     scale=4;
     //map size 2080x1750
-    //map = createGraphics(2080*scale,1750*scale);
-    map=createGraphics(1000,1000);
+    map = createGraphics(2080*scale,1750*scale);
+    //map=createGraphics(1000,1000);
     loadMap();
     loadBoarders();
   }
@@ -201,60 +201,40 @@ class Map {
   public void loadMap() {
     map.beginDraw();
     map.noStroke();
-    map.background(30);
-    //map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
+    //map.background(30);
+    map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
     map.endDraw();
   }
   public boolean boarderUp(int x, int y) {
     for(int t=0; t<boarder.size(); t++)
       if(boarder.get(t).getD()==1)
-        if(boarder.get(t).getX1()>boarder.get(t).getX2() || boarder.get(t).getY1()>boarder.get(t).getY2())
-          if(boarder.get(t).getX2() > x-5 && boarder.get(t).getX1() < x+5 &&
-          boarder.get(t).getY2() > y-5 && boarder.get(t).getY1() < y+5)
-            return true;
-        else
-          if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-          boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
-            return true;
+        if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+          return true;
     return false;
   }
   public boolean boarderLeft(int x, int y) {
     for(int t=0; t<boarder.size(); t++)
-      if(boarder.get(t).getD()==2)
-        if(boarder.get(t).getX1()>boarder.get(t).getX2() || boarder.get(t).getY1()>boarder.get(t).getY2())
-          if(boarder.get(t).getX2() > x-5 && boarder.get(t).getX1() < x+5 &&
-          boarder.get(t).getY2() > y-5 && boarder.get(t).getY1() < y+5)
-            return true;
-        else
-          if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-          boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
-            return true;
+    if(boarder.get(t).getD()==2)
+        if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+          return true;
     return false;
   }
   public boolean boarderDown(int x, int y) {
     for(int t=0; t<boarder.size(); t++)
       if(boarder.get(t).getD()==3)
-        if(boarder.get(t).getX1()>boarder.get(t).getX2() || boarder.get(t).getY1()>boarder.get(t).getY2())
-          if(boarder.get(t).getX2() > x-5 && boarder.get(t).getX1() < x+5 &&
-          boarder.get(t).getY2() > y-5 && boarder.get(t).getY1() < y+5)
-            return true;
-        else
-          if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-          boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
-            return true;
+        if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+          return true;
     return false;
   }
   public boolean boarderRight(int x, int y) {
     for(int t=0; t<boarder.size(); t++)
       if(boarder.get(t).getD()==4)
-        if(boarder.get(t).getX1()>boarder.get(t).getX2() || boarder.get(t).getY1()>boarder.get(t).getY2())
-          if(boarder.get(t).getX2() > x-5 && boarder.get(t).getX1() < x+5 &&
-          boarder.get(t).getY2() > y-5 && boarder.get(t).getY1() < y+5)
-            return true;
-        else
-          if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-          boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
-            return true;
+        if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+          return true;
     return false;
   }
   /* boolean boarderRight(int x, int y) {
@@ -279,17 +259,22 @@ class Map {
     boarder.add(new boarders(4305, -1080, 4180, -1080, 3)); //10-11
     boarder.add(new boarders(4305, 920, 4305, -1080, 2)); //11-24
     boarder.add(new boarders(4305, 920, 2765, 915, 1)); //24-25
-    boarder.add(new boarders(2765, 915, 2765, 1215, 2)); //25-26
-    boarder.add(new boarders(2765, 1215, 2935, 1215, 3)); //26-27
+    boarder.add(new boarders(2765, 1215, 2765, 915, 2)); //25-26
+    boarder.add(new boarders(2935, 1215, 2765, 1215, 3)); //26-27
     boarder.add(new boarders(2935, 1215, 2935, 1085, 4)); //27-28
-    boarder.add(new boarders(2935, 1085, 4305, 1085, 3)); //28-29
-    boarder.add(new boarders(4305, 1085, 4305, 2570, 2)); //29-34
+    boarder.add(new boarders(4305, 1085, 2935, 1085, 3)); //28-29
+    boarder.add(new boarders(4305, 2570, 4305, 1085, 2)); //29-34
     boarder.add(new boarders(4305, 2570, 2935, 2570, 1)); //34-35
     boarder.add(new boarders(2935, 2570, 2935, 1555, 4)); //35-36
     boarder.add(new boarders(2935, 1555, 2765, 1555, 1)); //36-37
-    boarder.add(new boarders(2765, 1555, 2765, 2570, 2)); //37-38
+    boarder.add(new boarders(2765, 2570, 2765, 1555, 2)); //37-38
     boarder.add(new boarders(2765, 2570, 2645, 2570, 1)); //38-39
-    boarder.add(new boarders(2645, 2570, 2645, 2740, 2)); //39-40
+    boarder.add(new boarders(2645, 2740, 2645, 2570, 2)); //39-40
+    boarder.add(new boarders(2645, 2570, 4525, 2740, 3)); //40-41
+    boarder.add(new boarders(4525, 2740, 4525, 3080, 2)); //41-42
+    boarder.add(new boarders(4525, 3080, -3590, 3080, 1)); //41-125
+    boarder.add(new boarders(-3590, 3080, -3590, 2740 , 4)); //125-124
+    //boarder.add(new boarders(, , , , )); //
   }
 }
 class Psymon {
@@ -886,7 +871,7 @@ class ui {
 }
   public void settings() {  size(840, 640, P2D);  noSmooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "main" };
+    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

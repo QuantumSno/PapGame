@@ -33,7 +33,7 @@ void draw() {
       ro.shpr();
     }
   ro.render(zone, x, y, direction, flip, flipTime, hammer, dmg, doDmg);
-  //println("x: " + x + " y: " +  y);
+  println("x: " + x + " y: " +  y);
   doDmg=false;
 }
 void keyPressed() {
