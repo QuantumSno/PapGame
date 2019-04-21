@@ -19,7 +19,6 @@ public class main extends PApplet {
   RenderOrder ro;
   Map map;
   ui ui;
-  PVector cords;
   //map size 2080x1750
 public void setup() {
   //noCursor();
@@ -31,7 +30,6 @@ public void setup() {
   flipTime = 10;
   flip = 0;
   zone = 0;
-  cords = new PVector(0,0);
   x = 0;
   y = 0;
   direction=0;
@@ -39,7 +37,7 @@ public void setup() {
   imageMode(CENTER);
   
   clip(width/2, height/2, width, height);
-  ro= new RenderOrder(PApplet.parseInt(cords.x), PApplet.parseInt(cords.y));
+  ro= new RenderOrder(x, y);
 }
 public void draw() {
   if(flip >= flipTime * 4)
@@ -50,27 +48,27 @@ public void draw() {
       zone=0;
       ro.shpr();
     }
-  ro.render(zone, cords.x, cords.y, direction, flip, flipTime, hammer, dmg, doDmg);
-  println("cords.x: " + cords.x + " cords.y: " +  cords.y);
+  ro.render(zone, x, y, direction, flip, flipTime, hammer, dmg, doDmg);
+  println("x: " + x + " y: " +  y);
   doDmg=false;
 }
 public void keyPressed() {
   if(zone==0)
   if(keyPressed) {
-    if(key=='w' && !map.boarderUp(cords.x, cords.y)) {
-      cords.y= cords.y+walkSpeed;
+    if(key=='w' && !map.boarderUp(x, y)) {
+      y= y+walkSpeed;
       direction=5;
       flip++;
-    } if(key=='a' && !map.boarderLeft(cords.x, cords.y)) {
-      cords.x= cords.x+walkSpeed;
+    } if(key=='a' && !map.boarderLeft(x, y)) {
+      x= x+walkSpeed;
       direction=6;
       flip++;
-    } if(key=='s' && !map.boarderDown(cords.x, cords.y)) {
-      cords.y= cords.y-walkSpeed;
+    } if(key=='s' && !map.boarderDown(x, y)) {
+      y= y-walkSpeed;
       direction=7;
       flip++;
-    } if(key=='d' && !map.boarderRight(cords.x, cords.y)) {
-      cords.x= cords.x-walkSpeed;
+    } if(key=='d' && !map.boarderRight(x, y)) {
+      x= x-walkSpeed;
       direction=8;
       flip++;
     }
@@ -121,10 +119,10 @@ public void keyReleased() {
       textSize(42);
       stroke(153);
       fill(0, 102, 153);
-        if(ro.wrange(cords.x,cords.y)) {
+        if(ro.wrange(x,y)) {
         talking=true;
         noLoop();
-        text(ro.wvoice(), cords.x-ro.wgetX(), cords.y-ro.wgetY()-100);
+        text(ro.wvoice(), x-ro.wgetX(), y-ro.wgetY()-100);
       }
     } else if(key==ENTER && talking) {
       loop();
@@ -295,7 +293,7 @@ class Map {
     boarder.add(new boarders(460, 1170, -1455, 1170, 1)); //108-107
     boarder.add(new boarders(-1455, 2570, -1455, 1170, 2)); //107-106
     boarder.add(new boarders(-1455, 2570, -1835, 2570, 1)); //106-105
-    boarder.add(new boarders(-1840, 2740, -1835, 2570, 2)); //105-104///
+    boarder.add(new boarders(-1840, 2740, -1835, 2540, 2)); //105-104
     boarder.add(new boarders(2290, 2740, -1840, 2740, 3)); //104-43
     boarder.add(new boarders(2290, 2740, 2290, 2570, 4)); //43-44
     boarder.add(new boarders(2290, 2570, 2165, 2570, 1)); //44-45
@@ -918,7 +916,7 @@ class ui {
 }
   public void settings() {  size(840, 640, P2D);  noSmooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "main" };
+    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

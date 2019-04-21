@@ -3,7 +3,6 @@
   RenderOrder ro;
   Map map;
   ui ui;
-  PVector cords;
   //map size 2080x1750
 void setup() {
   //noCursor();
@@ -15,7 +14,6 @@ void setup() {
   flipTime = 10;
   flip = 0;
   zone = 0;
-  cords = new PVector(0,0);
   x = 0;
   y = 0;
   direction=0;
@@ -23,7 +21,7 @@ void setup() {
   imageMode(CENTER);
   noSmooth();
   clip(width/2, height/2, width, height);
-  ro= new RenderOrder(int(cords.x), int(cords.y));
+  ro= new RenderOrder(x, y);
 }
 void draw() {
   if(flip >= flipTime * 4)
@@ -34,27 +32,27 @@ void draw() {
       zone=0;
       ro.shpr();
     }
-  ro.render(zone, int(cords.x), int(cords.y), direction, flip, flipTime, hammer, dmg, doDmg);
-  println("cords.x: " + cords.x + " cords.y: " +  cords.y);
+  ro.render(zone, x, y, direction, flip, flipTime, hammer, dmg, doDmg);
+  println("x: " + x + " y: " +  y);
   doDmg=false;
 }
 void keyPressed() {
   if(zone==0)
   if(keyPressed) {
-    if(key=='w' && !map.boarderUp(int(cords.x), int(cords.y))) {
-      cords.y= cords.y+walkSpeed;
+    if(key=='w' && !map.boarderUp(x, y)) {
+      y= y+walkSpeed;
       direction=5;
       flip++;
-    } if(key=='a' && !map.boarderLeft(int(cords.x), int(cords.y))) {
-      cords.x= cords.x+walkSpeed;
+    } if(key=='a' && !map.boarderLeft(x, y)) {
+      x= x+walkSpeed;
       direction=6;
       flip++;
-    } if(key=='s' && !map.boarderDown(int(cords.x), int(cords.y))) {
-      cords.y= cords.y-walkSpeed;
+    } if(key=='s' && !map.boarderDown(x, y)) {
+      y= y-walkSpeed;
       direction=7;
       flip++;
-    } if(key=='d' && !map.boarderRight(int(cords.x), int(cords.y))) {
-      cords.x= cords.x-walkSpeed;
+    } if(key=='d' && !map.boarderRight(x, y)) {
+      x= x-walkSpeed;
       direction=8;
       flip++;
     }
@@ -105,10 +103,10 @@ void keyReleased() {
       textSize(42);
       stroke(153);
       fill(0, 102, 153);
-        if(ro.wrange(cords.x,cords.y)) {
+        if(ro.wrange(x,y)) {
         talking=true;
         noLoop();
-        text(ro.wvoice(), cords.x-ro.wgetX(), cords.y-ro.wgetY()-100);
+        text(ro.wvoice(), x-ro.wgetX(), y-ro.wgetY()-100);
       }
     } else if(key==ENTER && talking) {
       loop();
