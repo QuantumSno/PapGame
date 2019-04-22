@@ -157,7 +157,6 @@ class RenderOrder {
       case 3: psymon.pS(); break;
       case 4: psymon.pD(); break;
       case 5:
-      println(s);
         if(flip==1)
           psymon.pW1();
         else if(flip==2)
