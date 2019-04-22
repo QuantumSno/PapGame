@@ -21,6 +21,7 @@ public class main extends PApplet {
   ui ui;
   PVector cords;
   String keys="";
+  int s, frame, count;
   //map size 2080x1750
 public void setup() {
   //noCursor();
@@ -32,8 +33,6 @@ public void setup() {
   flip = 0;
   zone = 0;
   cords = new PVector(0,0);
-  x = 0;
-  y = 0;
   direction=0;
   walkSpeed = 5;
   imageMode(CENTER);
@@ -42,23 +41,25 @@ public void setup() {
   ro= new RenderOrder(PApplet.parseInt(cords.x), PApplet.parseInt(cords.y));
 }
 public void draw() {
-  int t=0;
-  if(t!=second()) {
-    t=second();
-    flip++;
+  if(millis()!=s){
+    count++;
+    if(count==10) {
+      count=0;
+      frame++;
+    }
   }
-  if(flip > 4)
-    flip = 0;
+  if(frame>4)
+    frame=1;
     keys();
   if(zone==4)
     if(ro.shp()<=0) {
       zone=0;
       ro.shpr();
     }
-  ro.render(zone, PApplet.parseInt(cords.x), PApplet.parseInt(cords.y), direction, hammer, dmg, doDmg, flip);
+  ro.render(zone, PApplet.parseInt(cords.x), PApplet.parseInt(cords.y), direction, hammer, dmg, doDmg, frame);
   //println("cords.x: " + cords.x + " cords.y: " +  cords.y);
   doDmg=false;
-  println(flip);
+  //println(flip);
 }
 
 public void keys() {
@@ -105,7 +106,7 @@ public void keys() {
         hammer=6;
       else hammer=1;
     }
-  }/*
+  }
   if(zone==0)
     if(keys.contains("w")) direction=1;
     else if(keys.contains("a")) direction=2;
@@ -120,7 +121,7 @@ public void keys() {
       textSize(42);
       stroke(153);
       fill(0, 102, 153);
-        if(ro.wrange(int(cords.x), int(cords.y))) {
+        if(ro.wrange(PApplet.parseInt(cords.x), PApplet.parseInt(cords.y))) {
         talking=true;
         noLoop();
         text(ro.wvoice(), cords.x-ro.wgetX(), cords.y-ro.wgetY()-100);
@@ -131,7 +132,6 @@ public void keys() {
     } else if(key=='c') {
       zone=4;
     }
-    */
   if(zone==2)
     if(key=='w') {
       zone=1;
@@ -495,7 +495,6 @@ class RenderOrder {
     Whyatt whyatt;
     Surman surman;
     int wd, wdt, wdd, ws;
-    int flipTime=4;
   public RenderOrder(int x, int y) {
     ws=3;
     psymon = new Psymon();
@@ -507,7 +506,7 @@ class RenderOrder {
     psymon.pS();
   }
 
-  public void render(int zone, int x, int y, int direction, int hammer, int dmg, boolean doDmg, int flip) {
+  public void render(int zone, int x, int y, int direction, int hammer, int dmg, boolean doDmg, int frame) {
     map.m(x,y);
     if(zone==0) {
       aiTests();
@@ -580,11 +579,11 @@ class RenderOrder {
       switch(wdd) {
         case 1:
           whyatt.update(whyatt.getX(),whyatt.getY()+ws);
-          if(s/4 >= s*0 && s/4 < s*1/4)
+          if(frame==1)
             whyatt.wS1(x, y);
-          else if(s/4 >= s*1/4 && s/4 < s*2/4)
+          else if(frame==2)
             whyatt.wS2(x, y);
-          else if(s/4 >= s*2/4 && s/4 < s*3/4)
+          else if(frame==3)
             whyatt.wS1(x, y);
           else
             whyatt.wS2(x, y);
@@ -592,11 +591,11 @@ class RenderOrder {
           break;
         case 2:
           whyatt.update(whyatt.getX()-ws,whyatt.getY());
-          if(flip >= 0 && flip < flipTime)
+          if(frame==1)
             whyatt.wS1(x, y);
-          else if(flip >= flipTime && flip < flipTime * 2)
+          else if(frame==2)
             whyatt.wS2(x, y);
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
+          else if(frame==3)
             whyatt.wS1(x, y);
           else
             whyatt.wS2(x, y);
@@ -604,11 +603,11 @@ class RenderOrder {
           break;
         case 3:
           whyatt.update(whyatt.getX(),whyatt.getY()-ws);
-          if(flip >= 0 && flip < flipTime)
+          if(frame==1)
             whyatt.wS1(x, y);
-          else if(flip >= flipTime && flip < flipTime * 2)
+          else if(frame==2)
             whyatt.wS2(x, y);
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
+          else if(frame==3)
             whyatt.wS1(x, y);
           else
             whyatt.wS2(x, y);
@@ -616,11 +615,11 @@ class RenderOrder {
           break;
         case 4:
           whyatt.update(whyatt.getX()+ws,whyatt.getY());
-          if(flip >= 0 && flip < flipTime)
+          if(frame==1)
             whyatt.wS1(x, y);
-          else if(flip >= flipTime && flip < flipTime * 2)
+          else if(frame==2)
             whyatt.wS2(x, y);
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
+          else if(frame==3)
             whyatt.wS1(x, y);
           else
             whyatt.wS2(x, y);
@@ -646,42 +645,41 @@ class RenderOrder {
       case 3: psymon.pS(); break;
       case 4: psymon.pD(); break;
       case 5:
-      println(s);
-        if(flip==1)
+        if(frame==1)
           psymon.pW1();
-        else if(flip==2)
+        else if(frame==2)
           psymon.pW2();
-        else if(flip==3)
+        else if(frame==3)
           psymon.pW1();
         else
           psymon.pW2();
         break;
       case 6:
-        if(flip >= 0 && flip < flipTime)
+        if(frame==1)
           psymon.pA1();
-        else if(flip >= flipTime && flip < flipTime * 2)
+        else if(frame==2)
           psymon.pA2();
-        else if(flip >= flipTime * 2 && flip < flipTime * 3)
+        else if(frame==3)
           psymon.pA3();
         else
           psymon.pA4();
         break;
       case 7:
-        if(flip >= 0 && flip < flipTime)
+        if(frame==1)
           psymon.pS1();
-        else if(flip >= flipTime && flip < flipTime * 2)
+        else if(frame==2)
           psymon.pS2();
-        else if(flip >= flipTime * 2 && flip < flipTime * 3)
+        else if(frame==3)
           psymon.pS1();
         else
           psymon.pS2();
         break;
       case 8:
-        if(flip >= 0 && flip < flipTime)
+        if(frame==1)
           psymon.pD1();
-        else if(flip >= flipTime && flip < flipTime * 2)
+        else if(frame==2)
           psymon.pD2();
-        else if(flip >= flipTime * 2 && flip < flipTime * 3)
+        else if(frame==3)
           psymon.pD3();
         else
           psymon.pD4();

@@ -6,7 +6,6 @@ class RenderOrder {
     Whyatt whyatt;
     Surman surman;
     int wd, wdt, wdd, ws;
-    int flipTime=4;
   public RenderOrder(int x, int y) {
     ws=3;
     psymon = new Psymon();
@@ -18,7 +17,7 @@ class RenderOrder {
     psymon.pS();
   }
 
-  void render(int zone, int x, int y, int direction, int hammer, int dmg, boolean doDmg, int flip) {
+  void render(int zone, int x, int y, int direction, int hammer, int dmg, boolean doDmg, int frame) {
     map.m(x,y);
     if(zone==0) {
       aiTests();
@@ -91,11 +90,11 @@ class RenderOrder {
       switch(wdd) {
         case 1:
           whyatt.update(whyatt.getX(),whyatt.getY()+ws);
-          if(s/4 >= s*0 && s/4 < s*1/4)
+          if(frame==1)
             whyatt.wS1(x, y);
-          else if(s/4 >= s*1/4 && s/4 < s*2/4)
+          else if(frame==2)
             whyatt.wS2(x, y);
-          else if(s/4 >= s*2/4 && s/4 < s*3/4)
+          else if(frame==3)
             whyatt.wS1(x, y);
           else
             whyatt.wS2(x, y);
@@ -103,11 +102,11 @@ class RenderOrder {
           break;
         case 2:
           whyatt.update(whyatt.getX()-ws,whyatt.getY());
-          if(flip >= 0 && flip < flipTime)
+          if(frame==1)
             whyatt.wS1(x, y);
-          else if(flip >= flipTime && flip < flipTime * 2)
+          else if(frame==2)
             whyatt.wS2(x, y);
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
+          else if(frame==3)
             whyatt.wS1(x, y);
           else
             whyatt.wS2(x, y);
@@ -115,11 +114,11 @@ class RenderOrder {
           break;
         case 3:
           whyatt.update(whyatt.getX(),whyatt.getY()-ws);
-          if(flip >= 0 && flip < flipTime)
+          if(frame==1)
             whyatt.wS1(x, y);
-          else if(flip >= flipTime && flip < flipTime * 2)
+          else if(frame==2)
             whyatt.wS2(x, y);
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
+          else if(frame==3)
             whyatt.wS1(x, y);
           else
             whyatt.wS2(x, y);
@@ -127,11 +126,11 @@ class RenderOrder {
           break;
         case 4:
           whyatt.update(whyatt.getX()+ws,whyatt.getY());
-          if(flip >= 0 && flip < flipTime)
+          if(frame==1)
             whyatt.wS1(x, y);
-          else if(flip >= flipTime && flip < flipTime * 2)
+          else if(frame==2)
             whyatt.wS2(x, y);
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
+          else if(frame==3)
             whyatt.wS1(x, y);
           else
             whyatt.wS2(x, y);
@@ -157,41 +156,41 @@ class RenderOrder {
       case 3: psymon.pS(); break;
       case 4: psymon.pD(); break;
       case 5:
-        if(flip==1)
+        if(frame==1)
           psymon.pW1();
-        else if(flip==2)
+        else if(frame==2)
           psymon.pW2();
-        else if(flip==3)
+        else if(frame==3)
           psymon.pW1();
         else
           psymon.pW2();
         break;
       case 6:
-        if(flip >= 0 && flip < flipTime)
+        if(frame==1)
           psymon.pA1();
-        else if(flip >= flipTime && flip < flipTime * 2)
+        else if(frame==2)
           psymon.pA2();
-        else if(flip >= flipTime * 2 && flip < flipTime * 3)
+        else if(frame==3)
           psymon.pA3();
         else
           psymon.pA4();
         break;
       case 7:
-        if(flip >= 0 && flip < flipTime)
+        if(frame==1)
           psymon.pS1();
-        else if(flip >= flipTime && flip < flipTime * 2)
+        else if(frame==2)
           psymon.pS2();
-        else if(flip >= flipTime * 2 && flip < flipTime * 3)
+        else if(frame==3)
           psymon.pS1();
         else
           psymon.pS2();
         break;
       case 8:
-        if(flip >= 0 && flip < flipTime)
+        if(frame==1)
           psymon.pD1();
-        else if(flip >= flipTime && flip < flipTime * 2)
+        else if(frame==2)
           psymon.pD2();
-        else if(flip >= flipTime * 2 && flip < flipTime * 3)
+        else if(frame==3)
           psymon.pD3();
         else
           psymon.pD4();

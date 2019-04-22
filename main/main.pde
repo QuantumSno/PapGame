@@ -5,6 +5,7 @@
   ui ui;
   PVector cords;
   String keys="";
+  int s, frame, count;
   //map size 2080x1750
 void setup() {
   //noCursor();
@@ -16,8 +17,6 @@ void setup() {
   flip = 0;
   zone = 0;
   cords = new PVector(0,0);
-  x = 0;
-  y = 0;
   direction=0;
   walkSpeed = 5;
   imageMode(CENTER);
@@ -26,23 +25,25 @@ void setup() {
   ro= new RenderOrder(int(cords.x), int(cords.y));
 }
 void draw() {
-  int t=0;
-  if(t!=second()) {
-    t=second();
-    flip++;
+  if(millis()!=s){
+    count++;
+    if(count==10) {
+      count=0;
+      frame++;
+    }
   }
-  if(flip > 4)
-    flip = 0;
+  if(frame>4)
+    frame=1;
     keys();
   if(zone==4)
     if(ro.shp()<=0) {
       zone=0;
       ro.shpr();
     }
-  ro.render(zone, int(cords.x), int(cords.y), direction, hammer, dmg, doDmg, flip);
+  ro.render(zone, int(cords.x), int(cords.y), direction, hammer, dmg, doDmg, frame);
   //println("cords.x: " + cords.x + " cords.y: " +  cords.y);
   doDmg=false;
-  println(flip);
+  //println(flip);
 }
 
 void keys() {
@@ -89,7 +90,7 @@ void keys() {
         hammer=6;
       else hammer=1;
     }
-  }/*
+  }
   if(zone==0)
     if(keys.contains("w")) direction=1;
     else if(keys.contains("a")) direction=2;
@@ -115,7 +116,6 @@ void keys() {
     } else if(key=='c') {
       zone=4;
     }
-    */
   if(zone==2)
     if(key=='w') {
       zone=1;
