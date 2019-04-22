@@ -1,30 +1,34 @@
-int x, y;
+int x, y, walkSpeed;
 String keys="";
+spritesheet test;
 psymon psymon;
+boolean walking; int direction;
 void setup() {
   psymon = new psymon();
   size(840, 640, P2D);
   noSmooth();
   imageMode(CENTER);
   x=y=0;
+  walkSpeed=5;
 }
 void draw() {
-  psymon.down(1);
   keys();
+  psymon.down(1);
+  //println("x " + x + " y " + y);
 }
 
 
 void keys() {
     if(keys.contains("w")) {
-      y+=-1;
+      y+=walkSpeed;
     } else if(keys.contains("s")) {
-      y+=1;
+      y+=-walkSpeed;
     }
 
     if(keys.contains("a")) {
-      x+=-1;
+      x+=walkSpeed;
     } else if(keys.contains("d")) {
-      x+=1;
+      x+=-walkSpeed;
     }
 }
 void keyPressed()
