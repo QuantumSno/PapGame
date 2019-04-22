@@ -1,10 +1,12 @@
 class RenderOrder {
+    float s;
     Psymon psymon;
     Map map;
     ui ui;
     Whyatt whyatt;
     Surman surman;
     int wd, wdt, wdd, ws;
+    int flipTime=4;
   public RenderOrder(int x, int y) {
     ws=3;
     psymon = new Psymon();
@@ -16,7 +18,7 @@ class RenderOrder {
     psymon.pS();
   }
 
-  void render(int zone, int x, int y, int direction, int flip, int flipTime, int hammer, int dmg, boolean doDmg) {
+  void render(int zone, int x, int y, int direction, int hammer, int dmg, boolean doDmg, int flip) {
     map.m(x,y);
     if(zone==0) {
       aiTests();
@@ -89,11 +91,11 @@ class RenderOrder {
       switch(wdd) {
         case 1:
           whyatt.update(whyatt.getX(),whyatt.getY()+ws);
-          if(flip >= 0 && flip < flipTime)
+          if(s/4 >= s*0 && s/4 < s*1/4)
             whyatt.wS1(x, y);
-          else if(flip >= flipTime && flip < flipTime * 2)
+          else if(s/4 >= s*1/4 && s/4 < s*2/4)
             whyatt.wS2(x, y);
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
+          else if(s/4 >= s*2/4 && s/4 < s*3/4)
             whyatt.wS1(x, y);
           else
             whyatt.wS2(x, y);
@@ -155,11 +157,12 @@ class RenderOrder {
       case 3: psymon.pS(); break;
       case 4: psymon.pD(); break;
       case 5:
-        if(flip >= 0 && flip < flipTime)
+      println(s);
+        if(flip==1)
           psymon.pW1();
-        else if(flip >= flipTime && flip < flipTime * 2)
+        else if(flip==2)
           psymon.pW2();
-        else if(flip >= flipTime * 2 && flip < flipTime * 3)
+        else if(flip==3)
           psymon.pW1();
         else
           psymon.pW2();

@@ -5,8 +5,8 @@ class Map {
   public Map() {
     scale=4;
     //map size 2080x1750
-    map = createGraphics(2080*scale,1750*scale);
-    //map=createGraphics(1000,1000);
+    //map = createGraphics(2080*scale,1750*scale);
+    map=createGraphics(1000,1000);
     loadMap();
     loadBoarders();
   }
@@ -18,8 +18,9 @@ class Map {
   void loadMap() {
     map.beginDraw();
     map.noStroke();
-    //map.background(30);
-    map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
+    map.background(30);
+    //map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
+    map.image(loadImage("template_map.png"),0,0,1000,1000);
     map.endDraw();
   }
   boolean boarderUp(int x, int y) {
@@ -54,14 +55,6 @@ class Map {
           return true;
     return false;
   }
-  /* boolean boarderRight(int x, int y) {
-    for(int t=0; t<boarder.size(); t++)
-      if(boarder.get(t).getD()==4)
-        if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
-          return true;
-    return false;
-  }*/
   void loadBoarders() {
     //boarder.add(new boarders(, , , , )); //
     boarder.add(new boarders(4305, -1880, 4305, -2095, 2)); //1-2
@@ -136,6 +129,5 @@ class Map {
     boarder.add(new boarders(2165, -1500, 630, -1500, 1)); //101-102
     boarder.add(new boarders(630, -1500, 630, -2095, 4)); //102-103
     boarder.add(new boarders(4305, -2095, 630, -2095, 3)); //103-1
-
   }
 }

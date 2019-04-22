@@ -14,12 +14,13 @@ import java.io.IOException;
 
 public class main extends PApplet {
 
-  int scale, flipTime, flip, zone, x, y, walkSpeed, direction, hammer, time, dmg;
+  int scale, flip, zone, x, y, walkSpeed, direction, hammer, time, dmg;
   boolean move, talking, doDmg;
   RenderOrder ro;
   Map map;
   ui ui;
   PVector cords;
+  String keys="";
   //map size 2080x1750
 public void setup() {
   //noCursor();
@@ -28,7 +29,6 @@ public void setup() {
   move = true;
   
   //fullScreen(P2D);
-  flipTime = 10;
   flip = 0;
   zone = 0;
   cords = new PVector(0,0);
@@ -42,39 +42,40 @@ public void setup() {
   ro= new RenderOrder(PApplet.parseInt(cords.x), PApplet.parseInt(cords.y));
 }
 public void draw() {
-  if(flip >= flipTime * 4)
+  int t=0;
+  if(t!=second()) {
+    t=second();
+    flip++;
+  }
+  if(flip > 4)
     flip = 0;
-  keyPressed();
+    keys();
   if(zone==4)
     if(ro.shp()<=0) {
       zone=0;
       ro.shpr();
     }
-  ro.render(zone, cords.x, cords.y, direction, flip, flipTime, hammer, dmg, doDmg);
-  println("cords.x: " + cords.x + " cords.y: " +  cords.y);
+  ro.render(zone, PApplet.parseInt(cords.x), PApplet.parseInt(cords.y), direction, hammer, dmg, doDmg, flip);
+  //println("cords.x: " + cords.x + " cords.y: " +  cords.y);
   doDmg=false;
+  println(flip);
 }
-public void keyPressed() {
+
+public void keys() {
   if(zone==0)
-  if(keyPressed) {
-    if(key=='w' && !map.boarderUp(cords.x, cords.y)) {
+    if(keys.contains("w") && !map.boarderUp(PApplet.parseInt(cords.x), PApplet.parseInt(cords.y))) {
       cords.y= cords.y+walkSpeed;
       direction=5;
-      flip++;
-    } if(key=='a' && !map.boarderLeft(cords.x, cords.y)) {
+    } if(keys.contains("a") && !map.boarderLeft(PApplet.parseInt(cords.x), PApplet.parseInt(cords.y))) {
       cords.x= cords.x+walkSpeed;
       direction=6;
-      flip++;
-    } if(key=='s' && !map.boarderDown(cords.x, cords.y)) {
+    } if(keys.contains("s") && !map.boarderDown(PApplet.parseInt(cords.x), PApplet.parseInt(cords.y))) {
       cords.y= cords.y-walkSpeed;
       direction=7;
-      flip++;
-    } if(key=='d' && !map.boarderRight(cords.x, cords.y)) {
+    } if(keys.contains("d") && !map.boarderRight(PApplet.parseInt(cords.x), PApplet.parseInt(cords.y))) {
       cords.x= cords.x-walkSpeed;
       direction=8;
-      flip++;
     }
-  }
   if(zone==4) {
     if(keyPressed) {
       if(key=='e') {
@@ -104,14 +105,12 @@ public void keyPressed() {
         hammer=6;
       else hammer=1;
     }
-  }
-}
-public void keyReleased() {
+  }/*
   if(zone==0)
-    if(key=='w') direction=1;
-    else if(key=='a') direction=2;
-    else if(key=='s') direction=3;
-    else if(key=='d') direction=4;
+    if(keys.contains("w")) direction=1;
+    else if(keys.contains("a")) direction=2;
+    else if(keys.contains("s")) direction=3;
+    else if(keys.contains("d")) direction=4;
     else if(key==TAB) {
       zone=1;
       noLoop();
@@ -121,7 +120,7 @@ public void keyReleased() {
       textSize(42);
       stroke(153);
       fill(0, 102, 153);
-        if(ro.wrange(cords.x,cords.y)) {
+        if(ro.wrange(int(cords.x), int(cords.y))) {
         talking=true;
         noLoop();
         text(ro.wvoice(), cords.x-ro.wgetX(), cords.y-ro.wgetY()-100);
@@ -132,6 +131,7 @@ public void keyReleased() {
     } else if(key=='c') {
       zone=4;
     }
+    */
   if(zone==2)
     if(key=='w') {
       zone=1;
@@ -158,6 +158,13 @@ public void keyReleased() {
   if(zone==4)
     if(key=='e')
       doDmg=true;
+}
+
+public void keyPressed() {
+  keys+=key;
+}
+public void keyReleased() {
+  keys=keys.replace(key+"","");
 }
 class AI {
   int active=100;
@@ -190,8 +197,8 @@ class Map {
   public Map() {
     scale=4;
     //map size 2080x1750
-    map = createGraphics(2080*scale,1750*scale);
-    //map=createGraphics(1000,1000);
+    //map = createGraphics(2080*scale,1750*scale);
+    map=createGraphics(1000,1000);
     loadMap();
     loadBoarders();
   }
@@ -203,8 +210,9 @@ class Map {
   public void loadMap() {
     map.beginDraw();
     map.noStroke();
-    //map.background(30);
-    map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
+    map.background(30);
+    //map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
+    map.image(loadImage("template_map.png"),0,0,1000,1000);
     map.endDraw();
   }
   public boolean boarderUp(int x, int y) {
@@ -239,14 +247,6 @@ class Map {
           return true;
     return false;
   }
-  /* boolean boarderRight(int x, int y) {
-    for(int t=0; t<boarder.size(); t++)
-      if(boarder.get(t).getD()==4)
-        if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
-          return true;
-    return false;
-  }*/
   public void loadBoarders() {
     //boarder.add(new boarders(, , , , )); //
     boarder.add(new boarders(4305, -1880, 4305, -2095, 2)); //1-2
@@ -321,7 +321,6 @@ class Map {
     boarder.add(new boarders(2165, -1500, 630, -1500, 1)); //101-102
     boarder.add(new boarders(630, -1500, 630, -2095, 4)); //102-103
     boarder.add(new boarders(4305, -2095, 630, -2095, 3)); //103-1
-
   }
 }
 class Psymon {
@@ -489,12 +488,14 @@ class Psymon {
   }
 }
 class RenderOrder {
+    float s;
     Psymon psymon;
     Map map;
     ui ui;
     Whyatt whyatt;
     Surman surman;
     int wd, wdt, wdd, ws;
+    int flipTime=4;
   public RenderOrder(int x, int y) {
     ws=3;
     psymon = new Psymon();
@@ -506,7 +507,7 @@ class RenderOrder {
     psymon.pS();
   }
 
-  public void render(int zone, int x, int y, int direction, int flip, int flipTime, int hammer, int dmg, boolean doDmg) {
+  public void render(int zone, int x, int y, int direction, int hammer, int dmg, boolean doDmg, int flip) {
     map.m(x,y);
     if(zone==0) {
       aiTests();
@@ -579,11 +580,11 @@ class RenderOrder {
       switch(wdd) {
         case 1:
           whyatt.update(whyatt.getX(),whyatt.getY()+ws);
-          if(flip >= 0 && flip < flipTime)
+          if(s/4 >= s*0 && s/4 < s*1/4)
             whyatt.wS1(x, y);
-          else if(flip >= flipTime && flip < flipTime * 2)
+          else if(s/4 >= s*1/4 && s/4 < s*2/4)
             whyatt.wS2(x, y);
-          else if(flip >= flipTime * 2 && flip < flipTime * 3)
+          else if(s/4 >= s*2/4 && s/4 < s*3/4)
             whyatt.wS1(x, y);
           else
             whyatt.wS2(x, y);
@@ -645,11 +646,12 @@ class RenderOrder {
       case 3: psymon.pS(); break;
       case 4: psymon.pD(); break;
       case 5:
-        if(flip >= 0 && flip < flipTime)
+      println(s);
+        if(flip==1)
           psymon.pW1();
-        else if(flip >= flipTime && flip < flipTime * 2)
+        else if(flip==2)
           psymon.pW2();
-        else if(flip >= flipTime * 2 && flip < flipTime * 3)
+        else if(flip==3)
           psymon.pW1();
         else
           psymon.pW2();

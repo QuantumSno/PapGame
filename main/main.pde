@@ -1,9 +1,10 @@
-  int scale, flipTime, flip, zone, x, y, walkSpeed, direction, hammer, time, dmg;
+  int scale, flip, zone, x, y, walkSpeed, direction, hammer, time, dmg;
   boolean move, talking, doDmg;
   RenderOrder ro;
   Map map;
   ui ui;
   PVector cords;
+  String keys="";
   //map size 2080x1750
 void setup() {
   //noCursor();
@@ -12,7 +13,6 @@ void setup() {
   move = true;
   size(840, 640, P2D);
   //fullScreen(P2D);
-  flipTime = 10;
   flip = 0;
   zone = 0;
   cords = new PVector(0,0);
@@ -26,39 +26,40 @@ void setup() {
   ro= new RenderOrder(int(cords.x), int(cords.y));
 }
 void draw() {
-  if(flip >= flipTime * 4)
+  int t=0;
+  if(t!=second()) {
+    t=second();
+    flip++;
+  }
+  if(flip > 4)
     flip = 0;
-  keyPressed();
+    keys();
   if(zone==4)
     if(ro.shp()<=0) {
       zone=0;
       ro.shpr();
     }
-  ro.render(zone, int(cords.x), int(cords.y), direction, flip, flipTime, hammer, dmg, doDmg);
-  println("cords.x: " + cords.x + " cords.y: " +  cords.y);
+  ro.render(zone, int(cords.x), int(cords.y), direction, hammer, dmg, doDmg, flip);
+  //println("cords.x: " + cords.x + " cords.y: " +  cords.y);
   doDmg=false;
+  println(flip);
 }
-void keyPressed() {
+
+void keys() {
   if(zone==0)
-  if(keyPressed) {
-    if(key=='w' && !map.boarderUp(int(cords.x), int(cords.y))) {
+    if(keys.contains("w") && !map.boarderUp(int(cords.x), int(cords.y))) {
       cords.y= cords.y+walkSpeed;
       direction=5;
-      flip++;
-    } if(key=='a' && !map.boarderLeft(int(cords.x), int(cords.y))) {
+    } if(keys.contains("a") && !map.boarderLeft(int(cords.x), int(cords.y))) {
       cords.x= cords.x+walkSpeed;
       direction=6;
-      flip++;
-    } if(key=='s' && !map.boarderDown(int(cords.x), int(cords.y))) {
+    } if(keys.contains("s") && !map.boarderDown(int(cords.x), int(cords.y))) {
       cords.y= cords.y-walkSpeed;
       direction=7;
-      flip++;
-    } if(key=='d' && !map.boarderRight(int(cords.x), int(cords.y))) {
+    } if(keys.contains("d") && !map.boarderRight(int(cords.x), int(cords.y))) {
       cords.x= cords.x-walkSpeed;
       direction=8;
-      flip++;
     }
-  }
   if(zone==4) {
     if(keyPressed) {
       if(key=='e') {
@@ -88,14 +89,12 @@ void keyPressed() {
         hammer=6;
       else hammer=1;
     }
-  }
-}
-void keyReleased() {
+  }/*
   if(zone==0)
-    if(key=='w') direction=1;
-    else if(key=='a') direction=2;
-    else if(key=='s') direction=3;
-    else if(key=='d') direction=4;
+    if(keys.contains("w")) direction=1;
+    else if(keys.contains("a")) direction=2;
+    else if(keys.contains("s")) direction=3;
+    else if(keys.contains("d")) direction=4;
     else if(key==TAB) {
       zone=1;
       noLoop();
@@ -105,7 +104,7 @@ void keyReleased() {
       textSize(42);
       stroke(153);
       fill(0, 102, 153);
-        if(ro.wrange(cords.x,cords.y)) {
+        if(ro.wrange(int(cords.x), int(cords.y))) {
         talking=true;
         noLoop();
         text(ro.wvoice(), cords.x-ro.wgetX(), cords.y-ro.wgetY()-100);
@@ -116,6 +115,7 @@ void keyReleased() {
     } else if(key=='c') {
       zone=4;
     }
+    */
   if(zone==2)
     if(key=='w') {
       zone=1;
@@ -142,4 +142,11 @@ void keyReleased() {
   if(zone==4)
     if(key=='e')
       doDmg=true;
+}
+
+void keyPressed() {
+  keys+=key;
+}
+void keyReleased() {
+  keys=keys.replace(key+"","");
 }
