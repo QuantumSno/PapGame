@@ -211,8 +211,8 @@ class Map {
     map.beginDraw();
     map.noStroke();
     map.background(30);
-    map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
-    //map.image(loadImage("template_map.png"),0,0,1000,1000);
+    map.image(requestImage("collider map.png"),0,0,2080*scale,1750*scale);
+    //map.image(requestImage("template_map.png"),0,0,1000,1000);
     map.endDraw();
   }
   public boolean boarderUp(int x, int y) {
@@ -918,7 +918,7 @@ class ui {
 }
   public void settings() {  size(840, 640, P2D);  noSmooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
+    String[] appletArgs = new String[] { "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

@@ -19,8 +19,8 @@ class Map {
     map.beginDraw();
     map.noStroke();
     map.background(30);
-    map.image(loadImage("collider map.png"),0,0,2080*scale,1750*scale);
-    //map.image(loadImage("template_map.png"),0,0,1000,1000);
+    map.image(requestImage("collider map.png"),0,0,2080*scale,1750*scale);
+    //map.image(requestImage("template_map.png"),0,0,1000,1000);
     map.endDraw();
   }
   boolean boarderUp(int x, int y) {
