@@ -39,7 +39,7 @@ void draw() {
     drawOrder();
     elements.tab(f);
   }
-  println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone);
+  println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " \nkeys " + keys);
 }
 void drawOrder() {
   //frame data
@@ -113,27 +113,27 @@ void keys() {
       zone='p';
     }
   } else if(zone=='p') {
-    if(f==0) {
+    if(f==1) {
       if(keys.contains("s")) {
-        f=1;
+        f=2;
         redraw();
       } else if(keys.contains(""+ENTER)) {
         zone='m';
         loop();
       }
-    } else if(zone==1) {
+    } else if(f==2) {
       if(keys.contains("w")) {
-        f=0;
+        f=1;
         redraw();
       } else if(keys.contains("s")) {
-        f=2;
+        f=3;
         redraw();
       } else if(keys.contains(""+ENTER)) {
         println("inventory");
       }
-    } else if(zone==2) {
+    } else if(f==3) {
       if(keys.contains("w")) {
-        f=1;
+        f=2;
         redraw();
       } else if(keys.contains(""+ENTER)) {
         exit();
@@ -143,6 +143,7 @@ void keys() {
 }
 void keyPressed()
 {
+  println(key);
   if(zone=='t') {
     loop();
     zone='m';
