@@ -29,23 +29,18 @@ public void setup() {
   psymon = new psymon();
   elements = new elements();
   
-  //fullScreen(P2D);
   
   imageMode(CENTER);
   x=y=0;
   walkSpeed=5;
   loadBoarders();
-  //460, 1170
-  //1010, 1400
-  /*
-  for(int t=0; t<boarder.size(); t++) {
-    boarder.get(t).update(1010-460, 1400-1170);
-  }
-  */
   redraw();
   noLoop();
 }
 public void draw() {
+  walking=false;
+  if(keyPressed)
+    walking=true;
   keys();
   if(zone=='m') {
     drawOrder();
@@ -166,7 +161,6 @@ public void keyPressed()
   } else if(zone=='p') {
     keys();
   }
-  walking=true;
   keys+=key;
 }
 
@@ -174,7 +168,6 @@ public void keyReleased() {
   if(zone=='p') {
     keys();
   }
-  walking=false;
   keys=keys.replace(key+"","");
 }
 
