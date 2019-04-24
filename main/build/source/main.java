@@ -71,7 +71,7 @@ public void drawOrder() {
       four=4;
     }
   background(30);
-  elements.map(x, y);
+  elements.templateMap(x, y);
   //psymon
     if(walking==true) {
       if(direction==1) {
@@ -367,7 +367,9 @@ class psymon {
 class spritesheet {
   PImage[] sprites;
   int wid, hei;
-  public spritesheet(PImage spritesheet, int dX, int dY) {
+  PImage spritesheet;
+  public spritesheet(PImage ispritesheet, int dX, int dY) {
+    spritesheet = ispritesheet;
     noStroke();
     smooth(0);
     sprites = new PImage[dX*dY];
@@ -397,7 +399,7 @@ class spritesheet {
 }
   public void settings() {  size(840, 640, P2D);  noSmooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--hide-stop", "main" };
+    String[] appletArgs = new String[] { "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

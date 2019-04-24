@@ -1,7 +1,9 @@
 class spritesheet {
   PImage[] sprites;
   int wid, hei;
-  public spritesheet(PImage spritesheet, int dX, int dY) {
+  PImage spritesheet;
+  public spritesheet(PImage ispritesheet, int dX, int dY) {
+    spritesheet = ispritesheet;
     noStroke();
     smooth(0);
     sprites = new PImage[dX*dY];
