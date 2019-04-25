@@ -9,6 +9,7 @@ int f=0;
 int four, two;
 char zone = 't';
 int tab1=1;
+int combatPsymon = 0;
 void setup() {
   frameRate(60);
   psymon = new psymon();
@@ -36,6 +37,15 @@ void draw() {
     elements.tab(tab1);
   } else if(zone=='c') {
     elements.combat();
+    elements.combatMenu(1);
+    switch(combatPsymon)
+    {
+      default:
+        psymon.ready();
+      break; case 1:
+        psymon.ready();
+      break;
+    }
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
 }
@@ -105,8 +115,10 @@ void keys() {
     }
     if(keys.contains(""+TAB)) {
       noLoop();
-      f=1;
+      tab1=1;
       zone='p';
+    } else if(keys.contains("c")) {
+      zone='c';
     }
   } else if(zone=='p') {
     if(tab1==2) {

@@ -25,6 +25,7 @@ int f=0;
 int four, two;
 char zone = 't';
 int tab1=1;
+int combatPsymon = 0;
 public void setup() {
   frameRate(60);
   psymon = new psymon();
@@ -50,9 +51,19 @@ public void draw() {
   } else if(zone=='p') {
     drawOrder();
     elements.tab(tab1);
+  } else if(zone=='c') {
+    elements.combat();
+    elements.combatMenu(1);
+    switch(combatPsymon)
+    {
+      default:
+        psymon.ready();
+      break; case 1:
+        psymon.ready();
+      break;
+    }
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
-  elements.combat();
 }
 public void drawOrder() {
   //frame data
@@ -120,8 +131,10 @@ public void keys() {
     }
     if(keys.contains(""+TAB)) {
       noLoop();
-      f=1;
+      tab1=1;
       zone='p';
+    } else if(keys.contains("c")) {
+      zone='c';
     }
   } else if(zone=='p') {
     if(tab1==2) {
@@ -310,7 +323,7 @@ class boarders {
   }
 }
 class elements {
-  spritesheet test, title, tab, templateMap, combatMap;
+  spritesheet test, title, tab, templateMap, combatMap, combatSpin;
   public elements() {
     test = new spritesheet(loadImage("collider map.png"), 1, 1);
       test.setW(8320);
@@ -321,12 +334,15 @@ class elements {
     templateMap = new spritesheet(loadImage("template_map.png"), 1, 1);
     combatMap = new spritesheet(loadImage("stage.png"), 1, 2);
       combatMap.setW(width); combatMap.setH(height);
+    combatSpin = new spritesheet(loadImage("combat menus.png"), 2, 2);
+      combatSpin.setW(100); combatSpin.setH(100);
   }
   public void map(int x, int y) { test.out(1, x, y); }
   public void title() { title.out(1, width/2, height/2); }
   public void tab(int f) { tab.out(f, width/2, height/2); }
   public void templateMap(int x, int y) { title.out(1, x, y); }
-  public void combat() { combatMap.out(2, width/2, height/2); }
+  public void combat() { combatMap.out(1, width/2, height/2); }
+  public void combatMenu(int f) { combatSpin.out(f, 0+50, height-50); }
 }
 class psymon {
   spritesheet up, down, left, right, walkUp, walkDown, walkLeft, walkRight, bat, batcharge, ready, hurt;
@@ -356,8 +372,8 @@ class psymon {
   public void walkLeft(int f) { walkLeft.out(f, width/2, height/2); }
   public void walkRight(int f) { walkRight.out(f, width/2, height/2); }
   public void bat(int f) { bat.out(f, width/2, height/2); }
-  public void ready(int f) { ready.out(f, width/2, height/2); }
-  public void hurt(int f) { hurt.out(f, width/2, height/2); }
+  public void ready() { ready.out(1, width/2, height/2); }
+  public void hurt() { hurt.out(1, width/2, height/2); }
 
   public void sheettest() {
     walkLeft.printSheet(1);
