@@ -24,6 +24,7 @@ boolean walking; int direction;
 int f=0;
 int four, two;
 char zone = 't';
+int tab1=1;
 public void setup() {
   frameRate(60);
   psymon = new psymon();
@@ -48,7 +49,7 @@ public void draw() {
     elements.title();
   } else if(zone=='p') {
     drawOrder();
-    elements.tab(f);
+    elements.tab(tab1);
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
 }
@@ -71,7 +72,7 @@ public void drawOrder() {
       four=4;
     }
   background(30);
-  elements.map(x, y);
+  elements.templateMap(x, y);
   //psymon
     if(walking==true) {
       if(direction==1) {
@@ -109,7 +110,6 @@ public void keys() {
       y+=-walkSpeed;
       direction=3;
     }
-
     if(keys.contains("a") && !boarderLeft()) {
       x+=walkSpeed;
       direction=2;
@@ -117,34 +117,54 @@ public void keys() {
       x+=-walkSpeed;
       direction=4;
     }
-
     if(keys.contains(""+TAB)) {
       noLoop();
-      f=0;
+      f=1;
       zone='p';
     }
   } else if(zone=='p') {
-    println("before f "+f);
-
-    
-
-    println("else f "+f);
+    if(tab1==2) {
+      if(keys.contains("w")) {
+        tab1=1;
+      } else if(keys.contains("s")) {
+        tab1=3;
+      } else if(keys.contains(""+ENTER)) {
+        tab1=4;
+      }
+    } else if(tab1==1) {
+      if(keys.contains("s")) {
+        tab1=2;
+      } else if(keys.contains(""+ENTER)) {
+        zone='m';
+        loop();
+      }
+    } else if(tab1==3) {
+      if(keys.contains("w")) {
+        tab1=2;
+      } else if(keys.contains(""+ENTER)) {
+        exit();
+      }
+    } else if(tab1==4) {
+      if(keys.contains(""+ENTER)) {
+        tab1=2;
+      }
+      println("4");
+    }
   }
 }
 public void keyPressed()
 {
-  if(zone=='t') {
-    loop();
-    zone='m';
-  } else if(zone=='p') {
-    keys();
-  }
   keys+=key;
 }
 
 public void keyReleased() {
+  if(zone=='t') {
+    zone='m';
+    loop();
+  }
   if(zone=='p') {
     keys();
+    redraw();
   }
   keys=keys.replace(key+"","");
 }
