@@ -34,6 +34,8 @@ void draw() {
   } else if(zone=='p') {
     drawOrder();
     elements.tab(tab1);
+  } else if(zone=='c') {
+    elements.combat();
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
 }

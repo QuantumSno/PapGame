@@ -52,6 +52,7 @@ public void draw() {
     elements.tab(tab1);
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
+  elements.combat();
 }
 public void drawOrder() {
   //frame data
@@ -309,7 +310,7 @@ class boarders {
   }
 }
 class elements {
-  spritesheet test, title, tab, templateMap;
+  spritesheet test, title, tab, templateMap, combatMap;
   public elements() {
     test = new spritesheet(loadImage("collider map.png"), 1, 1);
       test.setW(8320);
@@ -318,12 +319,14 @@ class elements {
     tab = new spritesheet(loadImage("tab menu.png"), 2, 2);
       tab.setW(width); tab.setH(height);
     templateMap = new spritesheet(loadImage("template_map.png"), 1, 1);
-
+    combatMap = new spritesheet(loadImage("stage.png"), 1, 2);
+      combatMap.setW(width); combatMap.setH(height);
   }
   public void map(int x, int y) { test.out(1, x, y); }
   public void title() { title.out(1, width/2, height/2); }
   public void tab(int f) { tab.out(f, width/2, height/2); }
   public void templateMap(int x, int y) { title.out(1, x, y); }
+  public void combat() { combatMap.out(2, width/2, height/2); }
 }
 class psymon {
   spritesheet up, down, left, right, walkUp, walkDown, walkLeft, walkRight, bat, batcharge, ready, hurt;
