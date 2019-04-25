@@ -50,7 +50,7 @@ public void draw() {
     drawOrder();
     elements.tab(f);
   }
-  println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " \nkeys " + keys);
+  //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
 }
 public void drawOrder() {
   //frame data
@@ -71,7 +71,7 @@ public void drawOrder() {
       four=4;
     }
   background(30);
-  elements.templateMap(x, y);
+  elements.map(x, y);
   //psymon
     if(walking==true) {
       if(direction==1) {
@@ -124,37 +124,15 @@ public void keys() {
       zone='p';
     }
   } else if(zone=='p') {
-    if(f==1) {
-      if(keys.contains("s")) {
-        f=2;
-        redraw();
-      } else if(keys.contains(""+ENTER)) {
-        zone='m';
-        loop();
-      }
-    } else if(f==2) {
-      if(keys.contains("w")) {
-        f=1;
-        redraw();
-      } else if(keys.contains("s")) {
-        f=3;
-        redraw();
-      } else if(keys.contains(""+ENTER)) {
-        println("inventory");
-      }
-    } else if(f==3) {
-      if(keys.contains("w")) {
-        f=2;
-        redraw();
-      } else if(keys.contains(""+ENTER)) {
-        exit();
-      }
-    }
+    println("before f "+f);
+
+    
+
+    println("else f "+f);
   }
 }
 public void keyPressed()
 {
-  println(key);
   if(zone=='t') {
     loop();
     zone='m';
