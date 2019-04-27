@@ -84,7 +84,7 @@ public void drawOrder() {
       four=4;
     }
   background(30);
-  elements.templateMap(x, y);
+  elements.map(x, y);
   //psymon
     if(walking==true) {
       if(direction==1) {
@@ -323,11 +323,14 @@ class boarders {
   }
 }
 class elements {
-  spritesheet test, title, tab, templateMap, combatMap, combatSpin;
+  spritesheet test, title, tab, templateMap, combatMap, combatSpin, map;
   public elements() {
     test = new spritesheet(loadImage("collider map.png"), 1, 1);
       test.setW(8320);
       test.setH(7040);
+    map = new spritesheet(loadImage("foil map working.png"), 1, 1);
+      map.setW(8320);
+      map.setH(7040);
     title = new spritesheet(loadImage("foil title.png"), 1, 1);
     tab = new spritesheet(loadImage("tab menu.png"), 2, 2);
       tab.setW(width); tab.setH(height);
@@ -337,7 +340,8 @@ class elements {
     combatSpin = new spritesheet(loadImage("combat menus.png"), 2, 2);
       combatSpin.setW(100); combatSpin.setH(100);
   }
-  public void map(int x, int y) { test.out(1, x, y); }
+  public void mapBoarders(int x, int y) { test.out(1, x, y); }
+  public void map(int x, int y) { map.out(1, x, y); }
   public void title() { title.out(1, width/2, height/2); }
   public void tab(int f) { tab.out(f, width/2, height/2); }
   public void templateMap(int x, int y) { title.out(1, x, y); }
