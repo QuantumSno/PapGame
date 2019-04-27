@@ -64,7 +64,7 @@ void drawOrder() {
       four=4;
     }
   background(30);
-  elements.map(x, y);
+  elements.templateMap(x, y);
   //psymon
     if(walking==true) {
       if(direction==1) {
