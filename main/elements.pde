@@ -22,5 +22,5 @@ class elements {
   void tab(int f) { tab.out(f, width/2, height/2); }
   void templateMap(int x, int y) { title.out(1, x, y); }
   void combat() { combatMap.out(1, width/2, height/2); }
-  void combatMenu(int f) { combatSpin.out(f, 0+50, height-50); }
+  void combatMenu(int f) { combatSpin.out(f, 0+150/2, height-150/2+5); }
 }

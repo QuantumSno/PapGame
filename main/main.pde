@@ -1,19 +1,24 @@
 ArrayList<boarders> boarder = new ArrayList<boarders>();
 int x, y, walkSpeed;
 String keys="";
-spritesheet test;
+//impliment loading screens!
 psymon psymon;
 elements elements;
+raccoon raccoon;
 boolean walking; int direction;
 int f=0;
 int four, two;
 char zone = 't';
 int tab1=1;
-int combatPsymon = 0;
+int combatPsymon = 1;
+boolean psymonTurn=true;
+boolean psymonAttack=false;
+int combatX=150;
 void setup() {
   frameRate(60);
   psymon = new psymon();
   elements = new elements();
+  raccoon = new raccoon();
   size(840, 640, P2D);
   noSmooth();
   imageMode(CENTER);
@@ -36,16 +41,7 @@ void draw() {
     drawOrder();
     elements.tab(tab1);
   } else if(zone=='c') {
-    elements.combat();
-    elements.combatMenu(1);
-    switch(combatPsymon)
-    {
-      default:
-        psymon.ready();
-      break; case 1:
-        psymon.ready();
-      break;
-    }
+    combat();
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
 }
@@ -96,6 +92,35 @@ void drawOrder() {
       }
     }
 }
+void combat() {
+  f++;
+  if(f>=40)
+    f=0;
+  if(f>0 && f<=10) {
+    two=1;
+    four=1;
+  } else if(f>10 && f<=20) {
+    two=2;
+    four=2;
+  } else if(f>20 && f<=30) {
+    two=1;
+    four=3;
+  } else if(f>30 && f<=40) {
+    two=2;
+    four=4;
+  }
+
+  elements.combat();
+  elements.combatMenu(combatPsymon);
+  if(psymonAttack) {//psymon attacking!
+
+  } else if(!psymonAttack && !psymonTurn) { //raccoon attacking!
+
+  } else {
+    psymon.ready();
+    raccoon.ready();
+  }
+}
 
 void keys() {
   if(zone=='m') {
@@ -118,6 +143,7 @@ void keys() {
       tab1=1;
       zone='p';
     } else if(keys.contains("c")) {
+      noLoop();
       zone='c';
     }
   } else if(zone=='p') {
@@ -146,7 +172,24 @@ void keys() {
       if(keys.contains(""+ENTER)) {
         tab1=2;
       }
-      println("4");
+    }
+  } else if(zone=='c') {
+    if(psymonTurn) {
+      if(keys.contains("w")) {
+        if(combatPsymon==1)
+          combatPsymon=2;
+        else if(combatPsymon==2)
+          combatPsymon=1;
+      } else if(keys.contains("s")) {
+        if(combatPsymon==1)
+          combatPsymon=2;
+        else if(combatPsymon==2)
+          combatPsymon=1;
+      } else if(keys.contains(""+ENTER)) {
+        if(combatPsymon==2)
+          psymonAttack=true;
+        loop();
+      }
     }
   }
 }
@@ -161,6 +204,10 @@ void keyReleased() {
     loop();
   }
   if(zone=='p') {
+    keys();
+    redraw();
+  }
+  if(zone=='c') {
     keys();
     redraw();
   }

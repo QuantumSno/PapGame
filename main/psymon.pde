@@ -27,7 +27,12 @@ class psymon {
   void walkRight(int f) { walkRight.out(f, width/2, height/2); }
   void bat(int f) { bat.out(f, width/2, height/2); }
   void ready() { ready.out(1, 150, height-140); }
-  void hurt() { hurt.out(1, width/2, height/2); }
+  void hurt() { hurt.out(1, 150, height-140); }
+
+  void swing()
+  {
+
+  }
 
   void sheettest() {
     walkLeft.printSheet(1);
