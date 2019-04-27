@@ -13,8 +13,8 @@ class elements {
     templateMap = new spritesheet(loadImage("template_map.png"), 1, 1);
     combatMap = new spritesheet(loadImage("stage.png"), 1, 2);
       combatMap.setW(width); combatMap.setH(height);
-    combatSpin = new spritesheet(loadImage("combat menus.png"), 2, 2);
-      combatSpin.setW(100); combatSpin.setH(100);
+    combatSpin = new spritesheet(loadImage("combat menu.png"), 2, 2);
+      combatSpin.setW(150); combatSpin.setH(150);
   }
   void mapBoarders(int x, int y) { test.out(1, x, y); }
   void map(int x, int y) { map.out(1, x, y); }

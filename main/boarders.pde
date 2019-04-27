@@ -25,8 +25,4 @@ class boarders {
       x2+=x;
       y2+=y;
   }
-  void print(int x, int y) {
-    stroke(255, 0, 0);
-    line(x1, y1, x2, y2);
-  }
 }

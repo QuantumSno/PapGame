@@ -317,10 +317,6 @@ class boarders {
       x2+=x;
       y2+=y;
   }
-  public void print(int x, int y) {
-    stroke(255, 0, 0);
-    line(x1, y1, x2, y2);
-  }
 }
 class elements {
   spritesheet test, title, tab, templateMap, combatMap, combatSpin, map;
@@ -337,8 +333,8 @@ class elements {
     templateMap = new spritesheet(loadImage("template_map.png"), 1, 1);
     combatMap = new spritesheet(loadImage("stage.png"), 1, 2);
       combatMap.setW(width); combatMap.setH(height);
-    combatSpin = new spritesheet(loadImage("combat menus.png"), 2, 2);
-      combatSpin.setW(100); combatSpin.setH(100);
+    combatSpin = new spritesheet(loadImage("combat menu.png"), 2, 2);
+      combatSpin.setW(150); combatSpin.setH(150);
   }
   public void mapBoarders(int x, int y) { test.out(1, x, y); }
   public void map(int x, int y) { map.out(1, x, y); }
@@ -376,7 +372,7 @@ class psymon {
   public void walkLeft(int f) { walkLeft.out(f, width/2, height/2); }
   public void walkRight(int f) { walkRight.out(f, width/2, height/2); }
   public void bat(int f) { bat.out(f, width/2, height/2); }
-  public void ready() { ready.out(1, width/2, height/2); }
+  public void ready() { ready.out(1, 150, height-140); }
   public void hurt() { hurt.out(1, width/2, height/2); }
 
   public void sheettest() {
