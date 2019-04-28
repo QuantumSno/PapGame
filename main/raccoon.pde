@@ -8,6 +8,6 @@ class raccoon {
 
   void ready() { raccoon.out(1, width-150, height-140); }
   void hurt() { raccoonHurt.out(1, width-150, height-140); }
-  void hit(int f, int x, int y) { raccoonHit.out(f, x, y); }
+  void hit(int f) { raccoonHit.out(f, width-150, height-140); }
 
 }

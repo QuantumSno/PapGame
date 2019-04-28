@@ -12,8 +12,8 @@ class psymon {
     walkDown= new spritesheet(loadImage("psymon down walk.png"), 2, 2); walkDown.setW(size); walkDown.setH(size);
     walkLeft= new spritesheet(loadImage("psymon left walk.png"), 2, 2); walkLeft.setW(size); walkLeft.setH(size);
     walkRight= new spritesheet(loadImage("psymon right walk.png"), 2, 2); walkRight.setW(size); walkRight.setH(size);
-    bat = new spritesheet(loadImage("psymon bat.png"), 3, 3); bat.setW(size); bat.setH(size);
-    bat = new spritesheet(loadImage("psymon bat charge.png"), 4, 5); bat.setW(size); bat.setH(size);
+    bat = new spritesheet(loadImage("psymon bat charge.png"), 3, 3); bat.setW(size); bat.setH(size);
+    batcharge = new spritesheet(loadImage("psymon bat.png"), 4, 5); batcharge.setW(size); batcharge.setH(size);
     ready = new spritesheet(loadImage("psymon ready.png"), 1, 1); ready.setW(size); ready.setH(size);
     hurt = new spritesheet(loadImage("psymon hurt.png"), 1, 1); hurt.setW(size); hurt.setH(size);
   }
@@ -28,15 +28,19 @@ class psymon {
   void bat(int f) { bat.out(f, width/2, height/2); }
   void ready() { ready.out(1, 150, height-140); }
   void hurt() { hurt.out(1, 150, height-140); }
-
-  void swing()
-  {
-
+  void swing(int f) {
+    if(f>=1 && f <= 4) {
+      bat.out(f, 150, height-140);
+    } else {
+      batcharge.out(f-4, 150, height-140);
+    }
   }
 
   void sheettest() {
-    walkLeft.printSheet(1);
-    walkDown.printSheet(2);
-    walkUp.printSheet(3);
+    //walkLeft.printSheet(1);
+    //walkDown.printSheet(2);
+    //walkUp.printSheet(3);
+    bat.printSheet(1);
+    batcharge.printSheet(2);
   }
 }

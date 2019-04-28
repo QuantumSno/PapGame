@@ -30,6 +30,7 @@ int combatPsymon = 1;
 boolean psymonTurn=true;
 boolean psymonAttack=false;
 int combatX=150;
+int swing=1;
 public void setup() {
   frameRate(60);
   psymon = new psymon();
@@ -60,6 +61,7 @@ public void draw() {
     combat();
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
+  //psymon.sheettest();
 }
 public void drawOrder() {
   //frame data
@@ -80,7 +82,7 @@ public void drawOrder() {
       four=4;
     }
   background(30);
-  elements.templateMap(x, y);
+  elements.map(x, y);
   //psymon
     if(walking==true) {
       if(direction==1) {
@@ -110,29 +112,29 @@ public void drawOrder() {
 }
 public void combat() {
   f++;
-  if(f>=40)
+  if(f>=0 && f< 10) {
+    swing++;
+  } else {
     f=0;
-  if(f>0 && f<=10) {
-    two=1;
-    four=1;
-  } else if(f>10 && f<=20) {
-    two=2;
-    four=2;
-  } else if(f>20 && f<=30) {
-    two=1;
-    four=3;
-  } else if(f>30 && f<=40) {
-    two=2;
-    four=4;
   }
-
   elements.combat();
   elements.combatMenu(combatPsymon);
   if(psymonAttack) {//psymon attacking!
-
+    psymon.swing(swing);
+    if(swing>22) {
+      psymonAttack=false;
+      psymonTurn=false;
+      swing=1;
+    }
   } else if(!psymonAttack && !psymonTurn) { //raccoon attacking!
-
+    raccoon.hit(swing);
+    if(swing>7) {
+      psymonTurn=true;
+      noLoop();
+      redraw();
+    }
   } else {
+    swing=1;
     psymon.ready();
     raccoon.ready();
   }
@@ -202,9 +204,10 @@ public void keys() {
         else if(combatPsymon==2)
           combatPsymon=1;
       } else if(keys.contains(""+ENTER)) {
-        if(combatPsymon==2)
+        if(combatPsymon==2) {
           psymonAttack=true;
-        loop();
+          loop();
+        }
       }
     }
   }
@@ -405,8 +408,8 @@ class psymon {
     walkDown= new spritesheet(loadImage("psymon down walk.png"), 2, 2); walkDown.setW(size); walkDown.setH(size);
     walkLeft= new spritesheet(loadImage("psymon left walk.png"), 2, 2); walkLeft.setW(size); walkLeft.setH(size);
     walkRight= new spritesheet(loadImage("psymon right walk.png"), 2, 2); walkRight.setW(size); walkRight.setH(size);
-    bat = new spritesheet(loadImage("psymon bat.png"), 3, 3); bat.setW(size); bat.setH(size);
-    bat = new spritesheet(loadImage("psymon bat charge.png"), 4, 5); bat.setW(size); bat.setH(size);
+    bat = new spritesheet(loadImage("psymon bat charge.png"), 3, 3); bat.setW(size); bat.setH(size);
+    batcharge = new spritesheet(loadImage("psymon bat.png"), 4, 5); batcharge.setW(size); batcharge.setH(size);
     ready = new spritesheet(loadImage("psymon ready.png"), 1, 1); ready.setW(size); ready.setH(size);
     hurt = new spritesheet(loadImage("psymon hurt.png"), 1, 1); hurt.setW(size); hurt.setH(size);
   }
@@ -421,16 +424,20 @@ class psymon {
   public void bat(int f) { bat.out(f, width/2, height/2); }
   public void ready() { ready.out(1, 150, height-140); }
   public void hurt() { hurt.out(1, 150, height-140); }
-
-  public void swing()
-  {
-
+  public void swing(int f) {
+    if(f>=1 && f <= 4) {
+      bat.out(f, 150, height-140);
+    } else {
+      batcharge.out(f-4, 150, height-140);
+    }
   }
 
   public void sheettest() {
-    walkLeft.printSheet(1);
-    walkDown.printSheet(2);
-    walkUp.printSheet(3);
+    //walkLeft.printSheet(1);
+    //walkDown.printSheet(2);
+    //walkUp.printSheet(3);
+    bat.printSheet(1);
+    batcharge.printSheet(2);
   }
 }
 class raccoon {
@@ -443,7 +450,7 @@ class raccoon {
 
   public void ready() { raccoon.out(1, width-150, height-140); }
   public void hurt() { raccoonHurt.out(1, width-150, height-140); }
-  public void hit(int f, int x, int y) { raccoonHit.out(f, x, y); }
+  public void hit(int f) { raccoonHit.out(f, width-150, height-140); }
 
 }
 class spritesheet {

@@ -14,6 +14,7 @@ int combatPsymon = 1;
 boolean psymonTurn=true;
 boolean psymonAttack=false;
 int combatX=150;
+int swing=1;
 void setup() {
   frameRate(60);
   psymon = new psymon();
@@ -44,6 +45,7 @@ void draw() {
     combat();
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
+  //psymon.sheettest();
 }
 void drawOrder() {
   //frame data
@@ -64,7 +66,7 @@ void drawOrder() {
       four=4;
     }
   background(30);
-  elements.templateMap(x, y);
+  elements.map(x, y);
   //psymon
     if(walking==true) {
       if(direction==1) {
@@ -94,29 +96,29 @@ void drawOrder() {
 }
 void combat() {
   f++;
-  if(f>=40)
+  if(f>=0 && f< 10) {
+    swing++;
+  } else {
     f=0;
-  if(f>0 && f<=10) {
-    two=1;
-    four=1;
-  } else if(f>10 && f<=20) {
-    two=2;
-    four=2;
-  } else if(f>20 && f<=30) {
-    two=1;
-    four=3;
-  } else if(f>30 && f<=40) {
-    two=2;
-    four=4;
   }
-
   elements.combat();
   elements.combatMenu(combatPsymon);
   if(psymonAttack) {//psymon attacking!
-
+    psymon.swing(swing);
+    if(swing>22) {
+      psymonAttack=false;
+      psymonTurn=false;
+      swing=1;
+    }
   } else if(!psymonAttack && !psymonTurn) { //raccoon attacking!
-
+    raccoon.hit(swing);
+    if(swing>7) {
+      psymonTurn=true;
+      noLoop();
+      redraw();
+    }
   } else {
+    swing=1;
     psymon.ready();
     raccoon.ready();
   }
@@ -186,9 +188,10 @@ void keys() {
         else if(combatPsymon==2)
           combatPsymon=1;
       } else if(keys.contains(""+ENTER)) {
-        if(combatPsymon==2)
+        if(combatPsymon==2) {
           psymonAttack=true;
-        loop();
+          loop();
+        }
       }
     }
   }

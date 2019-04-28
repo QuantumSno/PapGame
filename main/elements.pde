@@ -1,5 +1,5 @@
 class elements {
-  spritesheet test, title, tab, templateMap, combatMap, combatSpin, map;
+  spritesheet test, title, tab, templateMap, combatMap, combatSpin, map, hp;
   public elements() {
     test = new spritesheet(loadImage("collider map.png"), 1, 1);
       test.setW(8320);
@@ -15,6 +15,7 @@ class elements {
       combatMap.setW(width); combatMap.setH(height);
     combatSpin = new spritesheet(loadImage("combat menu.png"), 2, 2);
       combatSpin.setW(150); combatSpin.setH(150);
+    hp = new spritesheet(loadImage("hp bar.png"), 4, 3);
   }
   void mapBoarders(int x, int y) { test.out(1, x, y); }
   void map(int x, int y) { map.out(1, x, y); }
@@ -23,4 +24,5 @@ class elements {
   void templateMap(int x, int y) { title.out(1, x, y); }
   void combat() { combatMap.out(1, width/2, height/2); }
   void combatMenu(int f) { combatSpin.out(f, 0+150/2, height-150/2+5); }
+  void hp(int f) { hp.out(f, 0, ) }
 }
