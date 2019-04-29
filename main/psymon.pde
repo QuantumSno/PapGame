@@ -25,14 +25,14 @@ class psymon {
   void walkDown(int f) { walkDown.out(f, width/2, height/2); }
   void walkLeft(int f) { walkLeft.out(f, width/2, height/2); }
   void walkRight(int f) { walkRight.out(f, width/2, height/2); }
-  void bat(int f) { bat.out(f, width/2, height/2); }
-  void ready() { ready.out(1, 150, height-140); }
-  void hurt() { hurt.out(1, 150, height-140); }
+  void ready() { ready.out(1, 300, height-120); }
+  void hurt() { hurt.out(1, 300, height-120); }
   void swing(int f) {
+    println(f);
     if(f>=1 && f <= 4) {
-      bat.out(f, 150, height-140);
+      bat.out(f, 300, height-120);
     } else {
-      batcharge.out(f-4, 150, height-140);
+      batcharge.out(f-4, 300, height-120);
     }
   }
 

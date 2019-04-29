@@ -112,10 +112,10 @@ public void drawOrder() {
 }
 public void combat() {
   f++;
-  if(f>=0 && f< 10) {
-    swing++;
+  if(f>=0 && f< 5) {
   } else {
     f=0;
+    swing++;
   }
   elements.combat();
   elements.combatMenu(combatPsymon);
@@ -131,13 +131,13 @@ public void combat() {
     if(swing>7) {
       psymonTurn=true;
       noLoop();
-      redraw();
     }
   } else {
     swing=1;
     psymon.ready();
     raccoon.ready();
   }
+  elements.hp(1);
 }
 
 public void keys() {
@@ -204,7 +204,7 @@ public void keys() {
         else if(combatPsymon==2)
           combatPsymon=1;
       } else if(keys.contains(""+ENTER)) {
-        if(combatPsymon==2) {
+        if(combatPsymon==1) {
           psymonAttack=true;
           loop();
         }
@@ -369,7 +369,7 @@ class boarders {
   }
 }
 class elements {
-  spritesheet test, title, tab, templateMap, combatMap, combatSpin, map;
+  spritesheet test, title, tab, templateMap, combatMap, combatSpin, map, hp;
   public elements() {
     test = new spritesheet(loadImage("collider map.png"), 1, 1);
       test.setW(8320);
@@ -385,6 +385,8 @@ class elements {
       combatMap.setW(width); combatMap.setH(height);
     combatSpin = new spritesheet(loadImage("combat menu.png"), 2, 2);
       combatSpin.setW(150); combatSpin.setH(150);
+    hp = new spritesheet(loadImage("hp bar.png"), 4, 3);
+    hp.setW(50*9); hp.setH(50);
   }
   public void mapBoarders(int x, int y) { test.out(1, x, y); }
   public void map(int x, int y) { map.out(1, x, y); }
@@ -392,7 +394,8 @@ class elements {
   public void tab(int f) { tab.out(f, width/2, height/2); }
   public void templateMap(int x, int y) { title.out(1, x, y); }
   public void combat() { combatMap.out(1, width/2, height/2); }
-  public void combatMenu(int f) { combatSpin.out(f, 0+150/2, height-150/2+5); }
+  public void combatMenu(int f) { combatSpin.out(f, 0+150/2, height-150/2); }
+  public void hp(int f) { hp.out(f, 0+(50*9)/2, 0+(50)/2); }
 }
 class psymon {
   spritesheet up, down, left, right, walkUp, walkDown, walkLeft, walkRight, bat, batcharge, ready, hurt;
@@ -421,14 +424,14 @@ class psymon {
   public void walkDown(int f) { walkDown.out(f, width/2, height/2); }
   public void walkLeft(int f) { walkLeft.out(f, width/2, height/2); }
   public void walkRight(int f) { walkRight.out(f, width/2, height/2); }
-  public void bat(int f) { bat.out(f, width/2, height/2); }
-  public void ready() { ready.out(1, 150, height-140); }
-  public void hurt() { hurt.out(1, 150, height-140); }
+  public void ready() { ready.out(1, 300, height-120); }
+  public void hurt() { hurt.out(1, 300, height-120); }
   public void swing(int f) {
+    println(f);
     if(f>=1 && f <= 4) {
-      bat.out(f, 150, height-140);
+      bat.out(f, 300, height-120);
     } else {
-      batcharge.out(f-4, 150, height-140);
+      batcharge.out(f-4, 300, height-120);
     }
   }
 
@@ -448,9 +451,9 @@ class raccoon {
     raccoonHit = new spritesheet(loadImage("raccoon hit.png"), 3, 3);
   }
 
-  public void ready() { raccoon.out(1, width-150, height-140); }
-  public void hurt() { raccoonHurt.out(1, width-150, height-140); }
-  public void hit(int f) { raccoonHit.out(f, width-150, height-140); }
+  public void ready() { raccoon.out(1, width-300, height-140); }
+  public void hurt() { raccoonHurt.out(1, width-300, height-140); }
+  public void hit(int f) { raccoonHit.out(f, width-300, height-140); }
 
 }
 class spritesheet {

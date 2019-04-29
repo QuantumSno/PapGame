@@ -16,6 +16,7 @@ class elements {
     combatSpin = new spritesheet(loadImage("combat menu.png"), 2, 2);
       combatSpin.setW(150); combatSpin.setH(150);
     hp = new spritesheet(loadImage("hp bar.png"), 4, 3);
+    hp.setW(50*9); hp.setH(50);
   }
   void mapBoarders(int x, int y) { test.out(1, x, y); }
   void map(int x, int y) { map.out(1, x, y); }
@@ -23,6 +24,6 @@ class elements {
   void tab(int f) { tab.out(f, width/2, height/2); }
   void templateMap(int x, int y) { title.out(1, x, y); }
   void combat() { combatMap.out(1, width/2, height/2); }
-  void combatMenu(int f) { combatSpin.out(f, 0+150/2, height-150/2+5); }
-  void hp(int f) { hp.out(f, ) }
+  void combatMenu(int f) { combatSpin.out(f, 0+150/2, height-150/2); }
+  void hp(int f) { hp.out(f, 0+(50*9)/2, 0+(50)/2); }
 }

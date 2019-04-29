@@ -96,10 +96,10 @@ void drawOrder() {
 }
 void combat() {
   f++;
-  if(f>=0 && f< 10) {
-    swing++;
+  if(f>=0 && f< 5) {
   } else {
     f=0;
+    swing++;
   }
   elements.combat();
   elements.combatMenu(combatPsymon);
@@ -115,13 +115,13 @@ void combat() {
     if(swing>7) {
       psymonTurn=true;
       noLoop();
-      redraw();
     }
   } else {
     swing=1;
     psymon.ready();
     raccoon.ready();
   }
+  elements.hp(1);
 }
 
 void keys() {
@@ -188,7 +188,7 @@ void keys() {
         else if(combatPsymon==2)
           combatPsymon=1;
       } else if(keys.contains(""+ENTER)) {
-        if(combatPsymon==2) {
+        if(combatPsymon==1) {
           psymonAttack=true;
           loop();
         }
