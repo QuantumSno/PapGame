@@ -5,7 +5,8 @@ String keys="";
 psymon psymon;
 elements elements;
 raccoon raccoon;
-boolean walking; int direction;
+boolean walking; 
+int direction;
 int f=0;
 int four, two;
 char zone = 't';
@@ -31,17 +32,17 @@ void setup() {
 }
 void draw() {
   walking=false;
-  if(keyPressed)
+  if (keyPressed)
     walking=true;
   keys();
-  if(zone=='m') {
+  if (zone=='m') {
     drawOrder();
-  } else if(zone=='t') {
+  } else if (zone=='t') {
     elements.title();
-  } else if(zone=='p') {
+  } else if (zone=='p') {
     drawOrder();
     elements.tab(tab1);
-  } else if(zone=='c') {
+  } else if (zone=='c') {
     combat();
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
@@ -49,70 +50,70 @@ void draw() {
 }
 void drawOrder() {
   //frame data
-    f++;
-    if(f>=40)
-      f=0;
-    if(f>0 && f<=10) {
-      two=1;
-      four=1;
-    } else if(f>10 && f<=20) {
-      two=2;
-      four=2;
-    } else if(f>20 && f<=30) {
-      two=1;
-      four=3;
-    } else if(f>30 && f<=40) {
-      two=2;
-      four=4;
-    }
+  f++;
+  if (f>=40)
+    f=0;
+  if (f>0 && f<=10) {
+    two=1;
+    four=1;
+  } else if (f>10 && f<=20) {
+    two=2;
+    four=2;
+  } else if (f>20 && f<=30) {
+    two=1;
+    four=3;
+  } else if (f>30 && f<=40) {
+    two=2;
+    four=4;
+  }
   background(30);
   elements.map(x, y);
   //psymon
-    if(walking==true) {
-      if(direction==1) {
-        psymon.walkUp(four);
-      } else if(direction==2) {
-        psymon.walkLeft(four);
-      } else if(direction==3) {
-        psymon.walkDown(four);
-      } else if(direction==4) {
-        psymon.walkRight(four);
-      } else {
-        psymon.down();
-      }
+  if (walking==true) {
+    if (direction==1) {
+      psymon.walkUp(four);
+    } else if (direction==2) {
+      psymon.walkLeft(four);
+    } else if (direction==3) {
+      psymon.walkDown(four);
+    } else if (direction==4) {
+      psymon.walkRight(four);
     } else {
-      if(direction==1) {
-        psymon.up();
-      } else if(direction==2) {
-        psymon.left();
-      } else if(direction==3) {
-        psymon.down();
-      } else if(direction==4) {
-        psymon.right();
-      } else {
-        psymon.down();
-      }
+      psymon.down();
     }
+  } else {
+    if (direction==1) {
+      psymon.up();
+    } else if (direction==2) {
+      psymon.left();
+    } else if (direction==3) {
+      psymon.down();
+    } else if (direction==4) {
+      psymon.right();
+    } else {
+      psymon.down();
+    }
+  }
 }
 void combat() {
   f++;
-  if(f>=0 && f< 10) {
+  if (f>=0 && f< 10) {
     swing++;
   } else {
     f=0;
   }
   elements.combat();
   elements.combatMenu(combatPsymon);
-  if(psymonAttack) {//psymon attacking!
+  if (psymonAttack) {//psymon attacking!
     psymon.swing(swing);
-    if(swing>22) {
+    if (swing>22) {
       psymonAttack=false;
       psymonTurn=false;
       swing=1;
     }
-  } else if(!psymonAttack && !psymonTurn) { //raccoon attacking!
+  } else if (!psymonAttack && !psymonTurn) { //raccoon attacking!
     raccoon.hit(swing);
-    if(swing>7) {
+    if (swing>7) {
       psymonTurn=true;
       noLoop();
       redraw();
@@ -125,70 +126,70 @@ void combat() {
 }
 
 void keys() {
-  if(zone=='m') {
-    if(keys.contains("w") && !boarderUp()) {
+  if (zone=='m') {
+    if (keys.contains("w") && !boarderUp()) {
       y+=walkSpeed;
       direction=1;
-    } else if(keys.contains("s") && !boarderDown()) {
+    } else if (keys.contains("s") && !boarderDown()) {
       y+=-walkSpeed;
       direction=3;
     }
-    if(keys.contains("a") && !boarderLeft()) {
+    if (keys.contains("a") && !boarderLeft()) {
       x+=walkSpeed;
       direction=2;
-    } else if(keys.contains("d") && !boarderRight()) {
+    } else if (keys.contains("d") && !boarderRight()) {
       x+=-walkSpeed;
       direction=4;
     }
-    if(keys.contains(""+TAB)) {
+    if (keys.contains(""+TAB)) {
       noLoop();
       tab1=1;
       zone='p';
-    } else if(keys.contains("c")) {
+    } else if (keys.contains("c")) {
       noLoop();
       zone='c';
     }
-  } else if(zone=='p') {
-    if(tab1==2) {
-      if(keys.contains("w")) {
+  } else if (zone=='p') {
+    if (tab1==2) {
+      if (keys.contains("w")) {
         tab1=1;
-      } else if(keys.contains("s")) {
+      } else if (keys.contains("s")) {
         tab1=3;
-      } else if(keys.contains(""+ENTER)) {
+      } else if (keys.contains(""+ENTER)) {
         tab1=4;
       }
-    } else if(tab1==1) {
-      if(keys.contains("s")) {
+    } else if (tab1==1) {
+      if (keys.contains("s")) {
         tab1=2;
-      } else if(keys.contains(""+ENTER)) {
+      } else if (keys.contains(""+ENTER)) {
         zone='m';
         loop();
       }
-    } else if(tab1==3) {
-      if(keys.contains("w")) {
+    } else if (tab1==3) {
+      if (keys.contains("w")) {
         tab1=2;
-      } else if(keys.contains(""+ENTER)) {
+      } else if (keys.contains(""+ENTER)) {
         exit();
       }
-    } else if(tab1==4) {
-      if(keys.contains(""+ENTER)) {
+    } else if (tab1==4) {
+      if (keys.contains(""+ENTER)) {
         tab1=2;
       }
     }
-  } else if(zone=='c') {
-    if(psymonTurn) {
-      if(keys.contains("w")) {
-        if(combatPsymon==1)
+  } else if (zone=='c') {
+    if (psymonTurn) {
+      if (keys.contains("w")) {
+        if (combatPsymon==1)
           combatPsymon=2;
-        else if(combatPsymon==2)
+        else if (combatPsymon==2)
           combatPsymon=1;
-      } else if(keys.contains("s")) {
-        if(combatPsymon==1)
+      } else if (keys.contains("s")) {
+        if (combatPsymon==1)
           combatPsymon=2;
-        else if(combatPsymon==2)
+        else if (combatPsymon==2)
           combatPsymon=1;
-      } else if(keys.contains(""+ENTER)) {
-        if(combatPsymon==2) {
+      } else if (keys.contains(""+ENTER)) {
+        if (combatPsymon==2) {
           psymonAttack=true;
           loop();
         }
@@ -202,50 +203,50 @@ void keyPressed()
 }
 
 void keyReleased() {
-  if(zone=='t') {
+  if (zone=='t') {
     zone='m';
     loop();
   }
-  if(zone=='p') {
+  if (zone=='p') {
     keys();
     redraw();
   }
-  if(zone=='c') {
+  if (zone=='c') {
     keys();
     redraw();
   }
-  keys=keys.replace(key+"","");
+  keys=keys.replace(key+"", "");
 }
 
 boolean boarderUp() {
-  for(int t=0; t<boarder.size(); t++)
-    if(boarder.get(t).getD()==1)
-      if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-      boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+  for (int t=0; t<boarder.size(); t++)
+    if (boarder.get(t).getD()==1)
+      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
 boolean boarderLeft() {
-  for(int t=0; t<boarder.size(); t++)
-  if(boarder.get(t).getD()==2)
-      if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-      boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+  for (int t=0; t<boarder.size(); t++)
+    if (boarder.get(t).getD()==2)
+      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
 boolean boarderDown() {
-  for(int t=0; t<boarder.size(); t++)
-    if(boarder.get(t).getD()==3)
-      if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-      boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+  for (int t=0; t<boarder.size(); t++)
+    if (boarder.get(t).getD()==3)
+      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
 boolean boarderRight() {
-  for(int t=0; t<boarder.size(); t++)
-    if(boarder.get(t).getD()==4)
-      if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-      boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+  for (int t=0; t<boarder.size(); t++)
+    if (boarder.get(t).getD()==4)
+      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
@@ -277,7 +278,7 @@ void loadBoarders() {
   boarder.add(new boarders(4525, 2740, 2645, 2570, 3)); //40-41
   boarder.add(new boarders(4525, 3080, 4525, 2740, 2)); //41-42
   boarder.add(new boarders(-3590, 3080, 4525, 3080, 1)); //41-125
-  boarder.add(new boarders(-3590, 3080, -3590, 2740 , 4)); //125-124
+  boarder.add(new boarders(-3590, 3080, -3590, 2740, 4)); //125-124
   boarder.add(new boarders(-1930, 2740, -3590, 2740, 3)); //124-123
   boarder.add(new boarders(-1930, 2740, -1930, 2570, 4)); //123-122
   boarder.add(new boarders(-1930, 2570, -2315, 2570, 1)); //122-121
