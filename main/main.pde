@@ -5,7 +5,7 @@ String keys="";
 psymon psymon;
 elements elements;
 raccoon raccoon;
-boolean walking; 
+boolean walking;
 int direction;
 int f=0;
 int four, two;
@@ -97,12 +97,8 @@ void drawOrder() {
 }
 void combat() {
   f++;
-<<<<<<< HEAD
-  if(f>=0 && f< 5) {
-=======
   if (f>=0 && f< 10) {
     swing++;
->>>>>>> 4277a17778e9e6d30634a01e4f41dcf85a2aafe4
   } else {
     f=0;
     swing++;
@@ -193,13 +189,8 @@ void keys() {
           combatPsymon=2;
         else if (combatPsymon==2)
           combatPsymon=1;
-<<<<<<< HEAD
       } else if(keys.contains(""+ENTER)) {
         if(combatPsymon==1) {
-=======
-      } else if (keys.contains(""+ENTER)) {
-        if (combatPsymon==2) {
->>>>>>> 4277a17778e9e6d30634a01e4f41dcf85a2aafe4
           psymonAttack=true;
           loop();
         }
