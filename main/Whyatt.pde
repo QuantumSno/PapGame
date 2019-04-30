@@ -32,7 +32,6 @@ class Whyatt extends AI {
     walkRight= new spritesheet(loadImage("whyatt right walk.png"), 2, 2);
     walkRight.setW(size);
     walkRight.setH(size);
-
   }
   void update(int o, int p) {
     x=o;
@@ -83,5 +82,4 @@ class Whyatt extends AI {
   void walkRight(int f, int ix, int iy) {
     walkRight.out(f, ix-x, iy-y);
   }
-
 }

@@ -26,9 +26,9 @@ class elements {
     test.out(1, x, y);
   }
   void map(int x, int y) {
-    if(mapImage.width==0) {
+    if (mapImage.width==0) {
       println("loading...");
-    } else if(mapImage.width==1 && !once) {
+    } else if (mapImage.width==1 && !once) {
       once=true;
       map = new spritesheet(mapImage, 1, 1);
       map.setW(8320);

@@ -98,46 +98,42 @@ void drawOrder() {
       psymon.down();
     }
   }
-  if(whyatt.gunnawalk())
+  if (whyatt.gunnawalk())
   {
     whyWalk=whyatt.walk();
     whyTWalk=0;
     wDirection=whyatt.direction();
     wWalking=true;
   }
-  if(wWalking)
+  if (wWalking)
   {
-    if(wDirection==1)
+    if (wDirection==1)
     {
       whyatt.update(whyatt.getX(), whyatt.getY()-5);
       whyatt.walkUp(four, x, y);
-    }
-    else if(wDirection==2)
+    } else if (wDirection==2)
     {
       whyatt.update(whyatt.getX()-5, whyatt.getY());
       whyatt.walkLeft(two, x, y);
-    }
-    else if(wDirection==3)
+    } else if (wDirection==3)
     {
       whyatt.update(whyatt.getX(), whyatt.getY()+5);
       whyatt.walkDown(four, x, y);
-    }
-    else if(wDirection==4)
+    } else if (wDirection==4)
     {
       whyatt.update(whyatt.getX()+5, whyatt.getY());
       whyatt.walkRight(two, x, y);
     }
     whyTWalk++;
-  }
-  else
+  } else
   {
-    if(wDirection==1)
+    if (wDirection==1)
       whyatt.up(x, y);
-    else if(wDirection==2)
+    else if (wDirection==2)
       whyatt.left(x, y);
-    else if(wDirection==3)
+    else if (wDirection==3)
       whyatt.down(x, y);
-    else if(wDirection==4)
+    else if (wDirection==4)
       whyatt.right(x, y);
   }
 }
@@ -199,7 +195,7 @@ void keys() {
       zone='c';
     } else if (keys.contains("e"))
     {
-      if(whyatt.range(x, y))
+      if (whyatt.range(x, y))
       {
         zone='t';
         noLoop();
