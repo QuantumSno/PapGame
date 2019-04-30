@@ -41,12 +41,11 @@ public void setup() {
   psymon = new psymon();
   elements = new elements();
   raccoon = new raccoon();
-  whyatt = new Whyatt(3670, 1615);
+  whyatt = new Whyatt(0, 0);
   
   
   imageMode(CENTER);
-  x=1510;
-  y=1875;
+  x=y=0;
   walkSpeed=5;
   loadBoarders();
   redraw();
@@ -72,27 +71,33 @@ public void draw() {
     textSize(32);
     stroke(153);
     if (firstConvo==1) {
-      delay(100);
-      fill(255, 12, 0);
-      text("Heya Whyatt! What’ve been you up to today?", width/2, height/2-100);
+      fill(255, 0, 0);
+      text("Heya Whyatt! What’ve been you up to today?", x, y-100);
     } else if (firstConvo==2) {
       fill(0, 102, 153);
-      text("Oh, hey Psymon, nothin much. \nJust lookin around for my cat, he’s been gone a bit. \nI don’t want him getting stuck in the rain later", x-whyatt.getX(), y-whyatt.getY()-100);
+      text("Oh, hey Psymon, nothin much. Just lookin around for my cat, he’s been gone a bit. \nI don’t want him getting stuck in the rain later", x-whyatt.getX(), y-whyatt.getY()-100);
     } else if (firstConvo==3) {
-      fill(255, 12, 0);
       text("Oh… okay. I’m sure your cat will turn up eventually. \nI can help look for him if you’d like", width/2, height/2-100);
     } else if (firstConvo==4) {
-      fill(0, 102, 153);
-      text("Nah it’s alright, he’ll come around soon. \nBesides we should do some errands before \nthe storm hits", x-whyatt.getX(), y-whyatt.getY()-100);
+      text("Nah it’s alright, he’ll come around soon. Besides we should \ndo some errands before the storm hits", x-whyatt.getX(), y-whyatt.getY()-100);
     } else if (firstConvo==5) {
-      fill(255, 12, 0);
-      text("That sounds like a great idea \nlet’s head down and get some snacks!", width/2, height/2-100);
+      text("That sounds like a great idea let’s head down and get some snacks!", width/2, height/2-100);
     } else {
       zone='m';
       loop();
     }
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
+  //psymon.sheettest();
+  whyatt.printSheets();
+  whyatt.walkLeft(1, x, y);
+  whyatt.walkLeft(2, x+20, y);
+  whyatt.walkLeft(3, x+40, y);
+  whyatt.walkLeft(4, x+60, y);
+  whyatt.walkRight(1, x, y);
+  whyatt.walkRight(2, x+120, y);
+  whyatt.walkRight(3, x+140, y);
+  whyatt.walkRight(4, x+160, y);
 }
 public void drawOrder() {
   //frame data
@@ -140,7 +145,7 @@ public void drawOrder() {
       psymon.down();
     }
   }
-  //if (whyatt.gunnawalk() && !wWalking)
+  //if (whyatt.gunnawalk())
   if(false)
   {
     whyWalk=whyatt.walk();
@@ -148,47 +153,40 @@ public void drawOrder() {
     wDirection=whyatt.direction();
     wWalking=true;
   }
-  if(wWalking)
+  if (wWalking)
   {
-    if(wDirection==1 && !boarderUp(whyatt.getX(), whyatt.getY()))
-    {
-      whyatt.update(whyatt.getX(), whyatt.getY()+5);
-      whyatt.walkUp(two, x, y);
-    }
-    else if(wDirection==2 && !boarderRight(whyatt.getX(), whyatt.getY()))
-    {
-      whyatt.update(whyatt.getX()+5, whyatt.getY());
-      whyatt.walkLeft(two, x, y);
-    }
-    else if(wDirection==3 && !boarderDown(whyatt.getX(), whyatt.getY()))
+    if (wDirection==1)
     {
       whyatt.update(whyatt.getX(), whyatt.getY()-5);
       whyatt.walkDown(two, x, y);
-    }
-    else if(wDirection==4 && !boarderLeft(whyatt.getX(), whyatt.getY()))
+    } else if (wDirection==2)
     {
+      println("wx " + whyatt.getX() + " wy " + whyatt.getY() + " four " + four + " x " + x + " y " + y + " d " + wDirection);
       whyatt.update(whyatt.getX()-5, whyatt.getY());
-      whyatt.walkRight(two, x, y);
+      whyatt.walkRight(four, x, y);
+    } else if (wDirection==3)
+    {
+      whyatt.update(whyatt.getX(), whyatt.getY()+5);
+      whyatt.walkUp(two, x, y);
+    } else if (wDirection==4)
+    {
+      println("wx " + whyatt.getX() + " wy " + whyatt.getY() + " four " + four + " x " + x + " y " + y + " d " + wDirection);
+      whyatt.update(whyatt.getX()+5, whyatt.getY());
+      whyatt.walkLeft(four, x, y);
     }
     whyTWalk++;
-    if(whyTWalk>whyWalk)
-    {
+    if(whyTWalk==whyWalk)
       wWalking=false;
-      whyTWalk=0;
-    }
-  }
-  else
+  } else
   {
-    if(wDirection==1)
+    if (wDirection==1)
       whyatt.up(x, y);
-    else if(wDirection==2)
+    else if (wDirection==2)
       whyatt.left(x, y);
-    else if(wDirection==3)
+    else if (wDirection==3)
       whyatt.down(x, y);
-    else if(wDirection==4)
+    else if (wDirection==4)
       whyatt.right(x, y);
-    else
-      whyatt.down(x, y);
   }
 }
 public void combat() {
@@ -200,11 +198,8 @@ public void combat() {
     swing++;
   }
   elements.combat();
-  psymon.ready();
-  raccoon.ready();
   elements.combatMenu(combatPsymon);
   if (psymonAttack) {//psymon attacking!
-    elements.combat();
     psymon.swing(swing);
     if (swing>22) {
       psymonAttack=false;
@@ -212,34 +207,32 @@ public void combat() {
       swing=1;
     }
   } else if (!psymonAttack && !psymonTurn) { //raccoon attacking!
-    elements.combat();
     raccoon.hit(swing);
     if (swing>7) {
       psymonTurn=true;
       noLoop();
-      elements.combatMenu(combatPsymon);
-      psymon.ready();
-      raccoon.ready();
     }
   } else {
     swing=1;
+    psymon.ready();
+    raccoon.ready();
   }
   elements.hp(1);
 }
 
 public void keys() {
   if (zone=='m') {
-    if (keys.contains("w") && !boarderUp(x, y)) {
+    if (keys.contains("w") && !boarderUp()) {
       y+=walkSpeed;
       direction=1;
-    } else if (keys.contains("s") && !boarderDown(x, y)) {
+    } else if (keys.contains("s") && !boarderDown()) {
       y+=-walkSpeed;
       direction=3;
     }
-    if (keys.contains("a") && !boarderLeft(x, y)) {
+    if (keys.contains("a") && !boarderLeft()) {
       x+=walkSpeed;
       direction=2;
-    } else if (keys.contains("d") && !boarderRight(x, y)) {
+    } else if (keys.contains("d") && !boarderRight()) {
       x+=-walkSpeed;
       direction=4;
     }
@@ -252,7 +245,6 @@ public void keys() {
       zone='c';
     } else if (keys.contains("e"))
     {
-      println("e");
       if (whyatt.range(x, y))
       {
         noLoop();
@@ -313,10 +305,6 @@ public void keys() {
         if (combatPsymon==1) {
           psymonAttack=true;
           loop();
-        } else if(combatPsymon==2)
-        {
-          zone='m';
-          loop();
         }
       }
     }
@@ -346,35 +334,35 @@ public void keyReleased() {
   }
   keys=keys.replace(key+"", "");
 }
-public boolean boarderUp(int ix, int iy) {
+public boolean boarderUp() {
   for (int t=0; t<boarder.size(); t++)
     if (boarder.get(t).getD()==1)
-      if (boarder.get(t).getX1() > ix-5 && boarder.get(t).getX2() < ix+5 &&
-        boarder.get(t).getY1() > iy-5 && boarder.get(t).getY2() < iy+5)
+      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
-public boolean boarderLeft(int ix, int iy) {
+public boolean boarderLeft() {
   for (int t=0; t<boarder.size(); t++)
     if (boarder.get(t).getD()==2)
-      if (boarder.get(t).getX1() > ix-5 && boarder.get(t).getX2() < ix+5 &&
-        boarder.get(t).getY1() > iy-5 && boarder.get(t).getY2() < iy+5)
+      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
-public boolean boarderDown(int ix, int iy) {
+public boolean boarderDown() {
   for (int t=0; t<boarder.size(); t++)
     if (boarder.get(t).getD()==3)
-      if (boarder.get(t).getX1() > ix-5 && boarder.get(t).getX2() < ix+5 &&
-        boarder.get(t).getY1() > iy-5 && boarder.get(t).getY2() < iy+5)
+      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
-public boolean boarderRight(int ix, int iy) {
+public boolean boarderRight() {
   for (int t=0; t<boarder.size(); t++)
     if (boarder.get(t).getD()==4)
-      if (boarder.get(t).getX1() > ix-5 && boarder.get(t).getX2() < ix+5 &&
-        boarder.get(t).getY1() > iy-5 && boarder.get(t).getY2() < iy+5)
+      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
@@ -492,10 +480,10 @@ class Whyatt extends AI {
     down= new spritesheet(loadImage("whyatt down.png"), 1, 1);
     down.setW(size);
     down.setH(size);
-    left= new spritesheet(loadImage("whyatt left walk.png"), 2, 2);
+    left= new spritesheet(loadImage("whyatt left walk.png"), 1, 1);
     left.setW(size);
     left.setH(size);
-    right= new spritesheet(loadImage("whyatt right walk.png"), 2, 2);
+    right= new spritesheet(loadImage("whyatt right walk.png"), 1, 1);
     right.setW(size);
     right.setH(size);
     walkUp= new spritesheet(loadImage("whyatt up walk.png"), 2, 2);
@@ -546,10 +534,10 @@ class Whyatt extends AI {
     down.out(1, ix-x, iy-y);
   }
   public void left(int ix, int iy) {
-    left.out(1, ix-x, iy-y);
+    left.out(2, ix-x, iy-y);
   }
   public void right(int ix, int iy) {
-    right.out(1, ix-x, iy-y);
+    right.out(2, ix-x, iy-y);
   }
   public void walkUp(int f, int ix, int iy) {
     walkUp.out(f, ix-x, iy-y);

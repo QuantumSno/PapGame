@@ -14,10 +14,10 @@ class Whyatt extends AI {
     down= new spritesheet(loadImage("whyatt down.png"), 1, 1);
     down.setW(size);
     down.setH(size);
-    left= new spritesheet(loadImage("whyatt left walk.png"), 2, 2);
+    left= new spritesheet(loadImage("whyatt left walk.png"), 1, 1);
     left.setW(size);
     left.setH(size);
-    right= new spritesheet(loadImage("whyatt right walk.png"), 2, 2);
+    right= new spritesheet(loadImage("whyatt right walk.png"), 1, 1);
     right.setW(size);
     right.setH(size);
     walkUp= new spritesheet(loadImage("whyatt up walk.png"), 2, 2);
@@ -68,10 +68,10 @@ class Whyatt extends AI {
     down.out(1, ix-x, iy-y);
   }
   void left(int ix, int iy) {
-    left.out(1, ix-x, iy-y);
+    left.out(2, ix-x, iy-y);
   }
   void right(int ix, int iy) {
-    right.out(1, ix-x, iy-y);
+    right.out(2, ix-x, iy-y);
   }
   void walkUp(int f, int ix, int iy) {
     walkUp.out(f, ix-x, iy-y);
