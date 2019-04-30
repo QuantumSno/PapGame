@@ -22,8 +22,8 @@ psymon psymon;
 elements elements;
 raccoon raccoon;
 Whyatt whyatt;
-boolean walking;
-int direction;
+boolean walking, wWalking;
+int direction, wDirection;
 int f=0;
 int four, two;
 char zone = 't';
@@ -33,6 +33,8 @@ boolean psymonTurn=true;
 boolean psymonAttack=false;
 int combatX=150;
 int swing=1;
+int whyWalk=0;
+int whyTWalk=0;
 public void setup() {
   frameRate(60);
   psymon = new psymon();
@@ -112,7 +114,48 @@ public void drawOrder() {
       psymon.down();
     }
   }
-  whyatt.down(x, y);
+  if(whyatt.gunnawalk())
+  {
+    whyWalk=whyatt.walk();
+    whyTWalk=0;
+    wDirection=whyatt.direction();
+    wWalking=true;
+  }
+  if(wWalking)
+  {
+    if(wDirection==1)
+    {
+      whyatt.update(whyatt.getX(), whyatt.getY()-5);
+      whyatt.walkUp(four, x, y);
+    }
+    else if(wDirection==2)
+    {
+      whyatt.update(whyatt.getX()-5, whyatt.getY());
+      whyatt.walkLeft(two, x, y);
+    }
+    else if(wDirection==3)
+    {
+      whyatt.update(whyatt.getX(), whyatt.getY()+5);
+      whyatt.walkDown(four, x, y);
+    }
+    else if(wDirection==4)
+    {
+      whyatt.update(whyatt.getX()+5, whyatt.getY());
+      whyatt.walkRight(two, x, y);
+    }
+    whyTWalk++;
+  }
+  else
+  {
+    if(wDirection==1)
+      whyatt.up(x, y);
+    else if(wDirection==2)
+      whyatt.left(x, y);
+    else if(wDirection==3)
+      whyatt.down(x, y);
+    else if(wDirection==4)
+      whyatt.right(x, y);
+  }
 }
 public void combat() {
   f++;
@@ -144,6 +187,8 @@ public void combat() {
   }
   elements.hp(1);
 }
+
+
 
 public void keys() {
   if (zone=='m') {

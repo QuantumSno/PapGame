@@ -6,7 +6,7 @@ psymon psymon;
 elements elements;
 raccoon raccoon;
 Whyatt whyatt;
-boolean walking;
+boolean walking, wWalking;
 int direction, wDirection;
 int f=0;
 int four, two;
@@ -98,27 +98,47 @@ void drawOrder() {
       psymon.down();
     }
   }
-  if(whyatt.gunnaWalk())
+  if(whyatt.gunnawalk())
   {
     whyWalk=whyatt.walk();
     whyTWalk=0;
     wDirection=whyatt.direction();
+    wWalking=true;
   }
-  if(wDirection==1 && whyTWalk<whyWalk)
+  if(wWalking)
   {
-
+    if(wDirection==1)
+    {
+      whyatt.update(whyatt.getX(), whyatt.getY()-5);
+      whyatt.walkUp(four, x, y);
+    }
+    else if(wDirection==2)
+    {
+      whyatt.update(whyatt.getX()-5, whyatt.getY());
+      whyatt.walkLeft(two, x, y);
+    }
+    else if(wDirection==3)
+    {
+      whyatt.update(whyatt.getX(), whyatt.getY()+5);
+      whyatt.walkDown(four, x, y);
+    }
+    else if(wDirection==4)
+    {
+      whyatt.update(whyatt.getX()+5, whyatt.getY());
+      whyatt.walkRight(two, x, y);
+    }
+    whyTWalk++;
   }
-  else if(wDirection==2 && whyTWalk<whyWalk)
+  else
   {
-
-  }
-  else if(wDirection==3 && whyTWalk<whyWalk)
-  {
-
-  }
-  else if(wDirection==3 && whyTWalk<whyWalk)
-  {
-
+    if(wDirection==1)
+      whyatt.up(x, y);
+    else if(wDirection==2)
+      whyatt.left(x, y);
+    else if(wDirection==3)
+      whyatt.down(x, y);
+    else if(wDirection==4)
+      whyatt.right(x, y);
   }
 }
 void combat() {
