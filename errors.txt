@@ -1,0 +1,149 @@
+//run 1
+wx 0 wy -195 four 4 x 0 y 0 d 4
+wx 5 wy -195 four 4 x 0 y 0 d 4
+wx 10 wy -195 four 4 x 0 y 0 d 4
+wx 15 wy -195 four 1 x 0 y 0 d 4
+wx 20 wy -195 four 1 x 0 y 0 d 4
+wx 25 wy -195 four 1 x 0 y 0 d 4
+wx 30 wy -195 four 1 x 0 y 0 d 4
+wx 35 wy -195 four 1 x 0 y 0 d 4
+wx 40 wy -195 four 1 x 0 y 0 d 4
+wx 45 wy -195 four 1 x 0 y 0 d 4
+wx 50 wy -195 four 1 x 0 y 0 d 4
+wx 55 wy 190 four 4 x 0 y 0 d 2
+wx 50 wy 190 four 4 x 0 y 0 d 2
+wx 45 wy 190 four 1 x 0 y 0 d 2
+wx 40 wy 190 four 1 x 0 y 0 d 2
+wx 35 wy 190 four 1 x 0 y 0 d 2
+wx 30 wy 190 four 1 x 0 y 0 d 2
+wx 25 wy 190 four 1 x 0 y 0 d 2
+wx 20 wy 190 four 1 x 0 y 0 d 2
+wx 15 wy 190 four 1 x 0 y 0 d 2
+wx 10 wy 190 four 1 x 0 y 0 d 2
+wx 5 wy 190 four 1 x 0 y 0 d 2
+wx 0 wy 190 four 1 x 0 y 0 d 2
+wx -5 wy 190 four 2 x 0 y 0 d 2
+wx -10 wy 190 four 2 x 0 y 0 d 2
+wx -15 wy 190 four 2 x 0 y 0 d 2
+wx -20 wy 190 four 2 x 0 y 0 d 2
+wx -25 wy 190 four 2 x 0 y 0 d 2
+wx -30 wy 190 four 2 x 0 y 0 d 2
+spritesheet.pde:20:0:20:0: ArrayIndexOutOfBoundsException: 1
+
+//run 2
+wx 0 wy 0 four 1 x 0 y 0 d 4
+wx 5 wy 0 four 1 x 0 y 0 d 4
+wx 10 wy 0 four 1 x 0 y 0 d 4
+wx 15 wy 0 four 1 x 0 y 0 d 4
+wx 20 wy 0 four 2 x 0 y 0 d 4
+wx 25 wy 0 four 2 x 0 y 0 d 4
+wx 30 wy 0 four 2 x 0 y 0 d 4
+wx 35 wy 0 four 2 x 0 y 0 d 4
+wx 40 wy 0 four 2 x 0 y 0 d 4
+wx 45 wy 0 four 2 x 0 y 0 d 4
+wx 50 wy 0 four 2 x 0 y 0 d 4
+wx 55 wy 0 four 2 x 0 y 0 d 4
+wx 60 wy 0 four 2 x 0 y 0 d 4
+wx 65 wy 0 four 2 x 0 y 0 d 4
+wx 70 wy 0 four 3 x 0 y 0 d 4
+wx 75 wy 0 four 3 x 0 y 0 d 4
+wx 80 wy 0 four 3 x 0 y 0 d 4
+wx 85 wy 0 four 3 x 0 y 0 d 4
+wx 90 wy 0 four 3 x 0 y 0 d 4
+wx 95 wy 0 four 3 x 0 y 0 d 4
+wx 100 wy 0 four 3 x 0 y 0 d 4
+wx 105 wy 0 four 3 x 0 y 0 d 4
+wx 110 wy 0 four 3 x 0 y 0 d 4
+wx 115 wy 0 four 3 x 0 y 0 d 4
+spritesheet.pde:20:0:20:0: ArrayIndexOutOfBoundsException: 1
+
+//run 3
+wx 0 wy 95 four 4 x 0 y 0 d 4
+wx 5 wy 95 four 4 x 0 y 0 d 4
+wx 10 wy 95 four 4 x 0 y 0 d 4
+wx 15 wy 95 four 4 x 0 y 0 d 4
+wx 20 wy 95 four 1 x 0 y 0 d 4
+wx 25 wy 95 four 1 x 0 y 0 d 4
+wx 30 wy 95 four 1 x 0 y 0 d 4
+wx 35 wy 95 four 1 x 0 y 0 d 4
+wx 40 wy 95 four 1 x 0 y 0 d 4
+wx 45 wy 95 four 1 x 0 y 0 d 4
+wx 50 wy 95 four 1 x 0 y 0 d 4
+wx 55 wy 95 four 1 x 0 y 0 d 4
+wx 60 wy 95 four 1 x 0 y 0 d 4
+wx 65 wy 95 four 1 x 0 y 0 d 4
+wx 70 wy 95 four 2 x 0 y 0 d 4
+wx 75 wy 95 four 2 x 0 y 0 d 4
+wx 80 wy 95 four 2 x 0 y 0 d 4
+wx 85 wy 95 four 2 x 0 y 0 d 4
+wx 90 wy 95 four 2 x 0 y 0 d 4
+wx 95 wy 95 four 2 x 0 y 0 d 4
+wx 100 wy 95 four 2 x 0 y 0 d 4
+wx 105 wy 95 four 2 x 0 y 0 d 4
+wx 110 wy 95 four 2 x 0 y 0 d 4
+wx 115 wy 95 four 2 x 0 y 0 d 4
+wx 120 wy 95 four 3 x 0 y 0 d 4
+wx 125 wy 95 four 3 x 0 y 0 d 4
+wx 130 wy 95 four 3 x 0 y 0 d 4
+wx 135 wy 95 four 3 x 0 y 0 d 4
+wx 140 wy 95 four 3 x 0 y 0 d 4
+wx 145 wy 95 four 3 x 0 y 0 d 4
+wx 150 wy 95 four 3 x 0 y 0 d 4
+wx 155 wy 95 four 3 x 0 y 0 d 4
+wx 160 wy 95 four 3 x 0 y 0 d 4
+wx 165 wy 95 four 3 x 0 y 0 d 4
+spritesheet.pde:20:0:20:0: ArrayIndexOutOfBoundsException: 1
+
+//run 4
+wx 0 wy -120 four 1 x 0 y 0 d 4
+wx 5 wy -120 four 1 x 0 y 0 d 4
+wx 10 wy -120 four 1 x 0 y 0 d 4
+wx 15 wy -120 four 2 x 0 y 0 d 4
+wx 20 wy -120 four 2 x 0 y 0 d 4
+wx 25 wy -120 four 2 x 0 y 0 d 4
+wx 30 wy -120 four 2 x 0 y 0 d 4
+wx 35 wy -120 four 2 x 0 y 0 d 4
+wx 40 wy -120 four 2 x 0 y 0 d 4
+wx 45 wy -120 four 2 x 0 y 0 d 4
+wx 50 wy -120 four 2 x 0 y 0 d 4
+wx 55 wy -120 four 2 x 0 y 0 d 4
+wx 60 wy -120 four 2 x 0 y 0 d 4
+wx 65 wy -120 four 3 x 0 y 0 d 4
+wx 70 wy -120 four 3 x 0 y 0 d 4
+wx 75 wy -120 four 3 x 0 y 0 d 4
+wx 80 wy -120 four 3 x 0 y 0 d 4
+wx 85 wy -120 four 3 x 0 y 0 d 4
+wx 90 wy -120 four 3 x 0 y 0 d 4
+wx 95 wy -120 four 3 x 0 y 0 d 4
+wx 100 wy -120 four 3 x 0 y 0 d 4
+wx 105 wy -120 four 3 x 0 y 0 d 4
+wx 110 wy -120 four 3 x 0 y 0 d 4
+wx 115 wy -120 four 4 x 0 y 0 d 4
+wx 120 wy -120 four 4 x 0 y 0 d 4
+wx 125 wy -120 four 4 x 0 y 0 d 4
+wx 130 wy -120 four 4 x 0 y 0 d 4
+wx 135 wy -120 four 4 x 0 y 0 d 4
+wx 140 wy -120 four 4 x 0 y 0 d 4
+wx 145 wy -120 four 4 x 0 y 0 d 4
+wx 150 wy -120 four 4 x 0 y 0 d 4
+wx 155 wy -120 four 4 x 0 y 0 d 4
+wx 160 wy -120 four 4 x 0 y 0 d 4
+wx 165 wy -120 four 1 x 0 y 0 d 4
+wx 170 wy -120 four 1 x 0 y 0 d 4
+wx 175 wy -120 four 1 x 0 y 0 d 4
+wx 180 wy -120 four 1 x 0 y 0 d 4
+wx 185 wy -120 four 1 x 0 y 0 d 4
+wx 190 wy -120 four 1 x 0 y 0 d 4
+wx 195 wy -120 four 1 x 0 y 0 d 4
+wx 200 wy -120 four 1 x 0 y 0 d 4
+wx 205 wy -120 four 1 x 0 y 0 d 4
+spritesheet.pde:20:0:20:0: ArrayIndexOutOfBoundsException: 1
+
+//run 5
+wx 0 wy 0 four 3 x 0 y 0 d 2
+wx -5 wy 0 four 3 x 0 y 0 d 2
+wx -10 wy 0 four 3 x 0 y 0 d 2
+wx -15 wy 0 four 3 x 0 y 0 d 2
+wx -20 wy 0 four 3 x 0 y 0 d 2
+wx -25 wy 0 four 3 x 0 y 0 d 2
+spritesheet.pde:20:0:20:0: ArrayIndexOutOfBoundsException: 1

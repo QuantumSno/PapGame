@@ -28,10 +28,10 @@ class spritesheet {
       tx+=wid;
     }
   }
-  void setW(int i) { 
+  void setW(int i) {
     wid=i;
   }
-  void setH(int i) { 
+  void setH(int i) {
     hei=i;
   }
 }

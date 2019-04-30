@@ -41,7 +41,7 @@ public void setup() {
   psymon = new psymon();
   elements = new elements();
   raccoon = new raccoon();
-  whyatt = new Whyatt(50, 50);
+  whyatt = new Whyatt(0, 0);
   
   
   imageMode(CENTER);
@@ -68,18 +68,18 @@ public void draw() {
   } else if (zone=='f') {
     drawOrder();
     textAlign(CENTER, CENTER);
-    textSize(42);
+    textSize(32);
     stroke(153);
     if (firstConvo==1) {
       fill(255, 0, 0);
       text("Heya Whyatt! What’ve been you up to today?", x, y-100);
     } else if (firstConvo==2) {
       fill(0, 102, 153);
-      text("Oh, hey Psymon, nothin much. Just lookin around for my cat, he’s been gone a bit. I don’t want him getting stuck in the rain later", x-whyatt.getX(), y-whyatt.getY()-100);
+      text("Oh, hey Psymon, nothin much. Just lookin around for my cat, he’s been gone a bit. \nI don’t want him getting stuck in the rain later", x-whyatt.getX(), y-whyatt.getY()-100);
     } else if (firstConvo==3) {
-      text("Oh… okay. I’m sure your cat will turn up eventually. I can help look for him if you’d like", width/2, height/2-100);
+      text("Oh… okay. I’m sure your cat will turn up eventually. \nI can help look for him if you’d like", width/2, height/2-100);
     } else if (firstConvo==4) {
-      text("Nah it’s alright, he’ll come around soon. Besides we should do some errands before the storm hits", x-whyatt.getX(), y-whyatt.getY()-100);
+      text("Nah it’s alright, he’ll come around soon. Besides we should \ndo some errands before the storm hits", x-whyatt.getX(), y-whyatt.getY()-100);
     } else if (firstConvo==5) {
       text("That sounds like a great idea let’s head down and get some snacks!", width/2, height/2-100);
     } else {
@@ -89,6 +89,7 @@ public void draw() {
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
   //psymon.sheettest();
+  whyatt.printSheets();
 }
 public void drawOrder() {
   //frame data
@@ -102,10 +103,10 @@ public void drawOrder() {
     two=2;
     four=2;
   } else if (f>20 && f<=30) {
-    two=1;
+    two=2;
     four=3;
   } else if (f>30 && f<=40) {
-    two=2;
+    two=1;
     four=4;
   }
   background(30);
@@ -148,21 +149,25 @@ public void drawOrder() {
     if (wDirection==1)
     {
       whyatt.update(whyatt.getX(), whyatt.getY()-5);
-      whyatt.walkUp(four, x, y);
+      whyatt.walkDown(two, x, y);
     } else if (wDirection==2)
     {
+      println("wx " + whyatt.getX() + " wy " + whyatt.getY() + " four " + four + " x " + x + " y " + y + " d " + wDirection);
       whyatt.update(whyatt.getX()-5, whyatt.getY());
-      whyatt.walkLeft(two, x, y);
+      whyatt.walkRight(four, x, y);
     } else if (wDirection==3)
     {
       whyatt.update(whyatt.getX(), whyatt.getY()+5);
-      whyatt.walkDown(four, x, y);
+      whyatt.walkUp(two, x, y);
     } else if (wDirection==4)
     {
+      println("wx " + whyatt.getX() + " wy " + whyatt.getY() + " four " + four + " x " + x + " y " + y + " d " + wDirection);
       whyatt.update(whyatt.getX()+5, whyatt.getY());
-      whyatt.walkRight(two, x, y);
+      whyatt.walkLeft(four, x, y);
     }
     whyTWalk++;
+    if(whyTWalk==whyWalk)
+      wWalking=false;
   } else
   {
     if (wDirection==1)
@@ -485,6 +490,9 @@ class Whyatt extends AI {
     walkRight.setW(size);
     walkRight.setH(size);
   }
+  public void printSheets() {
+    walkLeft.printSheet(1);
+  }
   public void update(int o, int p) {
     x=o;
     y=p;
@@ -764,10 +772,10 @@ class spritesheet {
       tx+=wid;
     }
   }
-  public void setW(int i) { 
+  public void setW(int i) {
     wid=i;
   }
-  public void setH(int i) { 
+  public void setH(int i) {
     hei=i;
   }
 }

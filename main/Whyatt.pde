@@ -33,6 +33,9 @@ class Whyatt extends AI {
     walkRight.setW(size);
     walkRight.setH(size);
   }
+  void printSheets() {
+    walkLeft.printSheet(1);
+  }
   void update(int o, int p) {
     x=o;
     y=p;

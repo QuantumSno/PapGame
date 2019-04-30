@@ -25,7 +25,7 @@ void setup() {
   psymon = new psymon();
   elements = new elements();
   raccoon = new raccoon();
-  whyatt = new Whyatt(50, 50);
+  whyatt = new Whyatt(0, 0);
   size(840, 640, P2D);
   noSmooth();
   imageMode(CENTER);
@@ -73,6 +73,7 @@ void draw() {
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
   //psymon.sheettest();
+  whyatt.printSheets();
 }
 void drawOrder() {
   //frame data
@@ -86,11 +87,11 @@ void drawOrder() {
     two=2;
     four=2;
   } else if (f>20 && f<=30) {
-    two=1;
-    four=3;
-  } else if (f>30 && f<=40) {
     two=2;
     four=3;
+  } else if (f>30 && f<=40) {
+    two=1;
+    four=4;
   }
   background(30);
   elements.map(x, y);
@@ -135,6 +136,7 @@ void drawOrder() {
       whyatt.walkDown(two, x, y);
     } else if (wDirection==2)
     {
+      println("wx " + whyatt.getX() + " wy " + whyatt.getY() + " four " + four + " x " + x + " y " + y + " d " + wDirection);
       whyatt.update(whyatt.getX()-5, whyatt.getY());
       whyatt.walkRight(four, x, y);
     } else if (wDirection==3)
@@ -143,6 +145,7 @@ void drawOrder() {
       whyatt.walkUp(two, x, y);
     } else if (wDirection==4)
     {
+      println("wx " + whyatt.getX() + " wy " + whyatt.getY() + " four " + four + " x " + x + " y " + y + " d " + wDirection);
       whyatt.update(whyatt.getX()+5, whyatt.getY());
       whyatt.walkLeft(four, x, y);
     }
