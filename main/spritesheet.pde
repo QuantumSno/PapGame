@@ -23,11 +23,15 @@ class spritesheet {
     int tx=wid/2;
     int ty=hei/2;
     ty+=hei*(lvl-1);
-    for(int t=0; t<sprites.length; t++) {
+    for (int t=0; t<sprites.length; t++) {
       image(sprites[t], tx, ty, wid, hei);
       tx+=wid;
     }
   }
-  void setW(int i) { wid=i; }
-  void setH(int i) { hei=i; }
+  void setW(int i) { 
+    wid=i;
+  }
+  void setH(int i) { 
+    hei=i;
+  }
 }

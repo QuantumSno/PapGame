@@ -21,7 +21,8 @@ String keys="";
 psymon psymon;
 elements elements;
 raccoon raccoon;
-boolean walking; int direction;
+boolean walking;
+int direction;
 int f=0;
 int four, two;
 char zone = 't';
@@ -47,17 +48,17 @@ public void setup() {
 }
 public void draw() {
   walking=false;
-  if(keyPressed)
+  if (keyPressed)
     walking=true;
   keys();
-  if(zone=='m') {
+  if (zone=='m') {
     drawOrder();
-  } else if(zone=='t') {
+  } else if (zone=='t') {
     elements.title();
-  } else if(zone=='p') {
+  } else if (zone=='p') {
     drawOrder();
     elements.tab(tab1);
-  } else if(zone=='c') {
+  } else if (zone=='c') {
     combat();
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
@@ -65,70 +66,71 @@ public void draw() {
 }
 public void drawOrder() {
   //frame data
-    f++;
-    if(f>=40)
-      f=0;
-    if(f>0 && f<=10) {
-      two=1;
-      four=1;
-    } else if(f>10 && f<=20) {
-      two=2;
-      four=2;
-    } else if(f>20 && f<=30) {
-      two=1;
-      four=3;
-    } else if(f>30 && f<=40) {
-      two=2;
-      four=4;
-    }
+  f++;
+  if (f>=40)
+    f=0;
+  if (f>0 && f<=10) {
+    two=1;
+    four=1;
+  } else if (f>10 && f<=20) {
+    two=2;
+    four=2;
+  } else if (f>20 && f<=30) {
+    two=1;
+    four=3;
+  } else if (f>30 && f<=40) {
+    two=2;
+    four=4;
+  }
   background(30);
   elements.map(x, y);
   //psymon
-    if(walking==true) {
-      if(direction==1) {
-        psymon.walkUp(four);
-      } else if(direction==2) {
-        psymon.walkLeft(four);
-      } else if(direction==3) {
-        psymon.walkDown(four);
-      } else if(direction==4) {
-        psymon.walkRight(four);
-      } else {
-        psymon.down();
-      }
+  if (walking==true) {
+    if (direction==1) {
+      psymon.walkUp(four);
+    } else if (direction==2) {
+      psymon.walkLeft(four);
+    } else if (direction==3) {
+      psymon.walkDown(four);
+    } else if (direction==4) {
+      psymon.walkRight(four);
     } else {
-      if(direction==1) {
-        psymon.up();
-      } else if(direction==2) {
-        psymon.left();
-      } else if(direction==3) {
-        psymon.down();
-      } else if(direction==4) {
-        psymon.right();
-      } else {
-        psymon.down();
-      }
+      psymon.down();
     }
+  } else {
+    if (direction==1) {
+      psymon.up();
+    } else if (direction==2) {
+      psymon.left();
+    } else if (direction==3) {
+      psymon.down();
+    } else if (direction==4) {
+      psymon.right();
+    } else {
+      psymon.down();
+    }
+  }
 }
 public void combat() {
   f++;
-  if(f>=0 && f< 5) {
+  if (f>=0 && f< 10) {
+    swing++;
   } else {
     f=0;
     swing++;
   }
   elements.combat();
   elements.combatMenu(combatPsymon);
-  if(psymonAttack) {//psymon attacking!
+  if (psymonAttack) {//psymon attacking!
     psymon.swing(swing);
-    if(swing>22) {
+    if (swing>22) {
       psymonAttack=false;
       psymonTurn=false;
       swing=1;
     }
-  } else if(!psymonAttack && !psymonTurn) { //raccoon attacking!
+  } else if (!psymonAttack && !psymonTurn) { //raccoon attacking!
     raccoon.hit(swing);
-    if(swing>7) {
+    if (swing>7) {
       psymonTurn=true;
       noLoop();
     }
@@ -141,70 +143,70 @@ public void combat() {
 }
 
 public void keys() {
-  if(zone=='m') {
-    if(keys.contains("w") && !boarderUp()) {
+  if (zone=='m') {
+    if (keys.contains("w") && !boarderUp()) {
       y+=walkSpeed;
       direction=1;
-    } else if(keys.contains("s") && !boarderDown()) {
+    } else if (keys.contains("s") && !boarderDown()) {
       y+=-walkSpeed;
       direction=3;
     }
-    if(keys.contains("a") && !boarderLeft()) {
+    if (keys.contains("a") && !boarderLeft()) {
       x+=walkSpeed;
       direction=2;
-    } else if(keys.contains("d") && !boarderRight()) {
+    } else if (keys.contains("d") && !boarderRight()) {
       x+=-walkSpeed;
       direction=4;
     }
-    if(keys.contains(""+TAB)) {
+    if (keys.contains(""+TAB)) {
       noLoop();
       tab1=1;
       zone='p';
-    } else if(keys.contains("c")) {
+    } else if (keys.contains("c")) {
       noLoop();
       zone='c';
     }
-  } else if(zone=='p') {
-    if(tab1==2) {
-      if(keys.contains("w")) {
+  } else if (zone=='p') {
+    if (tab1==2) {
+      if (keys.contains("w")) {
         tab1=1;
-      } else if(keys.contains("s")) {
+      } else if (keys.contains("s")) {
         tab1=3;
-      } else if(keys.contains(""+ENTER)) {
+      } else if (keys.contains(""+ENTER)) {
         tab1=4;
       }
-    } else if(tab1==1) {
-      if(keys.contains("s")) {
+    } else if (tab1==1) {
+      if (keys.contains("s")) {
         tab1=2;
-      } else if(keys.contains(""+ENTER)) {
+      } else if (keys.contains(""+ENTER)) {
         zone='m';
         loop();
       }
-    } else if(tab1==3) {
-      if(keys.contains("w")) {
+    } else if (tab1==3) {
+      if (keys.contains("w")) {
         tab1=2;
-      } else if(keys.contains(""+ENTER)) {
+      } else if (keys.contains(""+ENTER)) {
         exit();
       }
-    } else if(tab1==4) {
-      if(keys.contains(""+ENTER)) {
+    } else if (tab1==4) {
+      if (keys.contains(""+ENTER)) {
         tab1=2;
       }
     }
-  } else if(zone=='c') {
-    if(psymonTurn) {
-      if(keys.contains("w")) {
-        if(combatPsymon==1)
+  } else if (zone=='c') {
+    if (psymonTurn) {
+      if (keys.contains("w")) {
+        if (combatPsymon==1)
           combatPsymon=2;
-        else if(combatPsymon==2)
+        else if (combatPsymon==2)
           combatPsymon=1;
-      } else if(keys.contains("s")) {
-        if(combatPsymon==1)
+      } else if (keys.contains("s")) {
+        if (combatPsymon==1)
           combatPsymon=2;
-        else if(combatPsymon==2)
+        else if (combatPsymon==2)
           combatPsymon=1;
-      } else if(keys.contains(""+ENTER)) {
-        if(combatPsymon==1) {
+      } else if (keys.contains(""+ENTER)) {
+        if (combatPsymon==1) {
           psymonAttack=true;
           loop();
         }
@@ -218,50 +220,50 @@ public void keyPressed()
 }
 
 public void keyReleased() {
-  if(zone=='t') {
+  if (zone=='t') {
     zone='m';
     loop();
   }
-  if(zone=='p') {
+  if (zone=='p') {
     keys();
     redraw();
   }
-  if(zone=='c') {
+  if (zone=='c') {
     keys();
     redraw();
   }
-  keys=keys.replace(key+"","");
+  keys=keys.replace(key+"", "");
 }
 
 public boolean boarderUp() {
-  for(int t=0; t<boarder.size(); t++)
-    if(boarder.get(t).getD()==1)
-      if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-      boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+  for (int t=0; t<boarder.size(); t++)
+    if (boarder.get(t).getD()==1)
+      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
 public boolean boarderLeft() {
-  for(int t=0; t<boarder.size(); t++)
-  if(boarder.get(t).getD()==2)
-      if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-      boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+  for (int t=0; t<boarder.size(); t++)
+    if (boarder.get(t).getD()==2)
+      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
 public boolean boarderDown() {
-  for(int t=0; t<boarder.size(); t++)
-    if(boarder.get(t).getD()==3)
-      if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-      boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+  for (int t=0; t<boarder.size(); t++)
+    if (boarder.get(t).getD()==3)
+      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
 public boolean boarderRight() {
-  for(int t=0; t<boarder.size(); t++)
-    if(boarder.get(t).getD()==4)
-      if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
-      boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
+  for (int t=0; t<boarder.size(); t++)
+    if (boarder.get(t).getD()==4)
+      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+        boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
@@ -293,7 +295,7 @@ public void loadBoarders() {
   boarder.add(new boarders(4525, 2740, 2645, 2570, 3)); //40-41
   boarder.add(new boarders(4525, 3080, 4525, 2740, 2)); //41-42
   boarder.add(new boarders(-3590, 3080, 4525, 3080, 1)); //41-125
-  boarder.add(new boarders(-3590, 3080, -3590, 2740 , 4)); //125-124
+  boarder.add(new boarders(-3590, 3080, -3590, 2740, 4)); //125-124
   boarder.add(new boarders(-1930, 2740, -3590, 2740, 3)); //124-123
   boarder.add(new boarders(-1930, 2740, -1930, 2570, 4)); //123-122
   boarder.add(new boarders(-1930, 2570, -2315, 2570, 1)); //122-121
@@ -344,10 +346,10 @@ class boarders {
   int x1, y1, x2, y2, direction;
   /*
   1= up
-  2= left
-  3= down
-  4= right
-  */
+   2= left
+   3= down
+   4= right
+   */
   public boarders(int ix1, int iy1, int ix2, int iy2, int idirection) {
     x1=ix1;
     y1=iy1;
@@ -355,80 +357,164 @@ class boarders {
     y2=iy2;
     direction=idirection;
   }
-  public int getD() { return direction; }
-  public int getX1() { return x1; }
-  public int getY1() { return y1; }
-  public int getX2() { return x2; }
-  public int getY2() { return y2; }
+  public int getD() { 
+    return direction;
+  }
+  public int getX1() { 
+    return x1;
+  }
+  public int getY1() { 
+    return y1;
+  }
+  public int getX2() { 
+    return x2;
+  }
+  public int getY2() { 
+    return y2;
+  }
 
   public void update(int x, int y) {
-      x1+=x;
-      y1+=y;
-      x2+=x;
-      y2+=y;
+    x1+=x;
+    y1+=y;
+    x2+=x;
+    y2+=y;
   }
 }
 class elements {
+  PImage mapImage;
   spritesheet test, title, tab, templateMap, combatMap, combatSpin, map, hp;
+  boolean once=false;
   public elements() {
     test = new spritesheet(loadImage("collider map.png"), 1, 1);
-      test.setW(8320);
-      test.setH(7040);
-    map = new spritesheet(loadImage("foil map working.png"), 1, 1);
-      map.setW(8320);
-      map.setH(7040);
+    test.setW(8320);
+    test.setH(7040);
+    mapImage=requestImage("foil map working.png");
     title = new spritesheet(loadImage("foil title.png"), 1, 1);
     tab = new spritesheet(loadImage("tab menu.png"), 2, 2);
-      tab.setW(width); tab.setH(height);
+    tab.setW(width);
+    tab.setH(height);
     templateMap = new spritesheet(loadImage("template_map.png"), 1, 1);
     combatMap = new spritesheet(loadImage("stage.png"), 1, 2);
-      combatMap.setW(width); combatMap.setH(height);
+    combatMap.setW(width);
+    combatMap.setH(height);
     combatSpin = new spritesheet(loadImage("combat menu.png"), 2, 2);
-      combatSpin.setW(150); combatSpin.setH(150);
+    combatSpin.setW(150);
+    combatSpin.setH(150);
     hp = new spritesheet(loadImage("hp bar.png"), 4, 3);
-    hp.setW(50*9); hp.setH(50);
+    hp.setW(50*9);
+    hp.setH(50);
   }
-  public void mapBoarders(int x, int y) { test.out(1, x, y); }
-  public void map(int x, int y) { map.out(1, x, y); }
-  public void title() { title.out(1, width/2, height/2); }
-  public void tab(int f) { tab.out(f, width/2, height/2); }
-  public void templateMap(int x, int y) { title.out(1, x, y); }
-  public void combat() { combatMap.out(1, width/2, height/2); }
-  public void combatMenu(int f) { combatSpin.out(f, 0+150/2, height-150/2); }
-  public void hp(int f) { hp.out(f, 0+(50*9)/2, 0+(50)/2); }
+  public void mapBoarders(int x, int y) {
+    test.out(1, x, y);
+  }
+  public void map(int x, int y) {
+    if(mapImage.width==0) {
+      println("loading...");
+    } else if(mapImage.width==1 && !once) {
+      once=true;
+      map = new spritesheet(mapImage, 1, 1);
+      map.setW(8320);
+      map.setH(7040);
+    } else {
+      map.out(1, x, y);
+    }
+  }
+  public void title() {
+    title.out(1, width/2, height/2);
+  }
+  public void tab(int f) {
+    tab.out(f, width/2, height/2);
+  }
+  public void templateMap(int x, int y) {
+    title.out(1, x, y);
+  }
+  public void combat() {
+    combatMap.out(1, width/2, height/2);
+  }
+  public void combatMenu(int f) {
+    combatSpin.out(f, 0+150/2, height-150/2);
+  }
+  public void hp(int f) {
+    hp.out(f, 0+(50*9)/2, 0+(50)/2);
+  }
 }
 class psymon {
   spritesheet up, down, left, right, walkUp, walkDown, walkLeft, walkRight, bat, batcharge, ready, hurt;
   int size;
-  public psymon() { size=32*4;
+  public psymon() { 
+    size=32*4;
     noStroke();
     noSmooth();
-    up= new spritesheet(loadImage("psymon up.png"), 1, 1); up.setW(size); up.setH(size);
-    down= new spritesheet(loadImage("psymon down.png"), 1, 1); down.setW(size); down.setH(size);
-    left= new spritesheet(loadImage("psymon left.png"), 1, 1); left.setW(size); left.setH(size);
-    right= new spritesheet(loadImage("psymon right.png"), 1, 1); right.setW(size); right.setH(size);
-    walkUp= new spritesheet(loadImage("psymon up walk.png"), 2, 2); walkUp.setW(size); walkUp.setH(size);
-    walkDown= new spritesheet(loadImage("psymon down walk.png"), 2, 2); walkDown.setW(size); walkDown.setH(size);
-    walkLeft= new spritesheet(loadImage("psymon left walk.png"), 2, 2); walkLeft.setW(size); walkLeft.setH(size);
-    walkRight= new spritesheet(loadImage("psymon right walk.png"), 2, 2); walkRight.setW(size); walkRight.setH(size);
-    bat = new spritesheet(loadImage("psymon bat charge.png"), 3, 3); bat.setW(size); bat.setH(size);
-    batcharge = new spritesheet(loadImage("psymon bat.png"), 4, 5); batcharge.setW(size); batcharge.setH(size);
-    ready = new spritesheet(loadImage("psymon ready.png"), 1, 1); ready.setW(size); ready.setH(size);
-    hurt = new spritesheet(loadImage("psymon hurt.png"), 1, 1); hurt.setW(size); hurt.setH(size);
+    up= new spritesheet(loadImage("psymon up.png"), 1, 1); 
+    up.setW(size); 
+    up.setH(size);
+    down= new spritesheet(loadImage("psymon down.png"), 1, 1); 
+    down.setW(size); 
+    down.setH(size);
+    left= new spritesheet(loadImage("psymon left.png"), 1, 1); 
+    left.setW(size); 
+    left.setH(size);
+    right= new spritesheet(loadImage("psymon right.png"), 1, 1); 
+    right.setW(size); 
+    right.setH(size);
+    walkUp= new spritesheet(loadImage("psymon up walk.png"), 2, 2); 
+    walkUp.setW(size); 
+    walkUp.setH(size);
+    walkDown= new spritesheet(loadImage("psymon down walk.png"), 2, 2); 
+    walkDown.setW(size); 
+    walkDown.setH(size);
+    walkLeft= new spritesheet(loadImage("psymon left walk.png"), 2, 2); 
+    walkLeft.setW(size); 
+    walkLeft.setH(size);
+    walkRight= new spritesheet(loadImage("psymon right walk.png"), 2, 2); 
+    walkRight.setW(size); 
+    walkRight.setH(size);
+    bat = new spritesheet(loadImage("psymon bat charge.png"), 3, 3); 
+    bat.setW(size); 
+    bat.setH(size);
+    batcharge = new spritesheet(loadImage("psymon bat.png"), 4, 5); 
+    batcharge.setW(size); 
+    batcharge.setH(size);
+    ready = new spritesheet(loadImage("psymon ready.png"), 1, 1); 
+    ready.setW(size); 
+    ready.setH(size);
+    hurt = new spritesheet(loadImage("psymon hurt.png"), 1, 1); 
+    hurt.setW(size); 
+    hurt.setH(size);
   }
-  public void up() { up.out(1, width/2, height/2); }
-  public void down() { down.out(1, width/2, height/2); }
-  public void left() { left.out(1, width/2, height/2); }
-  public void right() { right.out(1, width/2, height/2); }
-  public void walkUp(int f) { walkUp.out(f, width/2, height/2); }
-  public void walkDown(int f) { walkDown.out(f, width/2, height/2); }
-  public void walkLeft(int f) { walkLeft.out(f, width/2, height/2); }
-  public void walkRight(int f) { walkRight.out(f, width/2, height/2); }
-  public void ready() { ready.out(1, 300, height-120); }
-  public void hurt() { hurt.out(1, 300, height-120); }
+  public void up() { 
+    up.out(1, width/2, height/2);
+  }
+  public void down() { 
+    down.out(1, width/2, height/2);
+  }
+  public void left() { 
+    left.out(1, width/2, height/2);
+  }
+  public void right() { 
+    right.out(1, width/2, height/2);
+  }
+  public void walkUp(int f) { 
+    walkUp.out(f, width/2, height/2);
+  }
+  public void walkDown(int f) { 
+    walkDown.out(f, width/2, height/2);
+  }
+  public void walkLeft(int f) { 
+    walkLeft.out(f, width/2, height/2);
+  }
+  public void walkRight(int f) { 
+    walkRight.out(f, width/2, height/2);
+  }
+  public void ready() { 
+    ready.out(1, 300, height-120);
+  }
+  public void hurt() { 
+    hurt.out(1, 300, height-120);
+  }
   public void swing(int f) {
     println(f);
-    if(f>=1 && f <= 4) {
+    if (f>=1 && f <= 4) {
       bat.out(f, 300, height-120);
     } else {
       batcharge.out(f-4, 300, height-120);
@@ -451,10 +537,15 @@ class raccoon {
     raccoonHit = new spritesheet(loadImage("raccoon hit.png"), 3, 3);
   }
 
-  public void ready() { raccoon.out(1, width-300, height-140); }
-  public void hurt() { raccoonHurt.out(1, width-300, height-140); }
-  public void hit(int f) { raccoonHit.out(f, width-300, height-140); }
-
+  public void ready() { 
+    raccoon.out(1, width-300, height-140);
+  }
+  public void hurt() { 
+    raccoonHurt.out(1, width-300, height-140);
+  }
+  public void hit(int f) { 
+    raccoonHit.out(f, width-300, height-140);
+  }
 }
 class spritesheet {
   PImage[] sprites;
@@ -481,13 +572,17 @@ class spritesheet {
     int tx=wid/2;
     int ty=hei/2;
     ty+=hei*(lvl-1);
-    for(int t=0; t<sprites.length; t++) {
+    for (int t=0; t<sprites.length; t++) {
       image(sprites[t], tx, ty, wid, hei);
       tx+=wid;
     }
   }
-  public void setW(int i) { wid=i; }
-  public void setH(int i) { hei=i; }
+  public void setW(int i) { 
+    wid=i;
+  }
+  public void setH(int i) { 
+    hei=i;
+  }
 }
   public void settings() {  size(840, 640, P2D);  noSmooth(); }
   static public void main(String[] passedArgs) {

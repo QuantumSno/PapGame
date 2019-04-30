@@ -189,8 +189,8 @@ void keys() {
           combatPsymon=2;
         else if (combatPsymon==2)
           combatPsymon=1;
-      } else if(keys.contains(""+ENTER)) {
-        if(combatPsymon==1) {
+      } else if (keys.contains(""+ENTER)) {
+        if (combatPsymon==1) {
           psymonAttack=true;
           loop();
         }
