@@ -6,7 +6,10 @@ class elements {
     test = new spritesheet(loadImage("collider map.png"), 1, 1);
     test.setW(8320);
     test.setH(7040);
-    //mapImage=loadImage("foil map working.png");
+    mapImage=loadImage("foil map working.png");
+    map = new spritesheet(mapImage, 1, 1);
+    map.setW(8320);
+    map.setH(7040);
     title = new spritesheet(loadImage("foil title.png"), 1, 1);
     tab = new spritesheet(loadImage("tab menu.png"), 2, 2);
     tab.setW(width);
@@ -26,16 +29,7 @@ class elements {
     test.out(1, x, y);
   }
   void map(int x, int y) {
-    if (mapImage.width==0) {
-      println("loading...");
-    } else if (mapImage.width==1 && !once) {
-      once=true;
-      map = new spritesheet(mapImage, 1, 1);
-      map.setW(8320);
-      map.setH(7040);
-    } else {
-      map.out(1, x, y);
-    }
+    map.out(1, x, y);
   }
   void title() {
     title.out(1, width/2, height/2);

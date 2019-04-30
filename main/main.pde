@@ -61,11 +61,14 @@ void draw() {
       fill(0, 102, 153);
       text("Oh, hey Psymon, nothin much. Just lookin around for my cat, he’s been gone a bit. I don’t want him getting stuck in the rain later", x-whyatt.getX(), y-whyatt.getY()-100);
     } else if (firstConvo==3) {
-      text("Oh… okay. I’m sure your cat will turn up eventually. I can help look for him if you’d like", x, y-100);
+      text("Oh… okay. I’m sure your cat will turn up eventually. I can help look for him if you’d like", width/2, height/2-100);
     } else if (firstConvo==4) {
       text("Nah it’s alright, he’ll come around soon. Besides we should do some errands before the storm hits", x-whyatt.getX(), y-whyatt.getY()-100);
     } else if (firstConvo==5) {
-      text("That sounds like a great idea let’s head down and get some snacks!", x, y-100);
+      text("That sounds like a great idea let’s head down and get some snacks!", width/2, height/2-100);
+    } else {
+      zone='m';
+      loop();
     }
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
