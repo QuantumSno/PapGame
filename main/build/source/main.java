@@ -41,7 +41,7 @@ public void setup() {
   psymon = new psymon();
   elements = new elements();
   raccoon = new raccoon();
-  whyatt = new Whyatt(3670, 1615);
+  whyatt = new Whyatt(3270, 1015);
   
   
   imageMode(CENTER);
@@ -72,24 +72,24 @@ public void draw() {
     textSize(32);
     stroke(153);
     if (firstConvo==1) {
-      delay(100);
       fill(255, 12, 0);
       text("Heya Whyatt! What’ve been you up to today?", width/2, height/2-100);
     } else if (firstConvo==2) {
       fill(0, 102, 153);
-      text("Oh, hey Psymon, nothin much. \nJust lookin around for my cat, he’s been gone a bit. \nI don’t want him getting stuck in the rain later", x-whyatt.getX(), y-whyatt.getY()-100);
+      text("Oh, hey Psymon, nothin much. \nJust lookin around for my cat, \nhe’s been gone a bit. \nI don’t want him getting stuck in the rain later", x-whyatt.getX(), y-whyatt.getY()-150);
     } else if (firstConvo==3) {
       fill(255, 12, 0);
       text("Oh… okay. I’m sure your cat will turn up eventually. \nI can help look for him if you’d like", width/2, height/2-100);
     } else if (firstConvo==4) {
       fill(0, 102, 153);
-      text("Nah it’s alright, he’ll come around soon. \nBesides we should do some errands before \nthe storm hits", x-whyatt.getX(), y-whyatt.getY()-100);
+      text("Nah it’s alright, he’ll come around soon. \nBesides we should do some errands before \nthe storm hits", x-whyatt.getX(), y-whyatt.getY()-150);
     } else if (firstConvo==5) {
       fill(255, 12, 0);
       text("That sounds like a great idea \nlet’s head down and get some snacks!", width/2, height/2-100);
     } else {
       zone='m';
       loop();
+      firstConvo=0;
     }
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
@@ -252,7 +252,6 @@ public void keys() {
       zone='c';
     } else if (keys.contains("e"))
     {
-      println("e");
       if (whyatt.range(x, y))
       {
         noLoop();
