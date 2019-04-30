@@ -21,7 +21,7 @@ String keys="";
 psymon psymon;
 elements elements;
 raccoon raccoon;
-whyatt Whyatt;
+Whyatt whyatt;
 boolean walking;
 int direction;
 int f=0;
@@ -38,7 +38,7 @@ public void setup() {
   psymon = new psymon();
   elements = new elements();
   raccoon = new raccoon();
-  whyatt = new Whyatt(100, 100);
+  whyatt = new Whyatt(50, 50);
   
   
   imageMode(CENTER);
@@ -112,7 +112,7 @@ public void drawOrder() {
       psymon.down();
     }
   }
-  whyatt.wS(x, y);
+  whyatt.down(x, y);
 }
 public void combat() {
   f++;
@@ -381,151 +381,91 @@ class AI {
   }
 }
 class Whyatt extends AI {
-  PGraphics
-  WhyattW, WhyattA, WhyattS, WhyattD,
-  WhyattWw1, WhyattAw1, WhyattSw1, WhyattDw1,
-  WhyattWw2, WhyattAw2, WhyattSw2, WhyattDw2,
-  WhyattAw3, WhyattAw4, WhyattDw3, WhyattDw4;
-  int scale, size, x, y;
-public Whyatt(int o, int p) {
-  x=o;
-  y=p;
-  scale=4;
-  size=38*scale;
-  WhyattW = createGraphics(size,size);
-  WhyattWw1 = createGraphics(size,size);
-  WhyattWw2 = createGraphics(size,size);
-  WhyattA = createGraphics(size,size);
-  WhyattAw1 = createGraphics(size,size);
-  WhyattAw2 = createGraphics(size,size);
-  WhyattAw3 = createGraphics(size,size);
-  WhyattAw4 = createGraphics(size,size);
-  WhyattS = createGraphics(size,size);
-  WhyattSw1 = createGraphics(size,size);
-  WhyattSw2 = createGraphics(size,size);
-  WhyattD = createGraphics(size,size);
-  WhyattDw1 = createGraphics(size,size);
-  WhyattDw2 = createGraphics(size,size);
-  WhyattDw3 = createGraphics(size,size);
-  WhyattDw4 = createGraphics(size,size);
-  loadWhyatt();
-}
-public void update(int o, int p) {
-  x=o;
-  y=p;
-}
-public String voice(int voiceline) {
-  if(voiceline==1)
-    return "Hello!";
-  else if(voiceline==2)
-    return "Goodday Sir";
-  else if(voiceline==3)
-    return "The whether is nice today";
-  else
-    return "error";
-}
-public int getX() {
-  return x;
-}
-public int getY() {
-  return y;
-}
-public boolean range(int o, int p) {
-  if(o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100)
-    return true;
-  return false;
-}
+  int x, y;
+  int size;
+  spritesheet up, down, left, right, walkUp, walkDown, walkLeft, walkRight;
+  public Whyatt(int o, int p) {
+    size=38*4;
+    x=o;
+    y=p;
+    noStroke();
+    noSmooth();
+    up= new spritesheet(loadImage("whyatt up.png"), 1, 1);
+    up.setW(size);
+    up.setH(size);
+    down= new spritesheet(loadImage("whyatt down.png"), 1, 1);
+    down.setW(size);
+    down.setH(size);
+    left= new spritesheet(loadImage("whyatt left walk.png"), 1, 1);
+    left.setW(size);
+    left.setH(size);
+    right= new spritesheet(loadImage("whyatt right walk.png"), 1, 1);
+    right.setW(size);
+    right.setH(size);
+    walkUp= new spritesheet(loadImage("whyatt up walk.png"), 2, 2);
+    walkUp.setW(size);
+    walkUp.setH(size);
+    walkDown= new spritesheet(loadImage("whyatt down walk.png"), 2, 2);
+    walkDown.setW(size);
+    walkDown.setH(size);
+    walkLeft= new spritesheet(loadImage("whyatt left walk.png"), 2, 2);
+    walkLeft.setW(size);
+    walkLeft.setH(size);
+    walkRight= new spritesheet(loadImage("whyatt right walk.png"), 2, 2);
+    walkRight.setW(size);
+    walkRight.setH(size);
 
-public void wW(int o, int p) { image(WhyattW, o-x, p-y); }
-public void wA(int o, int p) { image(WhyattA, o-x, p-y); }
-public void wS(int o, int p) { image(WhyattS, o-x, p-y); }
-public void wD(int o, int p) { image(WhyattD, o-x, p-y); }
+  }
+  public void update(int o, int p) {
+    x=o;
+    y=p;
+  }
+  public String voice(int voiceline) {
+    if (voiceline==1)
+      return "Hello!";
+    else if (voiceline==2)
+      return "Goodday Sir";
+    else if (voiceline==3)
+      return "The whether is nice today";
+    else
+      return "error";
+  }
+  public int getX() {
+    return x;
+  }
+  public int getY() {
+    return y;
+  }
+  public boolean range(int o, int p) {
+    if (o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100)
+      return true;
+    return false;
+  }
+  public void up(int ix, int iy) {
+    up.out(1, ix-x, iy-y);
+  }
+  public void down(int ix, int iy) {
+    down.out(1, ix-x, iy-y);
+  }
+  public void left(int ix, int iy) {
+    left.out(2, ix-x, iy-y);
+  }
+  public void right(int ix, int iy) {
+    right.out(2, ix-x, iy-y);
+  }
+  public void walkUp(int f, int ix, int iy) {
+    walkUp.out(f, ix-x, iy-y);
+  }
+  public void walkDown(int f, int ix, int iy) {
+    walkDown.out(f, ix-x, iy-y);
+  }
+  public void walkLeft(int f, int ix, int iy) {
+    walkLeft.out(f, ix-x, iy-y);
+  }
+  public void walkRight(int f, int ix, int iy) {
+    walkRight.out(f, ix-x, iy-y);
+  }
 
-public void wW1(int o, int p) { image(WhyattWw1, o-x, p-y); }
-public void wW2(int o, int p) { image(WhyattWw2, o-x, p-y); }
-
-public void wA1(int o, int p) { image(WhyattAw1, o-x, p-y); }
-public void wA2(int o, int p) { image(WhyattAw2, o-x, p-y); }
-public void wA3(int o, int p) { image(WhyattAw3, o-x, p-y); }
-public void wA4(int o, int p) { image(WhyattAw4, o-x, p-y); }
-
-public void wS1(int o, int p) { image(WhyattSw1, o-x, p-y); }
-public void wS2(int o, int p) { image(WhyattSw2, o-x, p-y); }
-
-public void wD1(int o, int p) { image(WhyattDw1, o-x, p-y); }
-public void wD2(int o, int p) { image(WhyattDw2, o-x, p-y); }
-public void wD3(int o, int p) { image(WhyattDw3, o-x, p-y); }
-public void wD4(int o, int p) { image(WhyattDw4, o-x, p-y); }
-
-public void loadWhyatt() {
-  WhyattW.beginDraw();
-  WhyattW.noStroke();
-  //WhyattW.image(loadImage("Whyatt-behind.png"),0,0,size,size);
-  WhyattW.endDraw();
-  WhyattWw1.beginDraw();
-  WhyattWw1.noStroke();
-  //WhyattWw1.image(loadImage("Whyatt-behind-walking-1.png"),0,0,size,size);
-  WhyattWw1.endDraw();
-  WhyattWw2.beginDraw();
-  WhyattWw2.noStroke();
-  //WhyattWw2.image(loadImage("Whyatt-behind-walking-2.png"),0,0,size,size);
-  WhyattWw2.endDraw();
-
-  WhyattA.beginDraw();
-  WhyattA.noStroke();
-  //WhyattA.image(loadImage("Whyatt-side-left.png"),0,0,size,size);
-  WhyattA.endDraw();
-  WhyattAw1.beginDraw();
-  WhyattAw1.noStroke();
-  //WhyattAw1.image(loadImage("Whyatt-side-left-walking-1.png"),0,0,size,size);
-  WhyattAw1.endDraw();
-  WhyattAw2.beginDraw();
-  WhyattAw2.noStroke();
-  //WhyattAw2.image(loadImage("Whyatt-side-left-walking-2.png"),0,0,size,size);
-  WhyattAw2.endDraw();
-  WhyattAw3.beginDraw();
-  WhyattAw3.noStroke();
-  //WhyattAw3.image(loadImage("Whyatt-side-left-walking-3.png"),0,0,size,size);
-  WhyattAw3.endDraw();
-  WhyattAw4.beginDraw();
-  WhyattAw4.noStroke();
-  //WhyattAw4.image(loadImage("Whyatt-side-left-walking-4.png"),0,0,size,size);
-  WhyattAw4.endDraw();
-
-  WhyattS.beginDraw();
-  WhyattS.noStroke();
-  WhyattS.image(loadImage("Whyatt-front.png"),0,0,size,size);
-  WhyattS.endDraw();
-  WhyattSw1.beginDraw();
-  WhyattSw1.noStroke();
-  WhyattSw1.image(loadImage("Whyatt-front-walking-1.png"),0,0,size,size);
-  WhyattSw1.endDraw();
-  WhyattSw2.beginDraw();
-  WhyattSw2.noStroke();
-  WhyattSw2.image(loadImage("Whyatt-front-walking-2.png"),0,0,size,size);
-  WhyattSw2.endDraw();
-
-  WhyattD.beginDraw();
-  WhyattD.noStroke();
-  //WhyattD.image(loadImage("Whyatt-side-right.png"),0,0,size,size);
-  WhyattD.endDraw();
-  WhyattDw1.beginDraw();
-  WhyattDw1.noStroke();
-  //WhyattDw1.image(loadImage("Whyatt-side-right-walking-1.png"),0,0,size,size);
-  WhyattDw1.endDraw();
-  WhyattDw2.beginDraw();
-  WhyattDw2.noStroke();
-  //WhyattDw2.image(loadImage("Whyatt-side-right-walking-2.png"),0,0,size,size);
-  WhyattDw2.endDraw();
-  WhyattDw3.beginDraw();
-  WhyattDw3.noStroke();
-  //WhyattDw3.image(loadImage("Whyatt-side-right-walking-3.png"),0,0,size,size);
-  WhyattDw3.endDraw();
-  WhyattDw4.beginDraw();
-  WhyattDw4.noStroke();
-  //WhyattDw4.image(loadImage("Whyatt-side-right-walking-4.png"),0,0,size,size);
-  WhyattDw4.endDraw();
-}
 }
 class boarders {
   int x1, y1, x2, y2, direction;
@@ -573,7 +513,7 @@ class elements {
     test = new spritesheet(loadImage("collider map.png"), 1, 1);
     test.setW(8320);
     test.setH(7040);
-    mapImage=requestImage("foil map working.png");
+    //mapImage=loadImage("foil map working.png");
     title = new spritesheet(loadImage("foil title.png"), 1, 1);
     tab = new spritesheet(loadImage("tab menu.png"), 2, 2);
     tab.setW(width);

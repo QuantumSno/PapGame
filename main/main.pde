@@ -5,9 +5,9 @@ String keys="";
 psymon psymon;
 elements elements;
 raccoon raccoon;
-whyatt Whyatt;
+Whyatt whyatt;
 boolean walking;
-int direction;
+int direction, wDirection;
 int f=0;
 int four, two;
 char zone = 't';
@@ -17,12 +17,14 @@ boolean psymonTurn=true;
 boolean psymonAttack=false;
 int combatX=150;
 int swing=1;
+int whyWalk=0;
+int whyTWalk=0;
 void setup() {
   frameRate(60);
   psymon = new psymon();
   elements = new elements();
   raccoon = new raccoon();
-  whyatt = new Whyatt(100, 100);
+  whyatt = new Whyatt(50, 50);
   size(840, 640, P2D);
   noSmooth();
   imageMode(CENTER);
@@ -96,7 +98,28 @@ void drawOrder() {
       psymon.down();
     }
   }
-  whyatt.wS(x, y);
+  if(whyatt.gunnaWalk())
+  {
+    whyWalk=whyatt.walk();
+    whyTWalk=0;
+    wDirection=whyatt.direction();
+  }
+  if(wDirection==1 && whyTWalk<whyWalk)
+  {
+
+  }
+  else if(wDirection==2 && whyTWalk<whyWalk)
+  {
+
+  }
+  else if(wDirection==3 && whyTWalk<whyWalk)
+  {
+
+  }
+  else if(wDirection==3 && whyTWalk<whyWalk)
+  {
+
+  }
 }
 void combat() {
   f++;
@@ -128,6 +151,8 @@ void combat() {
   }
   elements.hp(1);
 }
+
+
 
 void keys() {
   if (zone=='m') {

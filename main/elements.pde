@@ -6,7 +6,7 @@ class elements {
     test = new spritesheet(loadImage("collider map.png"), 1, 1);
     test.setW(8320);
     test.setH(7040);
-    mapImage=requestImage("foil map working.png");
+    //mapImage=loadImage("foil map working.png");
     title = new spritesheet(loadImage("foil title.png"), 1, 1);
     tab = new spritesheet(loadImage("tab menu.png"), 2, 2);
     tab.setW(width);
