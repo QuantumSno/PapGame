@@ -1,7 +1,7 @@
 class AI {
   int active=100;
   boolean gunnawalk() {
-    if (int(random(1, active))==1) {
+    if(int(random(1, active))==1) {
       return true;
     } else
       return false;
@@ -16,7 +16,7 @@ class AI {
     return "text";
   }
   boolean range(int o, int p) {
-    if (o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100)
+    if(o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100)
       return true;
     return false;
   }
