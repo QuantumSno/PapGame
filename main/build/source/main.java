@@ -35,6 +35,7 @@ int combatX=150;
 int swing=1;
 int whyWalk=0;
 int whyTWalk=0;
+int firstConvo=0;
 public void setup() {
   frameRate(60);
   psymon = new psymon();
@@ -52,18 +53,36 @@ public void setup() {
 }
 public void draw() {
   walking=false;
-  if (keyPressed)
+  if(keyPressed)
     walking=true;
   keys();
-  if (zone=='m') {
+  if(zone=='m') {
     drawOrder();
-  } else if (zone=='t') {
+  } else if(zone=='t') {
     elements.title();
-  } else if (zone=='p') {
+  } else if(zone=='p') {
     drawOrder();
     elements.tab(tab1);
-  } else if (zone=='c') {
+  } else if(zone=='c') {
     combat();
+  } else if(zone=='f') {
+    drawOrder();
+    textAlign(CENTER, CENTER);
+    textSize(42);
+    stroke(153);
+    if(firstConvo==1) {
+      fill(255, 0, 0);
+      text("Heya Whyatt! What’ve been you up to today?", x, y-100);
+    } else if(firstConvo==2) {
+      fill(0, 102, 153);
+      text("Oh, hey Psymon, nothin much. Just lookin around for my cat, he’s been gone a bit. I don’t want him getting stuck in the rain later", x-whyatt.getX(), y-whyatt.getY()-100);
+    } else if(firstConvo==3) {
+      text("Oh… okay. I’m sure your cat will turn up eventually. I can help look for him if you’d like", x, y-100);
+    } else if(firstConvo==4) {
+      text("Nah it’s alright, he’ll come around soon. Besides we should do some errands before the storm hits", x-whyatt.getX(), y-whyatt.getY()-100);
+    } else if(firstConvo==5) {
+      text("That sounds like a great idea let’s head down and get some snacks!", x, y-100);
+    }
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
   //psymon.sheettest();
@@ -71,44 +90,44 @@ public void draw() {
 public void drawOrder() {
   //frame data
   f++;
-  if (f>=40)
+  if(f>=40)
     f=0;
-  if (f>0 && f<=10) {
+  if(f>0 && f<=10) {
     two=1;
     four=1;
-  } else if (f>10 && f<=20) {
+  } else if(f>10 && f<=20) {
     two=2;
     four=2;
-  } else if (f>20 && f<=30) {
+  } else if(f>20 && f<=30) {
     two=1;
     four=3;
-  } else if (f>30 && f<=40) {
+  } else if(f>30 && f<=40) {
     two=2;
     four=4;
   }
   background(30);
-  elements.templateMap(x, y);
+  elements.map(x, y);
   //psymon
-  if (walking==true) {
-    if (direction==1) {
+  if(walking==true) {
+    if(direction==1) {
       psymon.walkUp(four);
-    } else if (direction==2) {
+    } else if(direction==2) {
       psymon.walkLeft(four);
-    } else if (direction==3) {
+    } else if(direction==3) {
       psymon.walkDown(four);
-    } else if (direction==4) {
+    } else if(direction==4) {
       psymon.walkRight(four);
     } else {
       psymon.down();
     }
   } else {
-    if (direction==1) {
+    if(direction==1) {
       psymon.up();
-    } else if (direction==2) {
+    } else if(direction==2) {
       psymon.left();
-    } else if (direction==3) {
+    } else if(direction==3) {
       psymon.down();
-    } else if (direction==4) {
+    } else if(direction==4) {
       psymon.right();
     } else {
       psymon.down();
@@ -127,25 +146,21 @@ public void drawOrder() {
     {
       whyatt.update(whyatt.getX(), whyatt.getY()-5);
       whyatt.walkUp(four, x, y);
-    }
-    else if(wDirection==2)
+    } else if(wDirection==2)
     {
       whyatt.update(whyatt.getX()-5, whyatt.getY());
       whyatt.walkLeft(two, x, y);
-    }
-    else if(wDirection==3)
+    } else if(wDirection==3)
     {
       whyatt.update(whyatt.getX(), whyatt.getY()+5);
       whyatt.walkDown(four, x, y);
-    }
-    else if(wDirection==4)
+    } else if(wDirection==4)
     {
       whyatt.update(whyatt.getX()+5, whyatt.getY());
       whyatt.walkRight(two, x, y);
     }
     whyTWalk++;
-  }
-  else
+  } else
   {
     if(wDirection==1)
       whyatt.up(x, y);
@@ -159,7 +174,7 @@ public void drawOrder() {
 }
 public void combat() {
   f++;
-  if (f>=0 && f< 10) {
+  if(f>=0 && f< 10) {
     swing++;
   } else {
     f=0;
@@ -167,16 +182,16 @@ public void combat() {
   }
   elements.combat();
   elements.combatMenu(combatPsymon);
-  if (psymonAttack) {//psymon attacking!
+  if(psymonAttack) {//psymon attacking!
     psymon.swing(swing);
-    if (swing>22) {
+    if(swing>22) {
       psymonAttack=false;
       psymonTurn=false;
       swing=1;
     }
-  } else if (!psymonAttack && !psymonTurn) { //raccoon attacking!
+  } else if(!psymonAttack && !psymonTurn) { //raccoon attacking!
     raccoon.hit(swing);
-    if (swing>7) {
+    if(swing>7) {
       psymonTurn=true;
       noLoop();
     }
@@ -188,85 +203,90 @@ public void combat() {
   elements.hp(1);
 }
 
-
-
 public void keys() {
-  if (zone=='m') {
-    if (keys.contains("w") && !boarderUp()) {
+  if(zone=='m') {
+    if(keys.contains("w") && !boarderUp()) {
       y+=walkSpeed;
       direction=1;
-    } else if (keys.contains("s") && !boarderDown()) {
+    } else if(keys.contains("s") && !boarderDown()) {
       y+=-walkSpeed;
       direction=3;
     }
-    if (keys.contains("a") && !boarderLeft()) {
+    if(keys.contains("a") && !boarderLeft()) {
       x+=walkSpeed;
       direction=2;
-    } else if (keys.contains("d") && !boarderRight()) {
+    } else if(keys.contains("d") && !boarderRight()) {
       x+=-walkSpeed;
       direction=4;
     }
-    if (keys.contains(""+TAB)) {
+    if(keys.contains(""+TAB)) {
       noLoop();
       tab1=1;
       zone='p';
-    } else if (keys.contains("c")) {
+    } else if(keys.contains("c")) {
       noLoop();
       zone='c';
-    } else if (keys.contains("e"))
+    } else if(keys.contains("e"))
     {
       if(whyatt.range(x, y))
       {
-        zone='t';
         noLoop();
         textAlign(CENTER, CENTER);
         textSize(42);
         stroke(153);
         fill(0, 102, 153);
-        text(whyatt.voice(), x-whyatt.getX(), y-whyatt.getY()-100);
+        if(firstConvo==0) {
+          zone='f';
+          firstConvo=1;
+        }
+        else
+        {
+          zone='t';
+          text(whyatt.voice(), x-whyatt.getX(), y-whyatt.getY()-100);
+        }
       }
     }
-  } else if (zone=='p') {
-    if (tab1==2) {
-      if (keys.contains("w")) {
+  } else if(zone=='p') {
+    if(tab1==2) {
+      if(keys.contains("w")) {
         tab1=1;
-      } else if (keys.contains("s")) {
+      } else if(keys.contains("s")) {
         tab1=3;
-      } else if (keys.contains(""+ENTER)) {
+      } else if(keys.contains(""+ENTER)) {
         tab1=4;
       }
-    } else if (tab1==1) {
-      if (keys.contains("s")) {
+    } else if(tab1==1) {
+      if(keys.contains("s")) {
         tab1=2;
-      } else if (keys.contains(""+ENTER)) {
+      } else if(keys.contains(""+ENTER)) {
         zone='m';
         loop();
       }
-    } else if (tab1==3) {
-      if (keys.contains("w")) {
+    } else if(tab1==3) {
+      if(keys.contains("w")) {
         tab1=2;
-      } else if (keys.contains(""+ENTER)) {
+      } else if(keys.contains(""+ENTER)) {
         exit();
       }
-    } else if (tab1==4) {
-      if (keys.contains(""+ENTER)) {
+    } else if(tab1==4) {
+      if(keys.contains(""+ENTER)) {
         tab1=2;
       }
     }
-  } else if (zone=='c') {
-    if (psymonTurn) {
-      if (keys.contains("w")) {
-        if (combatPsymon==1)
+  } else if(zone=='c') {
+    if(psymonTurn) {
+      if(keys.contains("w")) {
+        if(combatPsymon==1)
           combatPsymon=2;
-        else if (combatPsymon==2)
+        else if(combatPsymon==2)
           combatPsymon=1;
-      } else if (keys.contains("s")) {
-        if (combatPsymon==1)
+      } else if(keys.contains("s")) {
+        if(combatPsymon==1)
           combatPsymon=2;
-        else if (combatPsymon==2)
+        else if(combatPsymon==2)
           combatPsymon=1;
-      } else if (keys.contains(""+ENTER)) {
-        if (combatPsymon==1) {
+      } else if(keys.contains(""+ENTER)) {
+        if(combatPsymon==1) {
           psymonAttack=true;
           loop();
         }
@@ -280,48 +300,52 @@ public void keyPressed()
   keys+=key;
 }
 public void keyReleased() {
-  if (zone=='t') {
+  if(zone=='t') {
     zone='m';
     loop();
   }
-  if (zone=='p') {
+  if(zone=='p') {
     keys();
     redraw();
   }
-  if (zone=='c') {
+  if(zone=='c') {
     keys();
+    redraw();
+  }
+  if(zone=='f') {
+    firstConvo++;
     redraw();
   }
   keys=keys.replace(key+"", "");
 }
 public boolean boarderUp() {
   for (int t=0; t<boarder.size(); t++)
-    if (boarder.get(t).getD()==1)
-      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+    if(boarder.get(t).getD()==1)
+      if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
         boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
 public boolean boarderLeft() {
   for (int t=0; t<boarder.size(); t++)
-    if (boarder.get(t).getD()==2)
-      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+    if(boarder.get(t).getD()==2)
+      if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
         boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
 public boolean boarderDown() {
   for (int t=0; t<boarder.size(); t++)
-    if (boarder.get(t).getD()==3)
-      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+    if(boarder.get(t).getD()==3)
+      if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
         boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
 }
 public boolean boarderRight() {
   for (int t=0; t<boarder.size(); t++)
-    if (boarder.get(t).getD()==4)
-      if (boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
+    if(boarder.get(t).getD()==4)
+      if(boarder.get(t).getX1() > x-5 && boarder.get(t).getX2() < x+5 &&
         boarder.get(t).getY1() > y-5 && boarder.get(t).getY2() < y+5)
         return true;
   return false;
@@ -406,15 +430,14 @@ class AI {
   public boolean gunnawalk() {
     if(PApplet.parseInt(random(1, active))==1) {
       return true;
-    }
-    else
+    } else
       return false;
   }
   public int walk() {
     return PApplet.parseInt(random(5, active/2));
   }
   public int direction() {
-    return PApplet.parseInt(random(1,5));
+    return PApplet.parseInt(random(1, 5));
   }
   public String voice() {
     return "text";
@@ -459,21 +482,20 @@ class Whyatt extends AI {
     walkRight= new spritesheet(loadImage("whyatt right walk.png"), 2, 2);
     walkRight.setW(size);
     walkRight.setH(size);
-
   }
   public void update(int o, int p) {
     x=o;
     y=p;
   }
   public String voice(int voiceline) {
-    if (voiceline==1)
+    if(voiceline==1)
       return "Hello!";
-    else if (voiceline==2)
+    else if(voiceline==2)
       return "Goodday Sir";
-    else if (voiceline==3)
+    else if(voiceline==3)
       return "The whether is nice today";
     else
-      return "error";
+      return "error";    
   }
   public int getX() {
     return x;
@@ -482,7 +504,7 @@ class Whyatt extends AI {
     return y;
   }
   public boolean range(int o, int p) {
-    if (o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100)
+    if(o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100)
       return true;
     return false;
   }
@@ -510,7 +532,6 @@ class Whyatt extends AI {
   public void walkRight(int f, int ix, int iy) {
     walkRight.out(f, ix-x, iy-y);
   }
-
 }
 class boarders {
   int x1, y1, x2, y2, direction;
@@ -611,80 +632,80 @@ class elements {
 class psymon {
   spritesheet up, down, left, right, walkUp, walkDown, walkLeft, walkRight, bat, batcharge, ready, hurt;
   int size;
-  public psymon() { 
+  public psymon() {
     size=32*4;
     noStroke();
     noSmooth();
-    up= new spritesheet(loadImage("psymon up.png"), 1, 1); 
-    up.setW(size); 
+    up= new spritesheet(loadImage("psymon up.png"), 1, 1);
+    up.setW(size);
     up.setH(size);
-    down= new spritesheet(loadImage("psymon down.png"), 1, 1); 
-    down.setW(size); 
+    down= new spritesheet(loadImage("psymon down.png"), 1, 1);
+    down.setW(size);
     down.setH(size);
-    left= new spritesheet(loadImage("psymon left.png"), 1, 1); 
-    left.setW(size); 
+    left= new spritesheet(loadImage("psymon left.png"), 1, 1);
+    left.setW(size);
     left.setH(size);
-    right= new spritesheet(loadImage("psymon right.png"), 1, 1); 
-    right.setW(size); 
+    right= new spritesheet(loadImage("psymon right.png"), 1, 1);
+    right.setW(size);
     right.setH(size);
-    walkUp= new spritesheet(loadImage("psymon up walk.png"), 2, 2); 
-    walkUp.setW(size); 
+    walkUp= new spritesheet(loadImage("psymon up walk.png"), 2, 2);
+    walkUp.setW(size);
     walkUp.setH(size);
-    walkDown= new spritesheet(loadImage("psymon down walk.png"), 2, 2); 
-    walkDown.setW(size); 
+    walkDown= new spritesheet(loadImage("psymon down walk.png"), 2, 2);
+    walkDown.setW(size);
     walkDown.setH(size);
-    walkLeft= new spritesheet(loadImage("psymon left walk.png"), 2, 2); 
-    walkLeft.setW(size); 
+    walkLeft= new spritesheet(loadImage("psymon left walk.png"), 2, 2);
+    walkLeft.setW(size);
     walkLeft.setH(size);
-    walkRight= new spritesheet(loadImage("psymon right walk.png"), 2, 2); 
-    walkRight.setW(size); 
+    walkRight= new spritesheet(loadImage("psymon right walk.png"), 2, 2);
+    walkRight.setW(size);
     walkRight.setH(size);
-    bat = new spritesheet(loadImage("psymon bat charge.png"), 3, 3); 
-    bat.setW(size); 
+    bat = new spritesheet(loadImage("psymon bat charge.png"), 3, 3);
+    bat.setW(size);
     bat.setH(size);
-    batcharge = new spritesheet(loadImage("psymon bat.png"), 4, 5); 
-    batcharge.setW(size); 
+    batcharge = new spritesheet(loadImage("psymon bat.png"), 4, 5);
+    batcharge.setW(size);
     batcharge.setH(size);
-    ready = new spritesheet(loadImage("psymon ready.png"), 1, 1); 
-    ready.setW(size); 
+    ready = new spritesheet(loadImage("psymon ready.png"), 1, 1);
+    ready.setW(size);
     ready.setH(size);
-    hurt = new spritesheet(loadImage("psymon hurt.png"), 1, 1); 
-    hurt.setW(size); 
+    hurt = new spritesheet(loadImage("psymon hurt.png"), 1, 1);
+    hurt.setW(size);
     hurt.setH(size);
   }
-  public void up() { 
+  public void up() {
     up.out(1, width/2, height/2);
   }
-  public void down() { 
+  public void down() {
     down.out(1, width/2, height/2);
   }
-  public void left() { 
+  public void left() {
     left.out(1, width/2, height/2);
   }
-  public void right() { 
+  public void right() {
     right.out(1, width/2, height/2);
   }
-  public void walkUp(int f) { 
+  public void walkUp(int f) {
     walkUp.out(f, width/2, height/2);
   }
-  public void walkDown(int f) { 
+  public void walkDown(int f) {
     walkDown.out(f, width/2, height/2);
   }
-  public void walkLeft(int f) { 
+  public void walkLeft(int f) {
     walkLeft.out(f, width/2, height/2);
   }
-  public void walkRight(int f) { 
+  public void walkRight(int f) {
     walkRight.out(f, width/2, height/2);
   }
-  public void ready() { 
+  public void ready() {
     ready.out(1, 300, height-120);
   }
-  public void hurt() { 
+  public void hurt() {
     hurt.out(1, 300, height-120);
   }
   public void swing(int f) {
     println(f);
-    if (f>=1 && f <= 4) {
+    if(f>=1 && f <= 4) {
       bat.out(f, 300, height-120);
     } else {
       batcharge.out(f-4, 300, height-120);
@@ -756,7 +777,7 @@ class spritesheet {
 }
   public void settings() {  size(840, 640, P2D);  noSmooth(); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "main" };
+    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--stop-color=#cccccc", "main" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

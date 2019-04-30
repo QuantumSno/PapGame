@@ -19,6 +19,7 @@ int combatX=150;
 int swing=1;
 int whyWalk=0;
 int whyTWalk=0;
+int firstConvo=0;
 void setup() {
   frameRate(60);
   psymon = new psymon();
@@ -48,6 +49,24 @@ void draw() {
     elements.tab(tab1);
   } else if(zone=='c') {
     combat();
+  } else if(zone=='f') {
+    drawOrder();
+    textAlign(CENTER, CENTER);
+    textSize(42);
+    stroke(153);
+    if(firstConvo==1) {
+      fill(255, 0, 0);
+      text("Heya Whyatt! What’ve been you up to today?", x, y-100);
+    } else if(firstConvo==2) {
+      fill(0, 102, 153);
+      text("Oh, hey Psymon, nothin much. Just lookin around for my cat, he’s been gone a bit. I don’t want him getting stuck in the rain later", x-whyatt.getX(), y-whyatt.getY()-100);
+    } else if(firstConvo==3) {
+      text("Oh… okay. I’m sure your cat will turn up eventually. I can help look for him if you’d like", x, y-100);
+    } else if(firstConvo==4) {
+      text("Nah it’s alright, he’ll come around soon. Besides we should do some errands before the storm hits", x-whyatt.getX(), y-whyatt.getY()-100);
+    } else if(firstConvo==5) {
+      text("That sounds like a great idea let’s head down and get some snacks!", x, y-100);
+    }
   }
   //println("x " + x + " y " + y + " direction " + direction + " walking " + walking + " framerate " + frameRate + " f " + f + " zone " + zone + " keys " + keys);
   //psymon.sheettest();
@@ -168,8 +187,6 @@ void combat() {
   elements.hp(1);
 }
 
-
-
 void keys() {
   if(zone=='m') {
     if(keys.contains("w") && !boarderUp()) {
@@ -197,13 +214,20 @@ void keys() {
     {
       if(whyatt.range(x, y))
       {
-        zone='t';
         noLoop();
         textAlign(CENTER, CENTER);
         textSize(42);
         stroke(153);
         fill(0, 102, 153);
-        text(whyatt.voice(), x-whyatt.getX(), y-whyatt.getY()-100);
+        if(firstConvo==0) {
+          zone='f';
+          firstConvo=1;
+        }
+        else
+        {
+          zone='t';
+          text(whyatt.voice(), x-whyatt.getX(), y-whyatt.getY()-100);
+        }
       }
     }
   } else if(zone=='p') {
@@ -270,6 +294,10 @@ void keyReleased() {
   }
   if(zone=='c') {
     keys();
+    redraw();
+  }
+  if(zone=='f') {
+    firstConvo++;
     redraw();
   }
   keys=keys.replace(key+"", "");

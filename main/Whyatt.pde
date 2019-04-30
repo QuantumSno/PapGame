@@ -45,7 +45,7 @@ class Whyatt extends AI {
     else if(voiceline==3)
       return "The whether is nice today";
     else
-      return "error";
+      return "error";    
   }
   int getX() {
     return x;
