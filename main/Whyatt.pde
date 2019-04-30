@@ -38,14 +38,14 @@ class Whyatt extends AI {
     y=p;
   }
   String voice(int voiceline) {
-    if(voiceline==1)
+    if (voiceline==1)
       return "Hello!";
-    else if(voiceline==2)
+    else if (voiceline==2)
       return "Goodday Sir";
-    else if(voiceline==3)
+    else if (voiceline==3)
       return "The whether is nice today";
     else
-      return "error";    
+      return "error";
   }
   int getX() {
     return x;
@@ -54,7 +54,7 @@ class Whyatt extends AI {
     return y;
   }
   boolean range(int o, int p) {
-    if(o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100)
+    if (o>x+420-100 && o< x+420+100 && p>y+310-100 && p<y+310+100)
       return true;
     return false;
   }
