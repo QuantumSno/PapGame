@@ -5,6 +5,7 @@ String keys="";
 psymon psymon;
 elements elements;
 raccoon raccoon;
+whyatt Whyatt;
 boolean walking;
 int direction;
 int f=0;
@@ -21,6 +22,7 @@ void setup() {
   psymon = new psymon();
   elements = new elements();
   raccoon = new raccoon();
+  whyatt = new Whyatt(100, 100);
   size(840, 640, P2D);
   noSmooth();
   imageMode(CENTER);
@@ -67,7 +69,7 @@ void drawOrder() {
     four=4;
   }
   background(30);
-  elements.map(x, y);
+  elements.templateMap(x, y);
   //psymon
   if (walking==true) {
     if (direction==1) {
@@ -94,6 +96,7 @@ void drawOrder() {
       psymon.down();
     }
   }
+  whyatt.wS(x, y);
 }
 void combat() {
   f++;
@@ -149,6 +152,18 @@ void keys() {
     } else if (keys.contains("c")) {
       noLoop();
       zone='c';
+    } else if (keys.contains("e"))
+    {
+      if(whyatt.range(x, y))
+      {
+        zone='t';
+        noLoop();
+        textAlign(CENTER, CENTER);
+        textSize(42);
+        stroke(153);
+        fill(0, 102, 153);
+        text(whyatt.voice(), x-whyatt.getX(), y-whyatt.getY()-100);
+      }
     }
   } else if (zone=='p') {
     if (tab1==2) {
@@ -198,11 +213,11 @@ void keys() {
     }
   }
 }
+
 void keyPressed()
 {
   keys+=key;
 }
-
 void keyReleased() {
   if (zone=='t') {
     zone='m';
@@ -218,7 +233,6 @@ void keyReleased() {
   }
   keys=keys.replace(key+"", "");
 }
-
 boolean boarderUp() {
   for (int t=0; t<boarder.size(); t++)
     if (boarder.get(t).getD()==1)
