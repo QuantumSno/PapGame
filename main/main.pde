@@ -16,7 +16,7 @@ int combatPsymon = 1;
 boolean psymonTurn=true;
 boolean psymonAttack=false;
 int combatX=150;
-int swing=1;
+float swing=1;
 int whyWalk=0;
 int whyTWalk=0;
 int firstConvo=0;
@@ -176,29 +176,24 @@ void drawOrder() {
   }
 }
 void combat() {
-  f++;
-  if (f>=0 && f< 10) {
-    swing++;
-  } else {
-    f=0;
-    swing++;
-  }
   elements.combat();
   psymon.ready();
   raccoon.ready();
   elements.combatMenu(combatPsymon);
   if (psymonAttack) {//psymon attacking!
     elements.combat();
-    psymon.swing(swing);
-    if (swing>22) {
+    psymon.swing(int(swing));
+    swing+=.1;
+    if (swing>22.5) {
       psymonAttack=false;
       psymonTurn=false;
       swing=1;
     }
   } else if (!psymonAttack && !psymonTurn) { //raccoon attacking!
     elements.combat();
-    raccoon.hit(swing);
-    if (swing>7) {
+    raccoon.hit(int(swing));
+    swing+=.1;
+    if (swing>7.5) {
       psymonTurn=true;
       noLoop();
       elements.combatMenu(combatPsymon);

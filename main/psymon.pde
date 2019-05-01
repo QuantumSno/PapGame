@@ -73,11 +73,10 @@ class psymon {
     hurt.out(1, 300, height-120);
   }
   void swing(int f) {
-    println(f);
-    if (f>=1 && f <= 4) {
+    if (f>=1 && f <= 3) {
       bat.out(f, 300, height-120);
     } else {
-      batcharge.out(f-4, 300, height-120);
+      batcharge.out(f-3, 300, height-120);
     }
   }
 

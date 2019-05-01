@@ -32,7 +32,7 @@ int combatPsymon = 1;
 boolean psymonTurn=true;
 boolean psymonAttack=false;
 int combatX=150;
-int swing=1;
+float swing=1;
 int whyWalk=0;
 int whyTWalk=0;
 int firstConvo=0;
@@ -192,29 +192,24 @@ public void drawOrder() {
   }
 }
 public void combat() {
-  f++;
-  if (f>=0 && f< 10) {
-    swing++;
-  } else {
-    f=0;
-    swing++;
-  }
   elements.combat();
   psymon.ready();
   raccoon.ready();
   elements.combatMenu(combatPsymon);
   if (psymonAttack) {//psymon attacking!
     elements.combat();
-    psymon.swing(swing);
-    if (swing>22) {
+    psymon.swing(PApplet.parseInt(swing));
+    swing+=.1f;
+    if (swing>22.5f) {
       psymonAttack=false;
       psymonTurn=false;
       swing=1;
     }
   } else if (!psymonAttack && !psymonTurn) { //raccoon attacking!
     elements.combat();
-    raccoon.hit(swing);
-    if (swing>7) {
+    raccoon.hit(PApplet.parseInt(swing));
+    swing+=.1f;
+    if (swing>7.5f) {
       psymonTurn=true;
       noLoop();
       elements.combatMenu(combatPsymon);
@@ -728,11 +723,10 @@ class psymon {
     hurt.out(1, 300, height-120);
   }
   public void swing(int f) {
-    println(f);
-    if (f>=1 && f <= 4) {
+    if (f>=1 && f <= 3) {
       bat.out(f, 300, height-120);
     } else {
-      batcharge.out(f-4, 300, height-120);
+      batcharge.out(f-3, 300, height-120);
     }
   }
 
