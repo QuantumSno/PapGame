@@ -2,16 +2,14 @@ function loadTiledMap(path)
     local map = require(path)
 
     map.quads = {}
-    
+
     local tileset = map.tilesets[1]
 
     map.tileset = tileset
     map.image = love.graphics.newImage("assets/Tiled/tileset.png")
 
     map.animatedTiles = {}
-    for i, tile in ipairs(tileset.tiles) do
-        map.animatedTiles[tile.id] = tile
-    end
+    for i, tile in ipairs(tileset.tiles) do map.animatedTiles[tile.id] = tile end
 
     map.frame = 0
     map.timer = 0.0
@@ -19,14 +17,12 @@ function loadTiledMap(path)
 
     for y = 0, (tileset.imageheight / tileset.tileheight) - 1 do
         for x = 0, (tileset.imagewidth / tileset.tilewidth) - 1 do
-            local quad = love.graphics.newQuad(
-                x * tileset.tilewidth,
-                y * tileset.tileheight,
-                tileset.tilewidth,
-                tileset.tileheight,
-                tileset.imagewidth,
-                tileset.imageheight
-            )
+            local quad = love.graphics.newQuad(x * tileset.tilewidth,
+                                               y * tileset.tileheight,
+                                               tileset.tilewidth,
+                                               tileset.tileheight,
+                                               tileset.imagewidth,
+                                               tileset.imageheight)
             table.insert(map.quads, quad)
         end
     end
@@ -41,7 +37,7 @@ function loadTiledMap(path)
                     if tid ~= 0 then
 
                         if self.animatedTiles[tid - 1] ~= nil then
-                            
+
                             local anim = self.animatedTiles[tid - 1].animation
                             local numFrames = #anim
                             local index = self.frame % numFrames
@@ -52,13 +48,8 @@ function loadTiledMap(path)
                         local quad = self.quads[tid]
                         local xx = x * self.tileset.tilewidth
                         local yy = y * self.tileset.tileheight
-                        
-                        love.graphics.draw(
-                            self.image,
-                            quad,
-                            xx,
-                            yy
-                        )
+
+                        love.graphics.draw(self.image, quad, xx, yy)
                     end
                 end
             end
