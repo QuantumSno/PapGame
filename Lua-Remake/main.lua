@@ -1,11 +1,8 @@
 require "player"
 
 function love.load()
-    _G.player = loadPlayer()
-    local _, _, flags = love.window.getMode()
-    width, height = love.window.getDesktopDimensions(flags.display)
-    love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setFullscreen(true)
+    _G.player = loadPlayer()
 end
 
 function love.update(dt) _G.player:update() end

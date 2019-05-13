@@ -2,12 +2,17 @@ function loadPlayer()
     local _, _, flags = love.window.getMode()
     width, height = love.window.getDesktopDimensions(flags.display)
     love.graphics.setDefaultFilter('nearest', 'nearest')
-    
+
+    -- temp background
+    background = love.graphics.newImage("assets/temp.jpg")
+
     character = {}
     character.x = width / 2
     character.y = height / 2
     character.scale = 4
     character.speed = 2
+    character.width = 32 * character.scale
+    character.height = 32 * character.scale
     character.canMove = true
     character.canMoveUp = true
     character.direction = "down"
@@ -41,6 +46,9 @@ function loadPlayer()
     end
 
     function character:draw()
+        --temp background
+        love.graphics.draw(background, 0, 0)
+
         if character.direction == "up" then
             love.graphics.draw(character.sprites.up, character.x, character.y,
                                0, character.scale)
