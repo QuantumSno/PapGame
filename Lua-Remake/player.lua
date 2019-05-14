@@ -23,12 +23,13 @@ function loadPlayer()
                             "assets/Whyatt/whyatt spritesheet.png")
 
     quads = {}
-    quads.up = love.graphics.newQuad(0, 0, 32, 32, character.sprites:getDimensions())
-    quads.down = love.graphics.newQuad(32, 0, 32, 32, character.sprites:getDimensions())
+    quads.down = love.graphics.newQuad(0, 0, 32, 32, character.sprites:getDimensions())
+    quads.up = love.graphics.newQuad(32, 0, 32, 32, character.sprites:getDimensions())
     quads.left = love.graphics.newQuad(64, 0, 32, 32, character.sprites:getDimensions())
     quads.right = love.graphics.newQuad(0, 0, 32, 32, character.sprites:getDimensions())
 
     function character:update()
+        dt = love.timer.getDelta()
         if love.keyboard.isDown("w") and character.canMove and
             character.canMoveUp then
             character.y = character.y - character.speed
@@ -51,13 +52,17 @@ function loadPlayer()
         frame = frame + 0.1
     end
 
-    function character:draw(dt)
+    function character:draw()
+        dt = love.timer.getDelta()
         -- temp background
         love.graphics.draw(background, 0, 0)
-
         local img = quads.down
         if character.direction == "up" then
-
+            if math.floor(dt) == 1 then
+                img = quads.left
+            elseif math.floor(dt) == 2 then
+                img = quads.right
+            end
         elseif character.direction == "down" then
 
         elseif character.direction == "left" then
